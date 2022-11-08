@@ -1,0 +1,12 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using System.Reflection;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using RemoteLearning.Domain.Entities;
+global using RemoteLearning.Application.Data;
+global using RemoteLearning.Application.Repositories;
+global using RemoteLearning.Application.Data.Repositories;
+global using Microsoft.Extensions.Logging;
+global using RemoteLearning.Infrastructure.DbContexts;
+global using RemoteLearning.Infrastructure.Data.Repositories;
+global using System.Linq.Expressions;
+global using RemoteLearning.Infrastructure.Services;
