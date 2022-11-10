@@ -14,10 +14,11 @@ public class TestController : Controller
         _userService = userService;
     }
 
-    [HttpGet("halo")]
+    [HttpGet("UserCreation")]
     public async Task<IActionResult> UserCreationTest()
     {
-        await _userService.CreateUser("Dsad", "dasdsa");
+        await _userService.CreateUser("userjakis", "dasdsa");
+
         return Ok(true);
     }
 }

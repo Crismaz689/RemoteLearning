@@ -13,7 +13,4 @@ public class Course : BaseEntity
     public ICollection<CourseSection> CourseSections { get; set; }
 
     public ICollection<CourseUser> CourseUsers { get; set; }
-
-
 }
-

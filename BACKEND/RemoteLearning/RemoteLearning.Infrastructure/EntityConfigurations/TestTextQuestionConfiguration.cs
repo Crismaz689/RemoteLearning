@@ -6,27 +6,20 @@ public class TestTextQuestionConfiguration : IEntityTypeConfiguration<TestTextQu
     {
         builder.ToTable("TestTextQuestions");
 
-        builder.Property(p => p.Title)
+        builder.Property(p => p.TextQuestionId)
             .IsRequired();
 
-        builder.Property(p => p.CorrectAnswer)
+        builder.Property(p => p.TestId)
             .IsRequired();
 
-        builder.Property(p => p.WrongAnswerA)
-            .IsRequired();
+        builder.HasOne<Test>(tt => tt.Test)
+            .WithMany(t => t.TestTextQuestions)
+            .HasForeignKey(tt => tt.TestId);
 
-        builder.Property(p => p.WrongAnswerB)
-            .IsRequired();
+        builder.HasOne<TextQuestion>(tt => tt.TextQuestion)
+            .WithMany(t => t.TestTextQuestions)
+            .HasForeignKey(tt => tt.TextQuestionId);
 
-        builder.Property(p => p.WrongAnswerC)
-            .IsRequired();
-
-        builder.Property(p => p.Points)
-            .HasColumnType("decimal")
-            .HasPrecision(2)
-            .IsRequired();
-
-        builder.Property(p => p.Time)
-            .IsRequired();
+        builder.HasIndex(t => new { t.TextQuestionId, t.TestId });
     }
 }

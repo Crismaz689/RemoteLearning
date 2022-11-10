@@ -14,8 +14,14 @@ public class UserService : IUserService
         await _unitOfWork.Users.Create(new User()
         {
             Username = username,
-            Password = password
-        });
-        await _unitOfWork.CompletedAsync();
+            PasswordHash = new byte[1],
+            PasswordSalt = new byte[1],
+            RoleId = 1
+        });;
+
+        if (await _unitOfWork.SaveChangesAsync() == 0)
+        {
+            throw new DbUpdateException();
+        }
     }
 }

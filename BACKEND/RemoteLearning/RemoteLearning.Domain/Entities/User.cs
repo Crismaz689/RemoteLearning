@@ -4,7 +4,15 @@ public class User : BaseEntity
 {
     public string? Username { get; set; }
 
-    public string? Password { get; set; }
+    public byte[] PasswordHash { get; set; }
+
+    public byte[] PasswordSalt { get; set; }
+
+    public UserDetails UserDetails { get; set; }
+
+    public Role Role { get; set; }
+
+    public long RoleId { get; set; }
 
     public ICollection<Grade> Grades { get; set; }
 

@@ -4,5 +4,5 @@ public interface IUnitOfWork : IDisposable
 {
     IUserRepository Users { get; }
 
-    Task<int> CompletedAsync();
+    Task<int> SaveChangesAsync();
 }

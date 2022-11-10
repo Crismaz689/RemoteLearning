@@ -8,4 +8,5 @@ public class Test : BaseEntity
 
     public int Time { get; set; }
 
+    public ICollection<TestTextQuestion> TestTextQuestions { get; set; }
 }

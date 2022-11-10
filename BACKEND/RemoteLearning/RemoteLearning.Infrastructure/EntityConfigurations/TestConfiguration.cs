@@ -11,7 +11,7 @@ public class TestConfiguration : IEntityTypeConfiguration<Test>
 
         builder.Property(p => p.Points)
             .HasColumnType("decimal")
-            .HasPrecision(2)
+            .HasPrecision(18,2)
             .IsRequired();
 
         builder.Property(p => p.Time)

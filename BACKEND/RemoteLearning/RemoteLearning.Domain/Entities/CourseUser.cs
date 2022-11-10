@@ -9,6 +9,4 @@ public class CourseUser : BaseEntity
     public Course Course { get; set; }
 
     public long CourseId { get; set; }
-
-
 }
