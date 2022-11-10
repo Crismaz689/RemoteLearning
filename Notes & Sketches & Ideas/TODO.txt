@@ -1,5 +1,1 @@
 - correct Time property in Test & TestTextQuestion entities
-- password salt for user
-
-===== TEMPORARY PROBLEMS =====
-Where and how store files?
