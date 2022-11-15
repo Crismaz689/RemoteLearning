@@ -26,7 +26,8 @@ public class TextQuestionConfiguration : IEntityTypeConfiguration<TextQuestion>
             .HasPrecision(18, 2)
             .IsRequired();
 
-        builder.Property(p => p.Time)
+        builder.Property(p => p.TimeMinutes)
+            .HasDefaultValue(1)
             .IsRequired();
     }
 }

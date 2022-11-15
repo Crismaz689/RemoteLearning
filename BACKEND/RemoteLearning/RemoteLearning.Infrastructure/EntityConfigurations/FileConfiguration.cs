@@ -15,5 +15,9 @@ public class FileConfiguration : IEntityTypeConfiguration<Domain.Entities.File>
 
         builder.Property(p => p.Type)
             .IsRequired();
+
+        builder.HasOne<Section>(f => f.Section)
+            .WithMany(s => s.Files)
+            .HasForeignKey(f => f.SectionId);
     }
 }

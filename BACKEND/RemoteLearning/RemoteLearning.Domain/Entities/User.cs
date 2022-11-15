@@ -8,15 +8,15 @@ public class User : BaseEntity
 
     public byte[] PasswordSalt { get; set; }
 
-    public UserDetails UserDetails { get; set; }
+    public virtual UserDetails UserDetails { get; set; }
 
-    public Role Role { get; set; }
+    public virtual Role Role { get; set; }
 
     public long RoleId { get; set; }
 
-    public ICollection<Grade> Grades { get; set; }
+    public virtual ICollection<Grade> Grades { get; set; }
 
-    public ICollection<Course> Courses { get; set; }
+    public virtual ICollection<Course> Courses { get; set; }
 
-    public ICollection<CourseUser> CourseUsers { get; set; }
+    public virtual ICollection<CourseUser> CourseUsers { get; set; }
 }

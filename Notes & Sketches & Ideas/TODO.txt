@@ -1,1 +1,15 @@
-- correct Time property in Test & TestTextQuestion entities
+===== TASKS =====
+- create login endpoint
+- authorize controllers/actions based on user's role
+- create json seeder
+- create middleware for handling exceptions
+- create login page
+
+
+===== TO CONSIDER =====
+Should be cascase deleting enable? For which tables?
+
+
+===== CONSULTATION NOTES =====
+Describe database in data analysis part (II episode)
+Write something about Azure licensing (how does it work, pricing etc.)

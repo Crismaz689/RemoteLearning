@@ -14,7 +14,9 @@ public class TextQuestion : BaseEntity
 
     public decimal Points { get; set; }
 
-    public int Time { get; set; }
+    public int TimeMinutes { get; set; }
 
-    public ICollection<TestTextQuestion> TestTextQuestions { get; set; }
+    public virtual Test Test { get; set; }
+
+    public long TestId { get; set; }
 }

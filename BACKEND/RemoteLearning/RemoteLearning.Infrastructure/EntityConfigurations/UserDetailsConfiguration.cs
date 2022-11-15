@@ -17,5 +17,9 @@ public class UserDetailsConfiguration : IEntityTypeConfiguration<UserDetails>
 
         builder.Property(p => p.BirthdayDate)
             .IsRequired();
+
+        builder.HasOne<User>(ud => ud.User)
+            .WithOne(u => u.UserDetails)
+            .HasForeignKey<UserDetails>(ud => ud.UserId);
     }
 }

@@ -2,11 +2,11 @@
 
 public class CourseUser : BaseEntity
 {
-    public User User { get; set; }
+    public virtual User User { get; set; }
 
     public long UserId { get; set; }
 
-    public Course Course { get; set; }
+    public virtual Course Course { get; set; }
 
     public long CourseId { get; set; }
 }

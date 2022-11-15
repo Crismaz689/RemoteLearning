@@ -8,5 +8,9 @@ public class SectionConfiguration : IEntityTypeConfiguration<Section>
 
         builder.Property(p => p.Name)
             .IsRequired();
+
+        builder.HasOne<Course>(s => s.Course)
+            .WithMany(c => c.Sections)
+            .HasForeignKey(s => s.CourseId);
     }
 }

@@ -6,11 +6,11 @@ public class Course : BaseEntity
 
     public string? Description { get; set; }
     
-    public User Creator { get; set; }
+    public virtual User Creator { get; set; }
 
     public long CreatorId { get; set; }
 
-    public ICollection<CourseSection> CourseSections { get; set; }
+    public virtual ICollection<Section> Sections { get; set; }
 
-    public ICollection<CourseUser> CourseUsers { get; set; }
+    public virtual ICollection<CourseUser> CourseUsers { get; set; }
 }

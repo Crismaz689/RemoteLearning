@@ -14,7 +14,7 @@ public class TestConfiguration : IEntityTypeConfiguration<Test>
             .HasPrecision(18,2)
             .IsRequired();
 
-        builder.Property(p => p.Time)
+        builder.Property(p => p.TimeMinutes)
             .IsRequired();
     }
 }

@@ -8,5 +8,7 @@ public class File : BaseEntity
 
     public string Type { get; set; }
 
-    public ICollection<SectionFile> SectionFiles { get; set; }
+    public virtual Section Section { get; set; }
+
+    public long SectionId { get; set; }
 }

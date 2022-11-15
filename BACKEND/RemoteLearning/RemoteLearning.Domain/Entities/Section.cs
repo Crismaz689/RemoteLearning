@@ -8,7 +8,9 @@ public class Section : BaseEntity
 
     public DateTime ScheduleDate { get; set; }
 
-    public ICollection<CourseSection> CourseSections { get; set; }
+    public virtual Course Course { get; set; }
 
-    public ICollection<SectionFile> SectionFiles { get; set; }
+    public long CourseId { get; set; }
+
+    public virtual ICollection<File> Files { get; set; }
 }

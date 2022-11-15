@@ -4,5 +4,5 @@ public class Category : BaseEntity
 {
     public string Name { get; set; }
 
-    public ICollection<Grade> Grades { get; set; }
+    public virtual ICollection<Grade> Grades { get; set; }
 }

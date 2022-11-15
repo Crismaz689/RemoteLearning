@@ -8,7 +8,7 @@ public class GradeConfiguration : IEntityTypeConfiguration<Grade>
 
         builder.Property(p => p.Value)
             .HasColumnType("decimal")
-            .HasPrecision(2)
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(p => p.Title)
@@ -23,5 +23,9 @@ public class GradeConfiguration : IEntityTypeConfiguration<Grade>
         builder.HasOne<User>(g => g.User)
             .WithMany(u => u.Grades)
             .HasForeignKey(g => g.UserId);
+
+        builder.HasOne<Test>(g => g.Test)
+            .WithOne(t => t.Grade)
+            .HasForeignKey<Grade>(g => g.TestId);
     }
 }
