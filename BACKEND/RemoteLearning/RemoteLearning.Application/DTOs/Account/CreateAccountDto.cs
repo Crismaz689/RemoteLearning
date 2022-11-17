@@ -1,6 +1,6 @@
-﻿namespace RemoteLearning.Domain.Entities;
+﻿namespace RemoteLearning.Application.DTOs.Account;
 
-public class UserDetails : BaseEntity
+public class CreateAccountDto
 {
     public string FirstName { get; set; }
 
@@ -12,7 +12,5 @@ public class UserDetails : BaseEntity
 
     public string Email { get; set; }
 
-    public virtual User User { get; set; }
-
-    public long UserId { get; set; }
+    public long RoleId { get; set; }
 }

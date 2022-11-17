@@ -2,5 +2,7 @@
 
 public interface IUserService
 {
-    Task CreateUser(string username, string password);
+    Task<User> CreateUser(CreateAccountDto accountDto);
+
+    Task<User> Login(LoginDto loginDto);
 }

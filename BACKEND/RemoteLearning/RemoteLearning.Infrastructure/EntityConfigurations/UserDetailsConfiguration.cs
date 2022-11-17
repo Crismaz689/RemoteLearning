@@ -18,6 +18,12 @@ public class UserDetailsConfiguration : IEntityTypeConfiguration<UserDetails>
         builder.Property(p => p.BirthdayDate)
             .IsRequired();
 
+        builder.Property(p => p.Email)
+            .IsRequired();
+
+        builder.HasIndex(p => p.Email)
+            .IsUnique();
+
         builder.HasOne<User>(ud => ud.User)
             .WithOne(u => u.UserDetails)
             .HasForeignKey<UserDetails>(ud => ud.UserId);

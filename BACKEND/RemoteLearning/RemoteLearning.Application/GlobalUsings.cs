@@ -2,3 +2,5 @@
 global using RemoteLearning.Domain.Entities;
 global using RemoteLearning.Application.Data.Repositories;
 global using System.Linq.Expressions;
+global using RemoteLearning.Application.DTOs.Account;
+global using System.Runtime.Serialization;

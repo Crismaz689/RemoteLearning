@@ -1,9 +1,23 @@
 ===== TASKS =====
 - create login endpoint
 - authorize controllers/actions based on user's role
-- create json seeder
-- create middleware for handling exceptions
 - create login page
+- create admin panel
+- create json seeder
+- create seed data 
+- validate register input data (be sure if login and email does not exist)
+- validate login data and give response
+- register endpoint should has ienumerable as parameter
+- create middleware for handling exceptions
+- setup logger and use it
+- improve constructor in EmailService
+
+===== CREDENTIALS =====
+Login: remote.learning@interia.pl
+Password: Kappa123!
+
+Login: remote.learning@interia.pl
+Password: Kappa123!Kappa123!
 
 
 ===== TO CONSIDER =====
