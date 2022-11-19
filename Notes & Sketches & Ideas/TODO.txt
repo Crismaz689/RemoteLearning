@@ -7,7 +7,6 @@
 - create seed data 
 - register endpoint should has ienumerable as parameter
 - setup logger and use it
-- improve constructor in EmailService
 - fix credentials
 - smtp fix
 

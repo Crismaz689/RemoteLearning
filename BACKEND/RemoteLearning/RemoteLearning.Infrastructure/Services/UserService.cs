@@ -47,12 +47,16 @@ public class UserService : IUserService
         {
             throw new EnteredInvalidUsernameException("Wprowadzono błędną nazwę użytkownika!");
         }
+        else if (string.IsNullOrEmpty(loginDto.Password))
+        {
+            throw new EnteredNoPasswordException("Wprowadź hasło!");
+        }
 
         using (var hmac = new HMACSHA512(user.PasswordSalt))
         {
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-            if (!computedHash.Equals(user.PasswordHash))
+            if (!computedHash.ToString()!.Equals(user.PasswordHash.ToString()))
             {
                 throw new EnteredInvalidPasswordException("Wprowadzono błędne hasło!");
             }
