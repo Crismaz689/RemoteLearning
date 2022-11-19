@@ -5,12 +5,11 @@
 - create admin panel
 - create json seeder
 - create seed data 
-- validate register input data (be sure if login and email does not exist)
-- validate login data and give response
 - register endpoint should has ienumerable as parameter
-- create middleware for handling exceptions
 - setup logger and use it
 - improve constructor in EmailService
+- fix credentials
+- smtp fix
 
 ===== CREDENTIALS =====
 Login: remote.learning@interia.pl

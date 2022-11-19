@@ -4,6 +4,8 @@ public class UnitOfWork : IUnitOfWork
 {
     public IUserRepository Users { get; private set; }
 
+    public IUserDetailsRepository UsersDetails { get; private set; }
+
     private readonly RemoteLearningDbContext _context;
     //private readonly ILogger _logger;
 
@@ -13,6 +15,7 @@ public class UnitOfWork : IUnitOfWork
         //_logger = logger.CreateLogger("logs");
 
         Users = new UserRepository(_context);
+        UsersDetails = new UserDetailsRepository(_context);
     }
 
     public async Task<int> SaveChangesAsync()

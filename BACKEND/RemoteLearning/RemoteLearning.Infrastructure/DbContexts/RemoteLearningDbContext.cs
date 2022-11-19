@@ -5,6 +5,7 @@ public class RemoteLearningDbContext : DbContext
     public RemoteLearningDbContext(DbContextOptions<RemoteLearningDbContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<UserDetails> UsersDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

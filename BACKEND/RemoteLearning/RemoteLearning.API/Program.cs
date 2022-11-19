@@ -16,6 +16,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.ConfigureExceptionMiddleware();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

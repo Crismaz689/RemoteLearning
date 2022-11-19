@@ -1,6 +1,4 @@
-﻿using RemoteLearning.Application.Exceptions.Account;
-
-namespace RemoteLearning.Application.Services;
+﻿namespace RemoteLearning.Application.Services;
 
 public class UserService : IUserService
 {
@@ -19,9 +17,14 @@ public class UserService : IUserService
 
     public async Task<User> CreateUser(CreateAccountDto accountDto)
     {
+        if (await IsEmailTaken(accountDto.Email))
+        {
+            throw new EnteredEmailTakenException($"Na {accountDto.Email} jest już założone konto w serwisie!");
+        }
+
         var userDetails = _mapper.Map<UserDetails>(accountDto);
         var password = CreatePassword();
-        var user = CreateUser(userDetails, password, accountDto.RoleId);
+        var user = await CreateUser(userDetails, password, accountDto.RoleId);
         await _unitOfWork.Users.Create(user);
 
         if (await _unitOfWork.SaveChangesAsync() == 0)
@@ -42,7 +45,7 @@ public class UserService : IUserService
 
         if (user == null)
         {
-            throw new InvalidUsernameException();
+            throw new EnteredInvalidUsernameException("Wprowadzono błędną nazwę użytkownika!");
         }
 
         using (var hmac = new HMACSHA512(user.PasswordSalt))
@@ -51,21 +54,21 @@ public class UserService : IUserService
 
             if (!computedHash.Equals(user.PasswordHash))
             {
-                throw new InvalidPasswordException();
+                throw new EnteredInvalidPasswordException("Wprowadzono błędne hasło!");
             }
 
             return user;
         }
     }
 
-    private User CreateUser(UserDetails details, string password, long roleId)
+    private async Task<User> CreateUser(UserDetails details, string password, long roleId)
     {
         using (var hmac = new HMACSHA512())
         {
             var user = new User()
             {
                 UserDetails = details,
-                Username = CreateUsername(details),
+                Username = await CreateUsername(details),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
                 PasswordSalt = hmac.Key,
                 RoleId = roleId
@@ -75,7 +78,7 @@ public class UserService : IUserService
         }
     }
 
-    private string CreateUsername(UserDetails details)
+    private async Task<string> CreateUsername(UserDetails details)
     {
         Random rnd = new Random();
         string username = string.Empty;
@@ -93,7 +96,22 @@ public class UserService : IUserService
 
         username += rnd.Next(10, 19);
 
+        do
+        {
+            username += rnd.Next(0, 9);
+        } while (await IsUsernameTaken(username));
+
         return username;
+    }
+
+    private async Task<bool> IsEmailTaken(string email)
+    {
+        return await _unitOfWork.UsersDetails.GetUserByEmail(email) != null;
+    }
+
+    private async Task<bool> IsUsernameTaken(string username)
+    {
+        return await _unitOfWork.Users.GetUserByLogin(username) != null;
     }
 
     private string CreatePassword()
