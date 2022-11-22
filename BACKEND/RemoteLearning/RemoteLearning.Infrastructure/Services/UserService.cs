@@ -4,23 +4,33 @@ public class UserService : IUserService
 {
     private const int PASSWORD_LENGTH = 12;
 
+    private readonly AppSettings _settings;
+
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEmailService _emailService;
     private readonly IMapper _mapper;
 
-    public UserService(IUnitOfWork unitOfWork, IEmailService emailService, IMapper mapper)
+    public UserService(IUnitOfWork unitOfWork, IEmailService emailService, IMapper mapper, IOptions<AppSettings> settings)
     {
         _unitOfWork = unitOfWork;
         _emailService = emailService;
         _mapper = mapper;
+        _settings = settings.Value;
     }
 
-    public async Task<User> CreateUser(CreateAccountDto accountDto)
+    public async Task<bool> CreateUsers(IEnumerable<CreateAccountDto> accountDtos)
     {
-        if (await IsEmailTaken(accountDto.Email))
+        foreach(var dto in accountDtos)
         {
-            throw new EnteredEmailTakenException($"Na {accountDto.Email} jest już założone konto w serwisie!");
+            await CreateUser(dto);
         }
+
+        return true;
+    }
+
+    private async Task<User> CreateUser(CreateAccountDto accountDto)
+    {
+        await ValidateAccountData(accountDto);
 
         var userDetails = _mapper.Map<UserDetails>(accountDto);
         var password = CreatePassword();
@@ -39,13 +49,13 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task<User> Login(LoginDto loginDto)
+    public async Task<string> Login(LoginDto loginDto)
     {
         var user = await _unitOfWork.Users.GetUserByLogin(loginDto.Username);
 
         if (user == null)
         {
-            throw new EnteredInvalidUsernameException("Wprowadzono błędną nazwę użytkownika!");
+            throw new InvalidUsernameException("Wprowadzono błędną nazwę użytkownika!");
         }
         else if (string.IsNullOrEmpty(loginDto.Password))
         {
@@ -58,11 +68,31 @@ public class UserService : IUserService
 
             if (!computedHash.ToString()!.Equals(user.PasswordHash.ToString()))
             {
-                throw new EnteredInvalidPasswordException("Wprowadzono błędne hasło!");
+                throw new InvalidPasswordException("Wprowadzono błędne hasło!");
             }
 
-            return user;
+            return CreateToken(user);
         }
+    }
+
+    private string CreateToken(User user)
+    {
+        var claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Role, user.Role.Name!)
+        };
+
+        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_settings.Jwt.Key));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddDays(3),
+            signingCredentials: credentials);
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+        return jwt;
     }
 
     private async Task<User> CreateUser(UserDetails details, string password, long roleId)
@@ -108,16 +138,6 @@ public class UserService : IUserService
         return username;
     }
 
-    private async Task<bool> IsEmailTaken(string email)
-    {
-        return await _unitOfWork.UsersDetails.GetUserByEmail(email) != null;
-    }
-
-    private async Task<bool> IsUsernameTaken(string username)
-    {
-        return await _unitOfWork.Users.GetUserByLogin(username) != null;
-    }
-
     private string CreatePassword()
     {
         Random rnd = new Random();
@@ -155,4 +175,56 @@ public class UserService : IUserService
 
         return new string(password) ?? "p4$$w0rd";
     }
+
+    private async Task<bool> ValidateAccountData(CreateAccountDto accountDto)
+    {
+        if (await IsEmailTaken(accountDto.Email))
+        {
+            throw new EmailTakenException($"Na {accountDto.Email} jest już założone konto w serwisie!");
+        }
+
+        if (await IsPeselTaken(accountDto.Pesel))
+        {
+            throw new PeselTakenException($"PESEL {accountDto.Pesel} widnieje juz w bazie!");
+        }
+        else if (string.IsNullOrEmpty(accountDto.Pesel))
+        {
+            throw new EnteredNoPeselException("Wymagane jest podanie numeru pesel!");
+        }
+        else if(accountDto.Pesel.Length != 11)
+        {
+            throw new PeselLengthException("Pesel składa się z 11 cyfr!");
+        }
+        else if(!Regex.IsMatch(accountDto.Pesel, @"^\d+$") || !VerifyPesel(accountDto.Pesel))
+        {
+            throw new PeselValueException($"Upewnij się, że podałeś prawidłowy numer pesel: {accountDto.Pesel}");
+        }
+
+
+        return true;
+    }
+
+    private bool VerifyPesel(string pesel)
+    {
+        int[] multipliers = new int[11] { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 7 };
+        double sum = 0;
+
+        for (int i = 0; i < pesel.Length - 1; i++)
+        {
+            sum += Char.GetNumericValue(pesel[i]) *multipliers[i];
+        }
+
+        int controlNumber = Convert.ToInt16(sum % 10);
+
+        return controlNumber != 0 ?
+            10 - controlNumber == Char.GetNumericValue(pesel[pesel.Length - 1]) :
+            true;
+    }
+
+    private async Task<bool> IsEmailTaken(string email) => await _unitOfWork.UsersDetails.GetUserByEmail(email) != null;
+
+    private async Task<bool> IsPeselTaken(string pesel) => await _unitOfWork.UsersDetails.GetUserByPesel(pesel) != null;
+
+    private async Task<bool> IsUsernameTaken(string username) => await _unitOfWork.Users.GetUserByLogin(username) != null;
+
 }

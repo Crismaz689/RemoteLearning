@@ -1,14 +1,22 @@
 ===== TASKS =====
-- create login endpoint
-- authorize controllers/actions based on user's role
 - create login page
 - create admin panel
 - create json seeder
-- create seed data 
-- register endpoint should has ienumerable as parameter
+- create seed data
 - setup logger and use it
-- fix credentials
 - smtp fix
+- crud on courses
+- assign someone to a course
+- crud on sections
+- crud on files
+- crud tests
+- crud textquestions
+- crud grades
+- handle Azure about files
+- write down documentation stuff
+
+kkkstrist123
+(',PTGa#cbYY
 
 ===== CREDENTIALS =====
 Login: remote.learning@interia.pl

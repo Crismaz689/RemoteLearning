@@ -2,7 +2,7 @@
 
 public interface IUserService
 {
-    Task<User> CreateUser(CreateAccountDto accountDto);
+    Task<bool> CreateUsers(IEnumerable<CreateAccountDto> accountDtos);
 
-    Task<User> Login(LoginDto loginDto);
+    Task<string> Login(LoginDto loginDto);
 }

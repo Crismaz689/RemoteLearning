@@ -11,6 +11,8 @@ builder.Services.AddControllers()
 builder.Services.Configure<AppSettings>(
     builder.Configuration.GetSection("AppSettings"));
 
+builder.Services.AddAppAuthenticator(builder.Configuration);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,6 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

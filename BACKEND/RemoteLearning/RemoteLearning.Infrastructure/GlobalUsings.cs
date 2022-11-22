@@ -31,3 +31,7 @@ global using RemoteLearning.Infrastructure.Exceptions;
 global using SendGrid.Helpers.Mail;
 global using SendGrid;
 global using RemoteLearning.Infrastructure.Exceptions.Account;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text.RegularExpressions;

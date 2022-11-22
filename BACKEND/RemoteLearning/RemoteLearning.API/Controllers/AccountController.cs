@@ -11,8 +11,8 @@ public class AccountController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> Create(CreateAccountDto accountDto) => await _userService.CreateUser(accountDto);
+    public async Task<ActionResult<bool>> Create(IEnumerable<CreateAccountDto> accountDtos) => await _userService.CreateUsers(accountDtos);
 
     [HttpPost("login")]
-    public async Task<ActionResult<User>> Login(LoginDto loginDto) => await _userService.Login(loginDto);
+    public async Task<ActionResult<string>> Login(LoginDto loginDto) => await _userService.Login(loginDto);
 }
