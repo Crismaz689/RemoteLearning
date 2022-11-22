@@ -22,4 +22,4 @@ Not uploaded yet :(
 Web application based on client-server architecture using Angular 13 and .NET 6 (C#10).
 
 # RL - project status
-0% [ ||||||||||||||||-------------------------------------IN PROGRESS-----------------------------------] 100%
+0% [ ||||||||||||||||||||||||||||||||||||||||-------------------------IN PROGRESS-----------------------] 100%

@@ -2,13 +2,11 @@
 
 public class BaseRepository<T> : IBaseRepository<T> where T : class
 {
-    //protected readonly ILogger _logger;
     protected RemoteLearningDbContext _context;
     protected DbSet<T> _dbSet;
     public BaseRepository(RemoteLearningDbContext context)
     {
         _context = context;
-        //_logger = logger;
         _dbSet = _context.Set<T>();
     }
 

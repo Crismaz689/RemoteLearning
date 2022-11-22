@@ -1,12 +1,19 @@
 ﻿namespace RemoteLearning.API.Controllers;
 
 [Route("seeders")]
+//[Authorize(Roles = "Admin")]
 public class SeederController : BaseApiController
 {
-    [HttpGet("seed")]
-    public ActionResult<bool> Seed()
-    {
+    private readonly ISeederService _seederService;
 
-        return Ok(true);
+    public SeederController(ISeederService seederService)
+    {
+        _seederService = seederService;
     }
+
+    [HttpPost("seed-roles")]
+    public async Task<ActionResult<bool>> SeedRoles() => await _seederService.SeedRoles();
+
+    [HttpPost("seed-accounts")]
+    public async Task<ActionResult<bool>> SeedAccounts() => await _seederService.SeedAccounts();
 }

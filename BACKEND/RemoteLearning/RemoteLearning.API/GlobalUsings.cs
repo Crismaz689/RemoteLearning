@@ -1,11 +1,11 @@
-﻿global using RemoteLearning.Application.Data;
-global using RemoteLearning.Application.Services;
-global using RemoteLearning.Infrastructure.Data;
-global using RemoteLearning.Infrastructure.Services;
+﻿global using RemoteLearning.Infrastructure.Services;
 global using RemoteLearning.Infrastructure.Extensions;
 global using Microsoft.AspNetCore.Mvc;
-global using RemoteLearning.Domain.Entities;
 global using RemoteLearning.Application.DTOs.Account;
 global using System.Text.Json.Serialization;
 global using RemoteLearning.Infrastructure.Helpers.Extensions;
 global using RemoteLearning.Infrastructure.Settings;
+global using Microsoft.AspNetCore.Authorization;
+global using RemoteLearning.Application.Services;
+global using RemoteLearning.Application.Data.Repositories;
+global using RemoteLearning.Application.DTOs.Course;

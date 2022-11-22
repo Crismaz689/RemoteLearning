@@ -2,13 +2,13 @@
 
 public class ExceptionMiddleware
 {
-    //private readonly ILogger _logger;
+    private readonly ILogger _logger;
 
     private readonly RequestDelegate _next;
 
-    public ExceptionMiddleware(RequestDelegate next)
+    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
-        //_logger = logger;
+        _logger = logger;
         _next = next;
     }
 
@@ -20,7 +20,7 @@ public class ExceptionMiddleware
         }
         catch(Exception ex)
         {
-            //_logger.LogError($"test");
+            _logger.LogError($"{ex.Message}");
             await HandleExceptionAsync(context, ex);
         }
     }

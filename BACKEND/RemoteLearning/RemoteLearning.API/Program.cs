@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.InitializeSerilog(builder.Configuration);
+
 builder.Services.InitializeDbContext(builder.Configuration);
 builder.Services.CreateDependencyInjectionContainer();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -9,7 +11,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.Configure<AppSettings>(
-    builder.Configuration.GetSection("AppSettings"));
+    builder.Configuration.GetSection(nameof(AppSettings)));
 
 builder.Services.AddAppAuthenticator(builder.Configuration);
 

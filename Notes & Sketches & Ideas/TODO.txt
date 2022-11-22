@@ -1,10 +1,6 @@
 ===== TASKS =====
 - create login page
 - create admin panel
-- create json seeder
-- create seed data
-- setup logger and use it
-- smtp fix
 - crud on courses
 - assign someone to a course
 - crud on sections
@@ -12,11 +8,10 @@
 - crud tests
 - crud textquestions
 - crud grades
+- think how to resolve ActionResult states (Ok, BadRequest etc)., especially with null values
+- smtp fix
 - handle Azure about files
 - write down documentation stuff
-
-kkkstrist123
-(',PTGa#cbYY
 
 ===== CREDENTIALS =====
 Login: remote.learning@interia.pl

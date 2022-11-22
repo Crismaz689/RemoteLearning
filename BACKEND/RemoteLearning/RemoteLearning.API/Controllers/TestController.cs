@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace RemoteLearning.API.Controllers;
+﻿namespace RemoteLearning.API.Controllers;
 
 [Route("tests")]
 public class TestController : BaseApiController
 {
-    public TestController(IUserService userService) {}
+    private readonly ILogger _logger;
+    public TestController(ILogger<TestController> logger) 
+    {
+        _logger = logger;
+    }
 
     [HttpGet("AdminTest")]
     [Authorize(Roles = "Admin")]
@@ -31,6 +33,8 @@ public class TestController : BaseApiController
     [HttpGet("Unathorized")]
     public ActionResult<string> Unathorized()
     {
+        _logger.LogInformation("test");
+        _logger.LogError("tesctik2");
         return Ok("unathorized");
     }
 

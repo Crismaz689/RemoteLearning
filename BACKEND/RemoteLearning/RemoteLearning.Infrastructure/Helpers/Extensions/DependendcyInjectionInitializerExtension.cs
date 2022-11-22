@@ -7,6 +7,8 @@ public static class DependendcyInjectionInitializerExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<ISeederService, SeederService>();
     }
 }

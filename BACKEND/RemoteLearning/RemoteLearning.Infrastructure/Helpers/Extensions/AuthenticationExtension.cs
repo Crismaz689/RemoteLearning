@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-
-namespace RemoteLearning.Infrastructure.Helpers.Extensions;
+﻿namespace RemoteLearning.Infrastructure.Helpers.Extensions;
 
 public static class AuthenticationExtension
 {
@@ -13,7 +10,7 @@ public static class AuthenticationExtension
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Jwt:Key").Value!)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection($"{nameof(AppSettings)}:Jwt:Key").Value!)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };

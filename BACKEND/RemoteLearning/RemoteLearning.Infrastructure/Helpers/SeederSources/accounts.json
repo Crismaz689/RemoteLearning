@@ -1,0 +1,35 @@
+﻿[
+  {
+    "Username": "admin",
+    "RoleId": 1,
+    "UserDetails": {
+      "FirstName": "Admin",
+      "Surname": "Adminowy",
+      "Pesel": "99999999999",
+      "BirthdayDate": "1980-05-04",
+      "Email": "admin@admin.com"
+    }
+  },
+  {
+    "Username": "krzysiu",
+    "RoleId": 2,
+    "UserDetails": {
+      "FirstName": "Krzysztof",
+      "Surname": "Mazur",
+      "Pesel": "00000000000",
+      "BirthdayDate": "1999-08-06",
+      "Email": "krzysztof.mazur689@gmail.com"
+    }
+  },
+  {
+    "Username": "teacher",
+    "RoleId": 3,
+    "UserDetails": {
+      "FirstName": "Teacher",
+      "Surname": "Teacherowaty",
+      "Pesel": "11111111111",
+      "BirthdayDate": "1985-11-11",
+      "Email": "teacher@gmail.com"
+    }
+  }
+]
