@@ -10,7 +10,7 @@ public interface IBaseRepository<T> where T : class
 
     Task Create(T entity);
 
-    Task Update(T entity);
+    void Update(T entity);
 
     Task Delete(long id);
 }

@@ -12,8 +12,10 @@ public class SeederController : BaseApiController
     }
 
     [HttpPost("seed-roles")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<bool>> SeedRoles() => await _seederService.SeedRoles();
 
     [HttpPost("seed-accounts")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<bool>> SeedAccounts() => await _seederService.SeedAccounts();
 }

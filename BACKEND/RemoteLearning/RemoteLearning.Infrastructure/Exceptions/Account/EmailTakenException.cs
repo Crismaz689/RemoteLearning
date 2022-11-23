@@ -10,5 +10,5 @@ public class EmailTakenException : BaseException
 
     public EmailTakenException(string message, Exception innerException) : base(message, innerException) { }
 
-    public EmailTakenException(SerializationInfo info, StreamingContext context, int statusCode) : base(info, context) { }
+    public EmailTakenException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 }

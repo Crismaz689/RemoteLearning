@@ -10,5 +10,5 @@ public class PeselTakenException : BaseException
 
     public PeselTakenException(string message, Exception innerException) : base(message, innerException) { }
 
-    public PeselTakenException(SerializationInfo info, StreamingContext context, int statusCode) : base(info, context) { }
+    public PeselTakenException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 }

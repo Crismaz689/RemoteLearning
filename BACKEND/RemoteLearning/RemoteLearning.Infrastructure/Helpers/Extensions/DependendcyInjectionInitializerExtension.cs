@@ -8,6 +8,8 @@ public static class DependendcyInjectionInitializerExtension
 
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICourseService, CourseService>();
+        services.AddScoped<ICourseUserService, CourseUserService>();
+        services.AddScoped<ISectionService, SectionService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<ISeederService, SeederService>();
     }

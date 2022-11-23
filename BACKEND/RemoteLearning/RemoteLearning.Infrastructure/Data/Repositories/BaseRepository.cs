@@ -40,8 +40,8 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         return await _dbSet.FindAsync(id);
     }
 
-    public Task Update(T entity)
+    public void Update(T entity)
     {
-        throw new NotImplementedException();
+        _dbSet.Update(entity);
     }
 }

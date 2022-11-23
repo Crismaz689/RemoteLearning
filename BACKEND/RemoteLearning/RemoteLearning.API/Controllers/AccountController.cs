@@ -11,8 +11,10 @@ public class AccountController : BaseApiController
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<bool>> Create(IEnumerable<CreateAccountDto> accountDtos) => await _userService.CreateUsers(accountDtos);
 
     [HttpPost("login")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<string>> Login(LoginDto loginDto) => await _userService.Login(loginDto);
 }

@@ -1,16 +1,16 @@
-﻿namespace RemoteLearning.Infrastructure.Exceptions.Middleware;
+﻿using Microsoft.Extensions.Hosting;
+
+namespace RemoteLearning.Infrastructure.Exceptions.Middleware;
 
 public class ExceptionMiddleware
 {
     private readonly ILogger _logger;
+    private readonly IHostEnvironment _environment;
 
     private readonly RequestDelegate _next;
 
-    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
-    {
-        _logger = logger;
-        _next = next;
-    }
+    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment environment)
+        => (_next, _logger, _environment) = (next, logger, environment);
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -38,6 +38,8 @@ public class ExceptionMiddleware
     private ExceptionResponse CreateResponse(Exception ex) => ex switch
     {
         BaseException baseException => new ExceptionResponse(baseException.StatusCode, baseException.Message),
-        _ => new ExceptionResponse(500, "Wewnętrzny błąd serwera!")
+        _ => _environment.IsDevelopment() ?
+        new ExceptionResponse((int)HttpStatusCode.InternalServerError, ex.Message) :
+        new ExceptionResponse((int)HttpStatusCode.InternalServerError, HttpStatusCode.InternalServerError.ToString())
     };
 }

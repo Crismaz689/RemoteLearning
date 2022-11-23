@@ -1,14 +1,19 @@
 ===== TASKS =====
+- crud on sections
+
 - create login page
 - create admin panel
-- crud on courses
-- assign someone to a course
-- crud on sections
+
+- fix mappings in courses/{id}
+- fix PUT, maybe by changing core to AsNoTracking() ?
+
 - crud on files
 - crud tests
 - crud textquestions
 - crud grades
-- think how to resolve ActionResult states (Ok, BadRequest etc)., especially with null values
+
+- delete course assignment
+- English exceptions
 - smtp fix
 - handle Azure about files
 - write down documentation stuff
