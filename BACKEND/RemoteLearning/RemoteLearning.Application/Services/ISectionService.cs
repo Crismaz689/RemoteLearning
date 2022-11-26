@@ -6,7 +6,7 @@ public interface ISectionService
 
     Task<bool> DeleteSection(long sectionId, string userId);
 
-    Task<SectionDto> CreateSection(CreateSectionDto sectionDto);
+    Task<SectionDto> CreateSection(CreateSectionDto sectionDto, string userId);
 
     Task<SectionDto> UpdateSection(UpdateSectionDto sectionDto, string userId);
 }

@@ -1,29 +1,25 @@
 ===== TASKS =====
 - crud on sections
 
-- create login page
+- create toast service
 - create admin panel
 
 - fix mappings in courses/{id}
 - fix PUT, maybe by changing core to AsNoTracking() ?
 
 - crud on files
-- crud tests
-- crud textquestions
+- crud tests (do protections)
+- crud textquestions (do protections)
 - crud grades
 
 - delete course assignment
 - English exceptions
-- smtp fix
 - handle Azure about files
 - write down documentation stuff
 
 ===== CREDENTIALS =====
-Login: remote.learning@interia.pl
+Login: km.remote.learning@gmail.com
 Password: Kappa123!
-
-Login: remote.learning@interia.pl
-Password: Kappa123!Kappa123!
 
 
 ===== TO CONSIDER =====

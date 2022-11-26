@@ -1,13 +1,10 @@
 ﻿namespace RemoteLearning.API.Controllers;
 
-[Route("sections")]
+[Route("rl/sections")]
 public class SectionController : BaseApiController
 {
     private readonly ISectionService _sectionService;
-    public SectionController(ISectionService sectionService)
-    {
-        _sectionService = sectionService;
-    }
+    public SectionController(ISectionService sectionService) => (_sectionService) = (sectionService);
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(SectionDto), (int)HttpStatusCode.OK)]
@@ -19,7 +16,7 @@ public class SectionController : BaseApiController
 
     [HttpPost]
     [ProducesResponseType(typeof(SectionDto), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<SectionDto>> Create(CreateSectionDto sectionDto) => await _sectionService.CreateSection(sectionDto);
+    public async Task<ActionResult<SectionDto>> Create(CreateSectionDto sectionDto) => await _sectionService.CreateSection(sectionDto, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
     [HttpPut]
     [ProducesResponseType(typeof(SectionDto), (int)HttpStatusCode.OK)]

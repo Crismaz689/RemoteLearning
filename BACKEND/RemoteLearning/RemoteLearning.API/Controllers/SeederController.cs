@@ -1,6 +1,6 @@
 ﻿namespace RemoteLearning.API.Controllers;
 
-[Route("seeders")]
+[Route("rl/seeders")]
 //[Authorize(Roles = "Admin")]
 public class SeederController : BaseApiController
 {

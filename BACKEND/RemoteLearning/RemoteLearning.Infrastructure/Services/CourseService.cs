@@ -5,11 +5,7 @@ public class CourseService : ICourseService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CourseService(IUnitOfWork unitOfWork, IMapper mapper)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-    }
+    public CourseService(IUnitOfWork unitOfWork, IMapper mapper) => (_unitOfWork, _mapper) = (unitOfWork, mapper);
 
     public async Task<CourseDto> Create(CreateCourseDto courseDto)
     {
@@ -41,7 +37,7 @@ public class CourseService : ICourseService
         {
             throw new CourseDoesNotExists("Kurs o takim id nie istnieje!");
         }
-        else if (Convert.ToInt64(userId) == course.CreatorId)
+        else if (string.IsNullOrEmpty(userId) || Convert.ToInt64(userId) != course.CreatorId)
         {
             throw new CourseMissingCreatorException("Nie mozesz wykonywać działań na kursie, który nie należy do Ciebie!");
         }

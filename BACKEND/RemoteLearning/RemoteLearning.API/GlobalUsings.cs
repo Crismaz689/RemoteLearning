@@ -12,3 +12,5 @@ global using RemoteLearning.Application.DTOs.CourseUser;
 global using System.Net;
 global using System.Security.Claims;
 global using RemoteLearning.Application.DTOs.Section;
+global using RemoteLearning.Application.DTOs.TextQuestion;
+global using RemoteLearning.Application.DTOs.Test;

@@ -1,6 +1,6 @@
 ﻿namespace RemoteLearning.API.Controllers;
 
-[Route("accounts")]
+[Route("rl/accounts")]
 public class AccountController : BaseApiController
 {
     private readonly IUserService _userService;
@@ -15,6 +15,6 @@ public class AccountController : BaseApiController
     public async Task<ActionResult<bool>> Create(IEnumerable<CreateAccountDto> accountDtos) => await _userService.CreateUsers(accountDtos);
 
     [HttpPost("login")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<string>> Login(LoginDto loginDto) => await _userService.Login(loginDto);
+    [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto) => await _userService.Login(loginDto);
 }

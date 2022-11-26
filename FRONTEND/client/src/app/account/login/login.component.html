@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row d-flex align-items-center" style="height: 75vh;">
+        <div class="offset-4 col-4">
+            <img src="../../../assets/images/remote-learning-logo.png" class="img-fluid" alt="Logo witryny RemoteLearning">
+            <form [formGroup]="loginForm">
+                <input class="form-control w-100 mb-3" type="text" placeholder="Nazwa użytkownika" formControlName="username" id="username" required>
+                <input class="form-control w-100 mb-3" type="password" placeholder="Hasło" formControlName="password" required>
+                <div class="text-center">
+                    <p class="text-danger" 
+                    *ngIf="loginForm.controls['username'].errors?.['required'] && loginForm.controls['username'].touched">
+                        Nazwa użytkownika jest wymagana!
+                    </p>
+                    <p class="text-danger" 
+                    *ngIf="loginForm.controls['password'].errors?.['required'] && loginForm.controls['password'].touched">
+                        Hasło jest wymagane!
+                    </p>
+                    <p class="text-danger" 
+                    *ngIf="error !== ''">
+                        {{ error }}
+                    </p>
+                </div>
+
+                <button class="btn btn-success w-100 p-2 fw-bold" type="submit" [disabled]="!loginForm.valid" (click)="login()">Zaloguj się</button>
+            </form>
+        </div>
+    </div>
+</div>

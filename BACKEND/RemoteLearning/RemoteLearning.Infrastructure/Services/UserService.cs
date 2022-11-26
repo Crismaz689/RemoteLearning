@@ -10,13 +10,9 @@ public class UserService : IUserService
     private readonly IEmailService _emailService;
     private readonly IMapper _mapper;
 
+
     public UserService(IUnitOfWork unitOfWork, IEmailService emailService, IMapper mapper, IOptions<AppSettings> settings)
-    {
-        _unitOfWork = unitOfWork;
-        _emailService = emailService;
-        _mapper = mapper;
-        _settings = settings.Value;
-    }
+        => (_unitOfWork, _emailService, _mapper, _settings) = (unitOfWork, emailService, mapper, settings.Value);
 
     public async Task<bool> CreateUsers(IEnumerable<CreateAccountDto> accountDtos)
     {
@@ -43,13 +39,13 @@ public class UserService : IUserService
         }
         else
         {
-            await _emailService.SendCredentials(user.Username ?? "", password, userDetails.Email);
+            await _emailService.SendCredentials(user.Username!, password, userDetails.Email);
         }
 
         return user;
     }
 
-    public async Task<string> Login(LoginDto loginDto)
+    public async Task<UserDto> Login(LoginDto loginDto)
     {
         var user = await _unitOfWork.Users.GetUserByLogin(loginDto.Username);
 
@@ -71,7 +67,11 @@ public class UserService : IUserService
                 throw new InvalidPasswordException("Wprowadzono błędne hasło!");
             }
 
-            return CreateToken(user);
+            var token = CreateToken(user);
+            var loggedInUser = _mapper.Map<UserDto>(user);
+            loggedInUser.Token = CreateToken(user);
+
+            return loggedInUser;
         }
     }
 

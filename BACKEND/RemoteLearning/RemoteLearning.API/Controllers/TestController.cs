@@ -1,47 +1,27 @@
 ﻿namespace RemoteLearning.API.Controllers;
 
-[Route("tests")]
+[Route("rl/tests")]
 public class TestController : BaseApiController
 {
-    private readonly ILogger _logger;
-    public TestController(ILogger<TestController> logger) 
+    private readonly ITestService _testService;
+    public TestController(ITestService testService)
     {
-        _logger = logger;
+        _testService = testService;
     }
 
-    [HttpGet("AdminTest")]
-    [Authorize(Roles = "Admin")]
-    public ActionResult<string> AdminTest()
-    {
-        return Ok("admin");
-    }
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(TestDto), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<TestDto>> Get(long id) => await _testService.GetTestById(id);
 
-    [HttpGet("UserTest")]
-    [Authorize(Roles = "User")]
-    public ActionResult<string> UserTest()
-    {
-        return Ok("user");
-    }
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<bool>> Delete(long id) => await _testService.DeleteTest(id);
 
-    [HttpGet("TeacherTest")]
-    [Authorize(Roles = "Teacher")]
-    public ActionResult<string> TeacherTest()
-    {
-        return Ok("teacher");
-    }
+    [HttpPost]
+    [ProducesResponseType(typeof(TestDto), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<TestDto>> Create(CreateTestDto testDto) => await _testService.CreateTest(testDto);
 
-    [HttpGet("Unathorized")]
-    public ActionResult<string> Unathorized()
-    {
-        _logger.LogInformation("test");
-        _logger.LogError("tesctik2");
-        return Ok("unathorized");
-    }
-
-    [HttpGet("NoRole")]
-    [Authorize]
-    public ActionResult<string> NoRole()
-    {
-        return Ok("no-role");
-    }
+    [HttpPut]
+    [ProducesResponseType(typeof(TestDto), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<TestDto>> Update(CreateTestDto testDto) => await _testService.UpdateTest(testDto);
 }

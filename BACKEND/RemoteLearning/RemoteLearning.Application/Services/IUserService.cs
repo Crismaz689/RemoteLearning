@@ -4,5 +4,5 @@ public interface IUserService
 {
     Task<bool> CreateUsers(IEnumerable<CreateAccountDto> accountDtos);
 
-    Task<string> Login(LoginDto loginDto);
+    Task<UserDto> Login(LoginDto loginDto);
 }

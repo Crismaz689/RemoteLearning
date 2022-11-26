@@ -1,6 +1,6 @@
 ﻿namespace RemoteLearning.API.Controllers;
 
-[Route("course-assignments")]
+[Route("rl/course-assignments")]
 public class CourseUserController : BaseApiController
 {
     private readonly ICourseUserService _courseUserService;

@@ -5,11 +5,8 @@ public class CourseUserService : ICourseUserService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CourseUserService(IUnitOfWork unitOfWork, IMapper mapper)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-    }
+    public CourseUserService(IUnitOfWork unitOfWork, IMapper mapper) => (_unitOfWork, _mapper) = (unitOfWork, mapper);
+
     public async Task<long> Create(CreateCourseUserDto courseUserDto)
     {
         if (courseUserDto != null)

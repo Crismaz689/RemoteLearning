@@ -4,10 +4,7 @@ public class SeederService : ISeederService
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public SeederService(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
+    public SeederService(IUnitOfWork unitOfWork) => (_unitOfWork) = (unitOfWork);
 
     public async Task<bool> SeedRoles()
     {
@@ -55,5 +52,6 @@ public class SeederService : ISeederService
         });
 
         return await _unitOfWork.SaveChangesAsync() != 0;
+        // formatowanie desciption
     }
 }
