@@ -1,0 +1,26 @@
+===== TASKS =====
+- crud on sections
+
+- create toast service
+- create admin panel
+
+- fix mappings in courses/{id}
+- fix PUT, maybe by changing core to AsNoTracking() ?
+
+- crud on files
+- crud tests (do protections)
+- crud textquestions (do protections)
+- crud grades
+
+- delete course assignment
+- English exceptions
+- handle Azure about files
+- write down documentation stuff
+
+===== TO CONSIDER =====
+Should be cascase deleting enable? For which tables?
+
+
+===== CONSULTATION NOTES =====
+Describe database in data analysis part (II episode)
+Write something about Azure licensing (how does it work, pricing etc.)
