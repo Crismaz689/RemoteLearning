@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RemoteLearning.Application\RemoteLearning.Application.csproj" />
-    <ProjectReference Include="..\RemoteLearning.Domain\RemoteLearning.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
