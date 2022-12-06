@@ -1,7 +1,9 @@
 ===== TASKS =====
 
 FRONT:
-- create admin panel
+- fix login persistance
+- create view for courses (CRUD)
+- create view for sections (CRUD)
 - change standard popups to toasts (fix toastr service)
 - .scss files (use variables etc)
 - style website

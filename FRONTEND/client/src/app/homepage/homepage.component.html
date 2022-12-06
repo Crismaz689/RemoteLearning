@@ -1,16 +1,20 @@
 <div class="container">
-    <div class="row">
-        <div class="offset-1 col-4">
-            <a routerLink="/" class="btn btn-danger">Link 1</a>
+    <div class="row my-2 text-white g-3">
+        <div class="col-12">
+            <h1 class="text-header text-dark">Strona główna</h1>
         </div>
-        <div class="offset-1 col-4">
-            <a routerLink="/" class="btn btn-danger">Link 1</a>
+        <div routerLink="/admin" class="col-5 bg-danger bg-gradient tile">
+            Panel administracyjny
         </div>
-        <div class="offset-1 col-4">
-            <a routerLink="/" class="btn btn-info">Link 1</a>
+        <div routerLink="/courses" class="col-5 bg-secondary bg-gradient tile">
+            Kursy
         </div>
-        <div class="offset-1 col-4">
-            <a routerLink="/admin" class="btn btn-danger">Panel administracyjny</a>
+        <div class="col-12">&nbsp;</div>
+        <div routerLink="/grades" class="col-5 bg-success bg-gradient tile">
+            Oceny
+        </div>
+        <div routerLink="/account" class="col-5 bg-info bg-gradient tile">
+            Moje konto
         </div>
     </div>
 </div>

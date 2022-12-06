@@ -1,3 +1,31 @@
 body {
     background: #FFF6F3;
 }
+
+.text-header {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 2em;
+    text-align: center;
+    text-shadow: 4px 4px 6px rgba(66, 68, 90, 0.4);
+}
+
+.tile {
+    border-radius: 0.5em;
+    display: block;
+    font-size: 2em;
+    font-weight: normal;
+    max-height: auto;
+    margin: 0 auto;
+    text-align: center;
+    padding: 5em 0;
+}
+
+.tile:hover {
+    cursor: pointer;
+    font-weight: bold;
+    opacity: 0.9;
+    transform: scale(1.05);
+    transition: all .2s ease-in-out;
+}
