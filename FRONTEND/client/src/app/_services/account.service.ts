@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ILogin } from '../account/models/login'
+import { ILogin } from '../account/models/login';
 import { IUser } from '../account/models/User';
 
 @Injectable({
@@ -13,8 +13,7 @@ export class AccountService {
 
   url: string = 'https://localhost:7271/rl/';
 
-  currentUser = this.currentUserSource.asObservable();
-
+  currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -22,20 +21,29 @@ export class AccountService {
     return this.http.post<IUser>(this.url + 'accounts/login', credentials);
   }
 
-  setSession(user: IUser): void {
-    localStorage.setItem('id_token', user.token);
-    localStorage.setItem('id_user', user.id.toString());
-    localStorage.setItem('username', user.username);
-    localStorage.setItem('roleName', user.roleName);
-
-  }
-
-  setCurrentUser(user: IUser): void {
-    this.currentUserSource.next(user);
-  }
-
   logout(): void {
     localStorage.clear();
     this.currentUserSource.next(null);
+  }
+
+  getRole(): string | null {
+    if (localStorage.getItem("user") !== null) {
+      const user : IUser = JSON.parse(localStorage.getItem("user")!);
+      return user.roleName;
+    }
+    return null;
+  }
+
+  setUser(user: IUser): void {
+    this.setSession(user);
+    this.setCurrentUser(user);
+  }
+
+  private setSession(user: IUser): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  private setCurrentUser(user: IUser): void {
+    this.currentUserSource.next(user);
   }
 }

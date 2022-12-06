@@ -50,14 +50,9 @@ public class CourseService : ICourseService
     {
         var course = await _unitOfWork.Courses.GetWithCreator(courseId);
 
-        if (course != null)
-        {
-            return _mapper.Map<CourseDto>(course);
-        }
-        else
-        {
-            return null;
-        }
+        return course != null ?
+            _mapper.Map<CourseDto>(course) :
+            null;
     }
 
     public async Task<CourseDto> Update(UpdateCourseDto courseDto, string userId)
@@ -68,17 +63,19 @@ public class CourseService : ICourseService
         {
             throw new CourseDoesNotExists("Kurs o takim id nie istnieje!");
         }
-        else if (Convert.ToInt64(userId) == course.CreatorId)
+        /*else if (Convert.ToInt64(userId) != course.CreatorId)
         {
             throw new CourseMissingCreatorException("Nie mozesz wykonywać działań na kursie, który nie należy do Ciebie!");
-        }
+        }*/
 
-        var updatingCourse = _mapper.Map<Course>(courseDto);
-        _unitOfWork.Courses.Update(updatingCourse);
+        course.Name = courseDto.Name;
+        course.Description = courseDto.Description;
+        course.CreatorId = 2;
+        _unitOfWork.Courses.Update(course);
 
         if (await _unitOfWork.SaveChangesAsync() != 0)
         {
-            return _mapper.Map<CourseDto>(updatingCourse);
+            return _mapper.Map<CourseDto>(course);
         }
 
         return null;

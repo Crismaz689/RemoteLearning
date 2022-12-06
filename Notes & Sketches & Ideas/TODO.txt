@@ -1,21 +1,26 @@
 ===== TASKS =====
-- crud on sections
 
-- create toast service
+FRONT:
 - create admin panel
+- change standard popups to toasts (fix toastr service)
+- .scss files (use variables etc)
+- style website
 
-- fix mappings in courses/{id}
-- fix PUT, maybe by changing core to AsNoTracking() ?
-
+BACK:
+- crud on sections
 - crud on files
 - crud tests (do protections)
 - crud textquestions (do protections)
 - crud grades
-
 - delete course assignment
-- English exceptions
 - handle Azure about files
+- fix mappings in courses/{id}
+- English exceptions
+- use cancellation token
+
+GENERAL:
 - write down documentation stuff
+
 
 ===== TO CONSIDER =====
 Should be cascase deleting enable? For which tables?

@@ -7,19 +7,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './account/login/login.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { AdminComponent } from './admin/admin.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
-    LoginComponent
+    LoginComponent,
+    HomepageComponent,
+    AdminComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

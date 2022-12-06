@@ -1,7 +1,54 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './account/login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { SessionGuard } from './_guards/session.guard';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: LoginComponent, canActivate: [SessionGuard]},
+
+  /* ADMIN */
+  { 
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'Admin'
+    },
+    children: [
+      { path: 'admin', component: AdminComponent },
+    ]
+  },
+
+  /* ADMIN & TUTOR */
+  { 
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'Tutor'
+    },
+    children: [
+
+    ]
+  },
+
+  /* ADMIN & TUTOR & USER */
+  { 
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    data: {
+      role: 'User'
+    },
+    children: [
+      { path: 'homepage', component: HomepageComponent },
+    ]
+  },
+  { path: '**', component: LoginComponent, pathMatch: 'full', canActivate: [SessionGuard]},
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

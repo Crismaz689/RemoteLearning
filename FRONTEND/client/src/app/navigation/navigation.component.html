@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light bg-dark text-white">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" routerLink="/homepage">
+        <img src="../../../assets/images/remote-learning-logo.png" alt="Logo serwisu RemoteLearning" width="64" height="64">
+      </a>
+      <div class="d-flex">
+        <div *ngIf="!(currentUser$ | async)">
+          <button class="btn btn-dark" routerLink="/">
+            Zaloguj
+          </button>
+        </div>
+        <div *ngIf="(currentUser$ | async)">
+          <button class="btn btn-dark" (click)="logout()">
+            Wyloguj
+          </button>
+        </div>
+      </div>
+    </div>
+</nav>
