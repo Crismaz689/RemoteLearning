@@ -1,19 +1,39 @@
-<nav class="navbar navbar-light bg-dark text-white">
-    <div class="container-fluid px-4">
-      <a class="navbar-brand" routerLink="/homepage">
+<nav class="bg-dark text-white">
+    <div class="container-fluid d-flex p-2 align-items-center">
+      <a class="d-block" routerLink="/homepage">
         <img src="../../../assets/images/remote-learning-logo.png" alt="Logo serwisu RemoteLearning" width="64" height="64">
       </a>
-      <div class="d-flex">
-        <div *ngIf="!(currentUser$ | async)">
-          <button class="btn btn-dark" routerLink="/">
-            Zaloguj
+      <ng-container *ngIf="(currentUser$ | async)">
+        <div class="px-2 w-25">
+          <button class="btn btn-danger w-100" routerLink="/admin">
+            Admin
           </button>
         </div>
-        <div *ngIf="(currentUser$ | async)">
-          <button class="btn btn-dark" (click)="logout()">
-            Wyloguj
+        <div class="px-2 w-25">
+          <button class="btn btn-secondary w-100" routerLink="/courses">
+            Kursy
           </button>
         </div>
+        <div class="px-2 w-25">
+          <button class="btn btn-success w-100" routerLink="/">
+            Oceny
+          </button>  
+        </div>
+        <div class="px-2 w-25">
+          <button class="btn btn-info w-100 text-white" routerLink="/">
+            Konto
+          </button>    
+        </div>
+      </ng-container> 
+      <div class="ms-auto" *ngIf="!(currentUser$ | async)">
+        <button class="btn btn-dark" routerLink="/">
+          Zaloguj
+        </button>
+      </div>
+      <div class="ms-auto" *ngIf="(currentUser$ | async)">
+        <button class="btn btn-dark" (click)="logout()">
+          Wyloguj
+        </button>
       </div>
     </div>
 </nav>

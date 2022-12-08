@@ -30,8 +30,10 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     public async Task<T> GetByCondition(Expression<Func<T, bool>> expression) => await _dbSet.Where(expression)
             .SingleOrDefaultAsync();
 
-    public void Update(T entity)
+    public Task Update(T entity)
     {
         _dbSet.Update(entity);
+
+        return Task.CompletedTask;
     }
 }

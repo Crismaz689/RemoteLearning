@@ -1,0 +1,24 @@
+<form [formGroup]="createCourseForm">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-header text-dark">Tworzenie kursu</h1>
+        </div>
+        <div class="col-12 text-center">
+            <label class="mb-1" for="courseName">Nazwa kursu</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="name" id="courseName" placeholder="Nazwa kursu" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createCourseForm.controls['name'].errors?.['required'] && createCourseForm.controls['name'].touched)
+                ||
+                (createCourseForm.controls['name'].errors?.['minlength'] && createCourseForm.controls['name'].touched)">
+                Nazwa kursu musi składać się z co najmniej 3 znaków
+            </p>
+        </div>
+        <div class="col-12 text-center mt-5">
+            <label class="mb-1" for="courseDescription">Opis kursu <span class="fw-light">(opcjonalny)</span></label>
+            <textarea class="w-50 d-block mx-auto rounded form-control text-center" formControlName="description" placeholder="Opis kursu" id="courseDescription"></textarea>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success w-25 py-3 fw-bold h1 d-block mx-auto mt-4" [disabled]="!createCourseForm.valid" (click)="createCourse()">Stwórz kurs</button>
+        </div>
+    </div>
+</form>

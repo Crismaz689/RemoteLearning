@@ -1,10 +1,8 @@
 ===== TASKS =====
 
 FRONT:
-- fix login persistance
 - create view for courses (CRUD)
 - create view for sections (CRUD)
-- change standard popups to toasts (fix toastr service)
 - .scss files (use variables etc)
 - style website
 
@@ -16,13 +14,17 @@ BACK:
 - crud grades
 - delete course assignment
 - handle Azure about files
-- fix mappings in courses/{id}
+- nullable return types - fix
 - English exceptions
 - use cancellation token
 
 GENERAL:
 - write down documentation stuff
 
+QUESTIONS:
+- additional promoter?
+- descirption should be the same as in Word? Should I copy it already?
+- empty pages?
 
 ===== TO CONSIDER =====
 Should be cascase deleting enable? For which tables?

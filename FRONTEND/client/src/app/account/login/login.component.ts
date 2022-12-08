@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { AccountService } from 'src/app/_services/account.service';
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private accountService: AccountService,
+    private snackBar: MatSnackBar,
     private router: Router) { 
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -38,15 +40,13 @@ export class LoginComponent implements OnInit {
     const credentials: ILogin = this.loginForm.getRawValue();
 
     this.accountService.login(credentials).subscribe((user)=> {
-
       if (user) {
         this.accountService.setUser(user);
         this.router.navigateByUrl('/homepage');
       }
     },
     (err) => {
-      window.alert(err.error);
-      //this.toastrService.error(err.error);
+      this.snackBar.open('Niepoprawne dane logowania!', '', { panelClass: ['text-white', 'bg-danger'] });
     });
   }
 }

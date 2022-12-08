@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row" *ngIf="userRole >= role.Tutor">
+        <div class="col-12">
+            <h1 class="text-header text-dark">Moje kursy</h1>
+        </div>
+        <div class="col-12">
+            <app-course-list [courses]="myCourses"></app-course-list>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-header text-dark">Kursy do których jestem zapisany(a)</h1>
+        </div>
+        <div class="col-12">
+            <app-course-list [courses]="assignedCourses"></app-course-list>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-header text-dark">Wyszukiwarka kursów</h1>
+        </div>
+        <div class="col-12">
+            jakis input
+        </div>
+    </div>
+
+</div>

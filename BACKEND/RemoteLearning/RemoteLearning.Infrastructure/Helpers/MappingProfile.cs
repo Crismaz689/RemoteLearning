@@ -43,7 +43,6 @@ public class MappingProfile : Profile
 
         CreateMap<CreateCourseDto, Course>();
         CreateMap<UpdateCourseDto, Course>();
-        CreateMap<Course, CourseDto>();
     }
 
     private void AddAccountMappings()

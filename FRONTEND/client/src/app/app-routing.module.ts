@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './account/login/login.component';
 import { AdminComponent } from './admin/admin.component';
+import { CourseCreateComponent } from './courses/course-create/course-create.component';
+import { CoursesComponent } from './courses/courses.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { SessionGuard } from './_guards/session.guard';
@@ -31,7 +33,7 @@ const routes: Routes = [
       role: 'Tutor'
     },
     children: [
-
+      { path: 'courses/create', component: CourseCreateComponent }
     ]
   },
 
@@ -45,6 +47,7 @@ const routes: Routes = [
     },
     children: [
       { path: 'homepage', component: HomepageComponent },
+      { path: 'courses', component: CoursesComponent },
     ]
   },
   { path: '**', component: LoginComponent, pathMatch: 'full', canActivate: [SessionGuard]},

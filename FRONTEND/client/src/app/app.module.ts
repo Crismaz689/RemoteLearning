@@ -11,6 +11,12 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AdminComponent } from './admin/admin.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
+import { CoursesComponent } from './courses/courses.component';
+import { CourseListComponent } from './courses/course-list/course-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { CourseComponent } from './courses/course/course.component';
+import { CourseCreateComponent } from './courses/course-create/course-create.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,11 @@ import { FooterComponent } from './footer/footer.component';
     HomepageComponent,
     AdminComponent,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    CoursesComponent,
+    CourseListComponent,
+    CourseComponent,
+    CourseCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +38,16 @@ import { FooterComponent } from './footer/footer.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right',
+    }},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

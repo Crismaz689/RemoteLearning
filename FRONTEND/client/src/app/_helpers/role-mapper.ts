@@ -1,10 +1,12 @@
+import { Role } from "./role.enum";
+
 export class RoleMapper {
-    static RoleMapping(roleName: string): number {
+    static RoleMapping(roleName: string | null): Role {
         switch (roleName) {
-            case 'Admin': return 2;
-            case 'Tutor': return 1;
-            case 'User': return 0;
-            default: return -1;
+            case 'Admin': return Role.Admin;
+            case 'Tutor': return Role.Tutor;
+            case 'User': return Role.User;
+            default: return Role.Undefined;
         }
     }
 }

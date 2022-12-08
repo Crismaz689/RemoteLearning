@@ -26,11 +26,19 @@ export class AccountService {
     this.currentUserSource.next(null);
   }
 
+  autoLogin(): void {
+    if (localStorage.getItem("user") !== null) {
+      const user : IUser = JSON.parse(localStorage.getItem("user")!);
+      this.setCurrentUser(user);
+    }
+  }
+
   getRole(): string | null {
     if (localStorage.getItem("user") !== null) {
       const user : IUser = JSON.parse(localStorage.getItem("user")!);
       return user.roleName;
     }
+
     return null;
   }
 

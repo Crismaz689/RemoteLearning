@@ -7,16 +7,17 @@ public class CourseService : ICourseService
 
     public CourseService(IUnitOfWork unitOfWork, IMapper mapper) => (_unitOfWork, _mapper) = (unitOfWork, mapper);
 
-    public async Task<CourseDto> Create(CreateCourseDto courseDto)
+    public async Task<CourseDto> Create(CreateCourseDto courseDto, string userId)
     {
-        if (courseDto != null)
+        if (courseDto != null && userId != null)
         {
             if (await DoesCourseAlreadyExist(courseDto.Name))
             {
-                throw new CourseAlreadyExistsException("Kurs o takiej nazwie już istnieje!");
+                throw new CourseAlreadyExistsException("Course with given name already exists.");
             }
 
             var course = _mapper.Map<Course>(courseDto);
+            course.CreatorId = Convert.ToInt64(userId);
 
             await _unitOfWork.Courses.Create(course);
             if (await _unitOfWork.SaveChangesAsync() != 0)
@@ -27,6 +28,30 @@ public class CourseService : ICourseService
         }
 
         return null;
+    }
+
+    public async Task<IEnumerable<CourseDto>> GetMyCourses(string userId)
+    {
+        if (userId != null)
+        {
+            var courses = await _unitOfWork.Courses.GetMyCourses(Convert.ToInt64(userId));
+
+            return _mapper.Map<IEnumerable<CourseDto>>(courses);
+        }
+
+        return Enumerable.Empty<CourseDto>();
+    }
+
+    public async Task<IEnumerable<CourseDto>> GetAssignedCourses(string userId)
+    {
+        if (userId != null)
+        {
+            var courses = await _unitOfWork.Courses.GetAssignedCourses(Convert.ToInt64(userId));
+
+            return _mapper.Map<IEnumerable<CourseDto>>(courses);
+        }
+
+        return Enumerable.Empty<CourseDto>();
     }
 
     public async Task<bool> Delete(long courseId, string userId)
@@ -61,17 +86,18 @@ public class CourseService : ICourseService
 
         if (course == null)
         {
-            throw new CourseDoesNotExists("Kurs o takim id nie istnieje!");
+            throw new CourseDoesNotExists("Course with given id does not exist.");
         }
-        /*else if (Convert.ToInt64(userId) != course.CreatorId)
+        else if (Convert.ToInt64(userId) != course.CreatorId)
         {
-            throw new CourseMissingCreatorException("Nie mozesz wykonywać działań na kursie, który nie należy do Ciebie!");
-        }*/
+            throw new CourseMissingCreatorException("You do not have permissions to perform update operation on this course.");
+        }
 
         course.Name = courseDto.Name;
         course.Description = courseDto.Description;
         course.CreatorId = 2;
-        _unitOfWork.Courses.Update(course);
+        course.ModificationDate = DateTime.Now;
+        await _unitOfWork.Courses.Update(course);
 
         if (await _unitOfWork.SaveChangesAsync() != 0)
         {
