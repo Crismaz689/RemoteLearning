@@ -11,15 +11,17 @@ import { IUser } from '../account/models/User';
     constructor() {}
   
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {  
-      const user : IUser = JSON.parse(localStorage.getItem("user") ?? '');
+      const userStorage : string | null = localStorage.getItem("user") ?? null;
 
-      if (user) {
+      if (userStorage) {
+        const user : IUser = JSON.parse(userStorage!);
         request = request.clone({
           setHeaders: {
             Authorization: `Bearer ${user.token}`
           }
         })
       }
+
       return next.handle(request);
     }
   }

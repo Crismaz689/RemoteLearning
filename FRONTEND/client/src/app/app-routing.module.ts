@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './account/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { CourseCreateComponent } from './courses/course-create/course-create.component';
+import { CourseComponent } from './courses/course/course.component';
 import { CoursesComponent } from './courses/courses.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -48,6 +49,7 @@ const routes: Routes = [
     children: [
       { path: 'homepage', component: HomepageComponent },
       { path: 'courses', component: CoursesComponent },
+      { path: 'courses/:id', component: CourseComponent },
     ]
   },
   { path: '**', component: LoginComponent, pathMatch: 'full', canActivate: [SessionGuard]},

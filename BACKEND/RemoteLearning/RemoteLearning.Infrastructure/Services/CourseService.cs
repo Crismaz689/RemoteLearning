@@ -30,6 +30,15 @@ public class CourseService : ICourseService
         return null;
     }
 
+    public async Task<IEnumerable<CourseDto>> GetAllCourses()
+    {
+        var courses = await _unitOfWork.Courses.GetAll();
+
+        return courses != null ?
+            _mapper.Map<IEnumerable<CourseDto>>(courses): 
+            Enumerable.Empty<CourseDto>();
+    }
+
     public async Task<IEnumerable<CourseDto>> GetMyCourses(string userId)
     {
         if (userId != null)

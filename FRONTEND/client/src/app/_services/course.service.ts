@@ -24,4 +24,8 @@ export class CourseService {
   public getAssignedCourses(): Observable<ICourse[]> {
     return this.http.get<ICourse[]>(this.url + '/assigned-courses');
   }
+
+  public getAllCourses(): Observable<ICourse[]> {
+    return this.http.get<ICourse[]>(this.url + '/');
+  }
 }

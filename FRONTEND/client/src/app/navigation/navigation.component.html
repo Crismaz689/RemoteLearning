@@ -4,7 +4,7 @@
         <img src="../../../assets/images/remote-learning-logo.png" alt="Logo serwisu RemoteLearning" width="64" height="64">
       </a>
       <ng-container *ngIf="(currentUser$ | async)">
-        <div class="px-2 w-25">
+        <div class="px-2 w-25" *ngIf="userRole === role.Admin">
           <button class="btn btn-danger w-100" routerLink="/admin">
             Admin
           </button>

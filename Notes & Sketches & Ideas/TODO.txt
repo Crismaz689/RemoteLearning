@@ -7,7 +7,6 @@ FRONT:
 - style website
 
 BACK:
-- crud on sections
 - crud on files
 - crud tests (do protections)
 - crud textquestions (do protections)
@@ -22,9 +21,7 @@ GENERAL:
 - write down documentation stuff
 
 QUESTIONS:
-- additional promoter?
-- descirption should be the same as in Word? Should I copy it already?
-- empty pages?
+- how to handle observable (re-log) + routing
 
 ===== TO CONSIDER =====
 Should be cascase deleting enable? For which tables?

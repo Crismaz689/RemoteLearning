@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +17,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { CourseComponent } from './courses/course/course.component';
 import { CourseCreateComponent } from './courses/course-create/course-create.component';
+import { AuthInterceptor } from './_interceptors/auth-interceptor';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { getPolishPaginatorIntl } from './_helpers/polish.paginator.intl';
 
 @NgModule({
   declarations: [
@@ -39,14 +45,20 @@ import { CourseCreateComponent } from './courses/course-create/course-create.com
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
       duration: 5000,
       verticalPosition: 'bottom',
       horizontalPosition: 'right',
     }},
+    { provide: MatPaginatorIntl, useValue: getPolishPaginatorIntl() }
   ],
   bootstrap: [AppComponent]
 })

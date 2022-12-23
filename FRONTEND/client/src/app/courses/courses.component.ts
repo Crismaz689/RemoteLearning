@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { CourseType } from '../_helpers/course.enum';
 import { RoleMapper } from '../_helpers/role-mapper';
 import { Role } from '../_helpers/role.enum';
 import { AccountService } from '../_services/account.service';
@@ -13,37 +14,25 @@ import { ICourse } from './models/course';
 })
 export class CoursesComponent implements OnInit {
 
+  type = CourseType;
+
   role = Role;
 
   userRole: Role = Role.Undefined;
 
-  myCourses: ICourse[] = [];
+  myCourses$: Observable<ICourse[]> | undefined;
+  
+  assignedCourses$: Observable<ICourse[]> | undefined;
 
-  assignedCourses: ICourse[] = [];
+  allCourses$: Observable<ICourse[]> | undefined;
 
   constructor(private courseService: CourseService,
-    private accountService: AccountService,
-    private snackBar: MatSnackBar) { }
+    private accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.courseService.getMyCourses().subscribe((courses) => {
-      if (courses) {
-        this.myCourses = courses;
-      }
-    },
-    (err) => {
-      this.snackBar.open("Nie udało sie wczytać listy Twoich kursów!", '', { panelClass: ['text-white', 'bg-danger'] });
-    });
-
-    this.courseService.getAssignedCourses().subscribe((courses) => {
-      if (courses) {
-        this.myCourses = courses;
-      }
-    },
-    (err) => {
-      this.snackBar.open("Nie udało sie wczytać listy kursów do których jesteś przypisany!", '', { panelClass: ['text-white', 'bg-danger'] });
-    });
-
+    this.myCourses$ = this.courseService.getMyCourses();
+    this.assignedCourses$ = this.courseService.getAssignedCourses();
+    this.allCourses$ = this.courseService.getAllCourses();
     this.userRole = RoleMapper.RoleMapping(this.accountService.getRole());
   }
 }
