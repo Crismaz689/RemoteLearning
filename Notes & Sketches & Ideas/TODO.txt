@@ -1,8 +1,8 @@
 ===== TASKS =====
 
 FRONT:
-- create view for courses (CRUD) - dokonczyc pliki, aby wejsc na kurs musi byc jego wlascicielem lub byc przypisanym, przypisanie i wypisanie, nie mozna sie zapisac do swojego kursu
-- create view for sections (CRUD)
+- create view for sections (CRUD) - dialogs
+- create view for files - dialogd
 - .scss files (use variables etc)
 - style website
 
@@ -11,21 +11,21 @@ BACK:
 - crud tests (do protections)
 - crud textquestions (do protections)
 - crud grades
-- delete course assignment
 - handle Azure about files
 - nullable return types - fix
-- English exceptions
 - use cancellation token
 
 PROBLEMS:
+- session (login)
 - pagination
 - errors on /course/{id} (strict mode only)
+- bottom scroll (course view)
 
 GENERAL:
 - write down documentation stuff
 
 QUESTIONS:
-- how to handle observable (re-log) + routing
+
 
 ===== TO CONSIDER =====
 Should be cascase deleting enable? For which tables?

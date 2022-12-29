@@ -26,11 +26,10 @@ export class CourseComponent implements OnInit {
       if (course) {
         this.course = course;
         this.isSpinning = false;
-        console.log(course);
       }
     },
     (err) => {
-      this.snackBar.open('Błąd przy pobieraniu danych o kursie.', '', { panelClass: ['text-white', 'bg-danger'] });
+      this.snackBar.open('Aby zajrzeć do kursu musisz być do niego przypisanym.', '', { panelClass: ['text-white', 'bg-danger'] });
       this.router.navigateByUrl('/homepage');
     });
   }

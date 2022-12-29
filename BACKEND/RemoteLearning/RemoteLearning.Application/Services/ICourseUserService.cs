@@ -2,5 +2,7 @@
 
 public interface ICourseUserService
 {
-    Task<long> Create(CreateCourseUserDto courseUserDto);
+    Task<long> CreateAssignment(long courseId, string userId);
+
+    Task<bool> DeleteAssignment(long courseId, string userId);
 }

@@ -28,6 +28,7 @@ import { CourseUpdateComponent } from './courses/course-update/course-update.com
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SectionsComponent } from './courses/sections/sections.component';
 import { FilesComponent } from './courses/sections/files/files.component';
+import { SectionCreateComponent } from './courses/sections/section-create/section-create.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FilesComponent } from './courses/sections/files/files.component';
     CourseUpdateComponent,
     SpinnerComponent,
     SectionsComponent,
-    FilesComponent
+    FilesComponent,
+    SectionCreateComponent
   ],
   imports: [
     BrowserModule,

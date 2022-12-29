@@ -26,8 +26,10 @@ public class CourseRepository : BaseRepository<Course>, ICourseRepository
         .ThenInclude(section => section.Files)
         .SingleOrDefaultAsync(course => course.Id == courseId);
 
-    public async Task<IEnumerable<Course>> GetAllWithCreators() => await _context.Courses
+    public async Task<IEnumerable<Course>> GetAllWithCreators(long userId) => await _context.Courses
         .Include(course => course.Creator)
         .ThenInclude(creator => creator.UserDetails)
+        .Include(course => course.CourseUsers)
+        .Where(course => course.Creator.Id != userId && !course.CourseUsers.Select(cu => cu.UserId).Contains(userId))
         .ToListAsync();
 }

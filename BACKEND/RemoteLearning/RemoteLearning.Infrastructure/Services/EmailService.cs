@@ -12,7 +12,6 @@ public class EmailService : IEmailService
         _settings = settings.Value;
     }
 
-
     public async Task SendCredentials(string username, string password, string recipientEmailAddress)
     {
         MimeMessage email = new MimeMessage();

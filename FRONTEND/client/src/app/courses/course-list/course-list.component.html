@@ -20,7 +20,7 @@
                 <ng-container matColumnDef="assign">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Przypisanie</th>
                     <td mat-cell *matCellDef="let row"> 
-                        <button class="btn btn-primary w-50 d-block mx-auto" (click)="raiseAssignToCourse(row.id)">
+                        <button class="btn btn-primary w-50 d-block mx-auto" (click)="raiseAssignToCourse(row)">
                             Zapisz się
                         </button>
                     </td>
@@ -29,7 +29,7 @@
                 <ng-container matColumnDef="unassign">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Przypisanie</th>
                     <td mat-cell *matCellDef="let row"> 
-                        <button class="btn btn-danger w-50 d-block mx-auto" (click)="raiseAssignToCourse(row.id)">
+                        <button class="btn btn-danger w-50 d-block mx-auto" (click)="raiseUnassignFromCourse(row)">
                             Wypisz się
                         </button>
                     </td>

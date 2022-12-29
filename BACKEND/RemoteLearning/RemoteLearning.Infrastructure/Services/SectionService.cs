@@ -35,21 +35,18 @@ public class SectionService : ISectionService
             return false;
         }
 
-        var course = await _unitOfWork.Sections.GetById(sectionId);
+        var section = await _unitOfWork.Sections.GetById(sectionId);
 
-        if (course != null)
+        if (section != null)
         {
-            if (await DoesUserHasPermission(course.Id, userId))
+            if (!await DoesUserHasPermission(section.CourseId, userId))
             {
-                throw new CreateSectionNoPermissionException("You do not have permissions to delete the course.");
+                throw new CreateSectionNoPermissionException("You do not have permissions to delete this section.");
             }
 
             await _unitOfWork.Sections.Delete(sectionId);
 
-            if (await _unitOfWork.SaveChangesAsync() != 0)
-            {
-                return true;
-            }
+            return await _unitOfWork.SaveChangesAsync() != 0;
         }
 
         return false;

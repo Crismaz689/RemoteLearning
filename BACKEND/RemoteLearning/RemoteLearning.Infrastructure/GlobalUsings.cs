@@ -36,7 +36,6 @@ global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.Extensions.Logging;
 global using RemoteLearning.Application.DTOs.Course;
 global using RemoteLearning.Infrastructure.Exceptions.Course;
-global using RemoteLearning.Application.DTOs.CourseUser;
 global using RemoteLearning.Infrastructure.Exceptions.CourseUser;
 global using RemoteLearning.Application.DTOs.Section;
 global using RemoteLearning.Infrastructure.Exceptions.Sections;

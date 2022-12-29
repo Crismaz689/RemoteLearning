@@ -9,7 +9,6 @@ public class MappingProfile : Profile
     {
         AddAccountMappings();
         AddCourseMappings();
-        AddCourseUserMappings();
         AddSectionMappings();
         AddFileMappings();
         AddTestMappings();
@@ -32,11 +31,6 @@ public class MappingProfile : Profile
     {
         CreateMap<CreateSectionDto, Section>();
         CreateMap<Section, SectionDto>();
-    }
-
-    private void AddCourseUserMappings()
-    {
-        CreateMap<CreateCourseUserDto, CourseUser>();
     }
 
     private void AddCourseMappings()

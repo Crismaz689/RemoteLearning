@@ -19,10 +19,10 @@ export class CourseListComponent implements OnInit {
   deleteEvent = new EventEmitter<number>();
 
   @Output()
-  assignEvent = new EventEmitter<number>();
+  assignEvent = new EventEmitter<ICourse>();
 
   @Output()
-  unassignEvent = new EventEmitter<number>();
+  unassignEvent = new EventEmitter<ICourse>();
 
   @Input() 
   courses$: Observable<ICourse[]> | undefined;
@@ -72,20 +72,25 @@ export class CourseListComponent implements OnInit {
     }
   }
 
-  raiseDeleteCourse(courseId: number): void {
-    const courseIndex = this.courses.findIndex((crs) => crs.id === courseId );
+  addCourse(course: ICourse): void {
+    this.courses.push(course);
+    console.log(this.courses);
+    this.refreshList();
+  }
 
-    this.courses.splice(courseIndex, 1);
-    this.dataSource = new MatTableDataSource(this.courses);
+  raiseDeleteCourse(courseId: number): void {
+    this.cutListElement(courseId);
     this.deleteEvent.emit(courseId);
   }
 
-  raiseAssignToCourse(courseId: number): void {
-    this.assignEvent.emit(courseId);
+  raiseAssignToCourse(course: ICourse): void {
+    this.cutListElement(course.id);
+    this.assignEvent.emit(course);
   }
 
-  raiseUnassignFromCourse(courseId: number): void {
-    this.unassignEvent.emit(courseId);
+  raiseUnassignFromCourse(course: ICourse): void {
+    this.cutListElement(course.id);
+    this.unassignEvent.emit(course);
   }
 
   getCreatorName(courseId: number): string {
@@ -96,6 +101,17 @@ export class CourseListComponent implements OnInit {
     }
 
     return "-";
+  }
+
+  private cutListElement(courseId: number): void {
+    const courseIndex = this.courses.findIndex((crs) => crs.id === courseId );
+
+    this.courses.splice(courseIndex, 1);
+    this.refreshList();
+  }
+
+  private refreshList(): void {
+    this.dataSource = new MatTableDataSource(this.courses);
   }
 
   private paginate(): void {

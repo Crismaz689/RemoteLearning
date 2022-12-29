@@ -13,7 +13,7 @@
             <h1 class="text-header text-dark">Kursy do których jestem zapisany(a)</h1>
         </div>
         <div class="col-12">
-            <app-course-list [courses$]="assignedCourses$" [courseType]="type.Assigned" (unassignEvent)="unassignFromCourse($event)"></app-course-list>
+            <app-course-list #courseList [courses$]="assignedCourses$" [courseType]="type.Assigned" (unassignEvent)="unassignFromCourse($event)"></app-course-list>
         </div>
     </div>
     
@@ -22,7 +22,7 @@
             <h1 class="text-header text-dark">Wyszukiwarka kursów</h1>
         </div>
         <div class="col-12">
-            <app-course-list [courses$]="allCourses$" [courseType]="type.All" (assignEvent)="assignToCourse($event)"></app-course-list>
+            <app-course-list #courseList [courses$]="allCourses$" [courseType]="type.All" (assignEvent)="assignToCourse($event)"></app-course-list>
         </div>
     </div>
 </div>

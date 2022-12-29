@@ -51,11 +51,11 @@ public class UserService : IUserService
 
         if (user == null)
         {
-            throw new InvalidUsernameException("Wprowadzono błędną nazwę użytkownika!");
+            throw new InvalidUsernameException("Wrong username.");
         }
         else if (string.IsNullOrEmpty(loginDto.Password))
         {
-            throw new EnteredNoPasswordException("Wprowadź hasło!");
+            throw new EnteredNoPasswordException("Enter password.");
         }
 
         using (var hmac = new HMACSHA512(user.PasswordSalt))
@@ -64,7 +64,7 @@ public class UserService : IUserService
 
             if (!computedHash.ToString()!.Equals(user.PasswordHash.ToString()))
             {
-                throw new InvalidPasswordException("Wprowadzono błędne hasło!");
+                throw new InvalidPasswordException("Incorrect password.");
             }
 
             var token = CreateToken(user);
@@ -181,24 +181,24 @@ public class UserService : IUserService
     {
         if (await IsEmailTaken(accountDto.Email))
         {
-            throw new EmailTakenException($"Na {accountDto.Email} jest już założone konto w serwisie!");
+            throw new EmailTakenException($"{accountDto.Email} is already registered in application.");
         }
 
         if (await IsPeselTaken(accountDto.Pesel))
         {
-            throw new PeselTakenException($"PESEL {accountDto.Pesel} widnieje juz w bazie!");
+            throw new PeselTakenException($"PESEL {accountDto.Pesel} already registered.");
         }
         else if (string.IsNullOrEmpty(accountDto.Pesel))
         {
-            throw new EnteredNoPeselException("Wymagane jest podanie numeru pesel!");
+            throw new EnteredNoPeselException("PESEL is required");
         }
         else if(accountDto.Pesel.Length != 11)
         {
-            throw new PeselLengthException("Pesel składa się z 11 cyfr!");
+            throw new PeselLengthException("PESEL contains 11 digits");
         }
         else if(!Regex.IsMatch(accountDto.Pesel, @"^\d+$") || !VerifyPesel(accountDto.Pesel))
         {
-            throw new PeselValueException($"Upewnij się, że podałeś prawidłowy numer pesel: {accountDto.Pesel}");
+            throw new PeselValueException($"Make sure you entered valid PESEL: {accountDto.Pesel}");
         }
 
 

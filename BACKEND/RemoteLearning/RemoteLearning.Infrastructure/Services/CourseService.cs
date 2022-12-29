@@ -30,9 +30,9 @@ public class CourseService : ICourseService
         return null;
     }
 
-    public async Task<IEnumerable<CourseDto>> GetAllCourses()
+    public async Task<IEnumerable<CourseDto>> GetAllCourses(string userId)
     {
-        var courses = await _unitOfWork.Courses.GetAllWithCreators();
+        var courses = await _unitOfWork.Courses.GetAllWithCreators(Convert.ToInt64(userId));
 
         return courses != null ?
             _mapper.Map<IEnumerable<CourseDto>>(courses): 
@@ -83,8 +83,9 @@ public class CourseService : ICourseService
     public async Task<CourseAllDataDto> GetCourseById(long courseId, string userId)
     {
         var assignments = await GetAssignedCourses(userId);
+        var creator = await _unitOfWork.Courses.GetWithCreator(courseId);
 
-        if (assignments.ToList().Any(course => course.Id == courseId) || await _unitOfWork.Courses.GetWithCreator(courseId) != null)
+        if (assignments.ToList().Any(course => course.Id == courseId) || (creator != null && creator.Id == Convert.ToInt64(userId)))
         {
             var course = await _unitOfWork.Courses.GetCourseAllData(courseId);
 

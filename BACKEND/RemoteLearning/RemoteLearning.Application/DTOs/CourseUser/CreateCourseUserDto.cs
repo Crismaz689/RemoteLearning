@@ -2,7 +2,5 @@
 
 public class CreateCourseUserDto
 {
-    public long UserId { get; set; }
-
-    public long CourseId { get; set; }
+    public long courseId { get; set; }
 }

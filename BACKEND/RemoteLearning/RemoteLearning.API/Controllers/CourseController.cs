@@ -22,7 +22,7 @@ public class CourseController : BaseApiController
 
     [HttpGet("")]
     [ProducesResponseType(typeof(IEnumerable<CourseDto>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() => Ok(await _courseService.GetAllCourses());
+    public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCourses() => Ok(await _courseService.GetAllCourses(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!));
 
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin, Tutor")]
