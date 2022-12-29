@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ICourse } from '../models/course';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseType } from 'src/app/_helpers/course.enum';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-course-list',
@@ -14,11 +15,22 @@ import { CourseType } from 'src/app/_helpers/course.enum';
 })
 export class CourseListComponent implements OnInit {
 
+  @Output()
+  deleteEvent = new EventEmitter<number>();
+
+  @Output()
+  assignEvent = new EventEmitter<number>();
+
+  @Output()
+  unassignEvent = new EventEmitter<number>();
+
   @Input() 
   courses$: Observable<ICourse[]> | undefined;
 
   @Input()
   courseType: CourseType = CourseType.My;
+
+  isSpinning: boolean = true;
 
   type = CourseType;
 
@@ -43,6 +55,8 @@ export class CourseListComponent implements OnInit {
       this.courses.sort((courseA, courseB) => { return courseA.id - courseB.id} );
       this.dataSource = new MatTableDataSource(this.courses);
       this.paginate();
+      
+      this.isSpinning = false;
     },
     (err) => {
       this.snackBar.open(this.getLoadingError(), '', { panelClass: ['text-white', 'bg-danger'] });
@@ -58,6 +72,32 @@ export class CourseListComponent implements OnInit {
     }
   }
 
+  raiseDeleteCourse(courseId: number): void {
+    const courseIndex = this.courses.findIndex((crs) => crs.id === courseId );
+
+    this.courses.splice(courseIndex, 1);
+    this.dataSource = new MatTableDataSource(this.courses);
+    this.deleteEvent.emit(courseId);
+  }
+
+  raiseAssignToCourse(courseId: number): void {
+    this.assignEvent.emit(courseId);
+  }
+
+  raiseUnassignFromCourse(courseId: number): void {
+    this.unassignEvent.emit(courseId);
+  }
+
+  getCreatorName(courseId: number): string {
+    const course = this.courses.find((course) => course.id === courseId);
+
+    if ((course.creatorFirstName !== null && course.creatorFirstName) != "" || (course.creatorSurname !== null && course.creatorSurname != "")) {
+      return `${course.creatorFirstName} ${course.creatorSurname}`;
+    }
+
+    return "-";
+  }
+
   private paginate(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -66,10 +106,13 @@ export class CourseListComponent implements OnInit {
   private initializeColumns(): void {
     switch (this.courseType) {
       case CourseType.My:
-        this.displayedColumns = ['get', 'name', 'description'];
+        this.displayedColumns = ['get', 'update', 'delete', 'name', 'description'];
+        break;
+      case CourseType.All:
+        this.displayedColumns = ['assign', 'name', 'description', 'creator'];
         break;
       default:
-        this.displayedColumns = ['get', 'name', 'description', 'creator'];
+        this.displayedColumns = ['get', 'unassign', 'name', 'description', 'creator'];
         break;
     }
   }

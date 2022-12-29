@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
 
   error: string = '';
 
+  isSpinning: boolean = false;
+
   loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -38,7 +40,8 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     const credentials: ILogin = this.loginForm.getRawValue();
-
+    this.isSpinning = true;
+    
     this.accountService.login(credentials).subscribe((user)=> {
       if (user) {
         this.accountService.setUser(user);

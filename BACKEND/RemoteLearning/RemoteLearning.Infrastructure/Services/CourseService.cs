@@ -22,7 +22,7 @@ public class CourseService : ICourseService
             await _unitOfWork.Courses.Create(course);
             if (await _unitOfWork.SaveChangesAsync() != 0)
             {
-                var fullCourse = await GetCourseById(course.Id);
+                var fullCourse = await GetCourseById(course.Id, userId);
                 return _mapper.Map<CourseDto>(fullCourse);
             }
         }
@@ -32,7 +32,7 @@ public class CourseService : ICourseService
 
     public async Task<IEnumerable<CourseDto>> GetAllCourses()
     {
-        var courses = await _unitOfWork.Courses.GetAll();
+        var courses = await _unitOfWork.Courses.GetAllWithCreators();
 
         return courses != null ?
             _mapper.Map<IEnumerable<CourseDto>>(courses): 
@@ -69,24 +69,39 @@ public class CourseService : ICourseService
 
         if (course == null)
         {
-            throw new CourseDoesNotExists("Kurs o takim id nie istnieje!");
+            throw new CourseDoesNotExistsException("Course with given id does not exist.");
         }
         else if (string.IsNullOrEmpty(userId) || Convert.ToInt64(userId) != course.CreatorId)
         {
-            throw new CourseMissingCreatorException("Nie mozesz wykonywać działań na kursie, który nie należy do Ciebie!");
+            throw new CourseMissingCreatorException("You cannot perform operations on course which not belongs to you.");
         }
 
         await _unitOfWork.Courses.Delete(courseId);
         return await _unitOfWork.SaveChangesAsync() != 0;
     }
 
-    public async Task<CourseDto> GetCourseById(long courseId)
+    public async Task<CourseAllDataDto> GetCourseById(long courseId, string userId)
     {
-        var course = await _unitOfWork.Courses.GetWithCreator(courseId);
+        var assignments = await GetAssignedCourses(userId);
 
-        return course != null ?
-            _mapper.Map<CourseDto>(course) :
-            null;
+        if (assignments.ToList().Any(course => course.Id == courseId) || await _unitOfWork.Courses.GetWithCreator(courseId) != null)
+        {
+            var course = await _unitOfWork.Courses.GetCourseAllData(courseId);
+
+            if (course == null)
+            {
+                throw new CourseDoesNotExistsException("Course with given id does not exist.");
+            }
+
+            return course != null ?
+                _mapper.Map<CourseAllDataDto>(course) :
+                null;
+        }
+        else
+        {
+            throw new CourseNotAssignedToException("You are not assigned to this course.");
+        }
+        
     }
 
     public async Task<CourseDto> Update(UpdateCourseDto courseDto, string userId)
@@ -95,7 +110,7 @@ public class CourseService : ICourseService
 
         if (course == null)
         {
-            throw new CourseDoesNotExists("Course with given id does not exist.");
+            throw new CourseDoesNotExistsException("Course with given id does not exist.");
         }
         else if (Convert.ToInt64(userId) != course.CreatorId)
         {

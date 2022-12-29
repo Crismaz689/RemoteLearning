@@ -8,8 +8,8 @@ public class CourseController : BaseApiController
     public CourseController(ICourseService courseService) => (_courseService) = (courseService);
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(CourseDto), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CourseDto>> Get(long id) => await _courseService.GetCourseById(id);
+    [ProducesResponseType(typeof(CourseAllDataDto), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CourseAllDataDto>> Get(long id) => await _courseService.GetCourseById(id, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
     [HttpGet("my-courses")]
     [Authorize(Roles = "Admin, Tutor")]

@@ -1,7 +1,7 @@
 ===== TASKS =====
 
 FRONT:
-- create view for courses (CRUD)
+- create view for courses (CRUD) - dokonczyc pliki, aby wejsc na kurs musi byc jego wlascicielem lub byc przypisanym, przypisanie i wypisanie, nie mozna sie zapisac do swojego kursu
 - create view for sections (CRUD)
 - .scss files (use variables etc)
 - style website
@@ -16,6 +16,10 @@ BACK:
 - nullable return types - fix
 - English exceptions
 - use cancellation token
+
+PROBLEMS:
+- pagination
+- errors on /course/{id} (strict mode only)
 
 GENERAL:
 - write down documentation stuff

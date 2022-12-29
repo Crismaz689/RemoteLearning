@@ -1,6 +1,4 @@
-﻿using RemoteLearning.Domain.Entities;
-
-namespace RemoteLearning.Infrastructure.Data.Repositories;
+﻿namespace RemoteLearning.Infrastructure.Data.Repositories;
 
 public class CourseRepository : BaseRepository<Course>, ICourseRepository
 {
@@ -22,4 +20,14 @@ public class CourseRepository : BaseRepository<Course>, ICourseRepository
         .Include(course => course.Creator)
         .ThenInclude(creator => creator.UserDetails)
         .SingleOrDefaultAsync(course => course.Id == courseId);
+
+    public async Task<Course> GetCourseAllData(long courseId) => await _context.Courses
+        .Include(course => course.Sections)
+        .ThenInclude(section => section.Files)
+        .SingleOrDefaultAsync(course => course.Id == courseId);
+
+    public async Task<IEnumerable<Course>> GetAllWithCreators() => await _context.Courses
+        .Include(course => course.Creator)
+        .ThenInclude(creator => creator.UserDetails)
+        .ToListAsync();
 }

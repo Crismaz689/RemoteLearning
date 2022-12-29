@@ -1,4 +1,7 @@
-﻿namespace RemoteLearning.Infrastructure.Helpers;
+﻿using RemoteLearning.Application.DTOs.File;
+using File = RemoteLearning.Domain.Entities.File;
+
+namespace RemoteLearning.Infrastructure.Helpers;
 
 public class MappingProfile : Profile
 {
@@ -8,6 +11,7 @@ public class MappingProfile : Profile
         AddCourseMappings();
         AddCourseUserMappings();
         AddSectionMappings();
+        AddFileMappings();
         AddTestMappings();
         AddTextQuestionMappings();
     }
@@ -40,9 +44,16 @@ public class MappingProfile : Profile
         CreateMap<Course, CourseDto>()
             .ForMember(dest => dest.CreatorFirstName, map => map.MapFrom(src => src.Creator.UserDetails.FirstName))
             .ForMember(dest => dest.CreatorSurname, map => map.MapFrom(src => src.Creator.UserDetails.Surname));
+        CreateMap<CourseAllDataDto, CourseDto>();
 
+        CreateMap<Course, CourseAllDataDto>();
         CreateMap<CreateCourseDto, Course>();
         CreateMap<UpdateCourseDto, Course>();
+    }
+
+    private void AddFileMappings()
+    {
+        CreateMap<File, FileDto>();
     }
 
     private void AddAccountMappings()

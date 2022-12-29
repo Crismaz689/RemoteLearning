@@ -22,7 +22,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import  {MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { getPolishPaginatorIntl } from './_helpers/polish.paginator.intl';
+import { CourseUpdateComponent } from './courses/course-update/course-update.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SectionsComponent } from './courses/sections/sections.component';
+import { FilesComponent } from './courses/sections/files/files.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,11 @@ import { getPolishPaginatorIntl } from './_helpers/polish.paginator.intl';
     CoursesComponent,
     CourseListComponent,
     CourseComponent,
-    CourseCreateComponent
+    CourseCreateComponent,
+    CourseUpdateComponent,
+    SpinnerComponent,
+    SectionsComponent,
+    FilesComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +59,7 @@ import { getPolishPaginatorIntl } from './_helpers/polish.paginator.intl';
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

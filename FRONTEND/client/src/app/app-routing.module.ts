@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './account/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { CourseCreateComponent } from './courses/course-create/course-create.component';
+import { CourseUpdateComponent } from './courses/course-update/course-update.component';
 import { CourseComponent } from './courses/course/course.component';
 import { CoursesComponent } from './courses/courses.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -34,7 +35,8 @@ const routes: Routes = [
       role: 'Tutor'
     },
     children: [
-      { path: 'courses/create', component: CourseCreateComponent }
+      { path: 'courses/create', component: CourseCreateComponent },
+      { path: 'courses/update/:id', component: CourseUpdateComponent }
     ]
   },
 

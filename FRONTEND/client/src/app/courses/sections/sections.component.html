@@ -1,0 +1,26 @@
+
+<button class="btn btn-success" routerLink="/courses/{{courseId}}/sections/create">
+    <i class="fa-solid fa-plus"></i>
+</button>
+
+<i class="fa-regular fa-user"></i>
+
+<div class="col-12 p-5" *ngFor="let section of sections">
+    <div class="d-flex">
+        <div>
+            <h3>{{ section?.name }}</h3>
+        </div>
+        <div class="align-self-center" style="margin-left: 0.3em;">
+            <button class="btn btn-warning" style="color: #fff;" routerLink="/courses/{{courseId}}/sections/create">
+                Edytuj
+            </button>
+            <button class="btn btn-danger" style="margin-left: 0.3em;" routerLink="/courses/{{courseId}}/sections/create">
+                Usun
+            </button>
+        </div>
+    </div>
+
+    <p> {{ section?.description }}</p>
+    <app-files [files]="section.files"></app-files>
+    <hr>
+</div>

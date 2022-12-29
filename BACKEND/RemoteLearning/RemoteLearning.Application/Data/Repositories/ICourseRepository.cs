@@ -2,7 +2,11 @@
 
 public interface ICourseRepository : IBaseRepository<Course>
 {
+    Task<Course> GetCourseAllData(long courseId);
+
     Task<Course> GetWithCreator(long courseId);
+
+    Task<IEnumerable<Course>> GetAllWithCreators();
 
     Task<IEnumerable<Course>> GetMyCourses(long userId);
 

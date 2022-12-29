@@ -12,7 +12,43 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Podgląd</th>
                     <td mat-cell *matCellDef="let row"> 
                         <button class="btn btn-secondary w-50 d-block mx-auto" routerLink="/courses/{{row.id}}">
-                            Wejdź w kurs
+                            Zobacz
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="assign">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Przypisanie</th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button class="btn btn-primary w-50 d-block mx-auto" (click)="raiseAssignToCourse(row.id)">
+                            Zapisz się
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="unassign">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Przypisanie</th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button class="btn btn-danger w-50 d-block mx-auto" (click)="raiseAssignToCourse(row.id)">
+                            Wypisz się
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="update" *ngIf="courseType === type.My">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Aktualizacja</th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button class="btn btn-warning w-50 d-block mx-auto" style="color: #fff;" routerLink="/courses/update/{{row.id}}">
+                            Aktualizuj
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete" *ngIf="courseType === type.My">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Usunięcie</th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button class="btn btn-danger w-50 d-block mx-auto" (click)="raiseDeleteCourse(row.id)">
+                            Usuń
                         </button>
                     </td>
                 </ng-container>
@@ -24,24 +60,25 @@
         
                 <ng-container matColumnDef="description">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Opis </th>
-                    <td mat-cell *matCellDef="let row" class="text-center"> {{ row.description ?? '-' }} </td>
+                    <td mat-cell *matCellDef="let row" class="text-center"> {{ (row.description !== "") ? row.description : "-" }} </td>
                 </ng-container>
         
                 <ng-container *ngIf="courseType === type.Assigned || courseType === type.All" matColumnDef="creator">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Założyciel </th>
-                    <td mat-cell *matCellDef="let row" class="text-center"> {{ row.creatorFirstName }} {{ row.creatorSurname }}</td>
+                    <td mat-cell *matCellDef="let row" class="text-center"> {{ getCreatorName(row.id) }}</td>
                 </ng-container>
         
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         
                 <tr class="mat-row" *matNoDataRow>
-                <td *ngIf="courseType === type.My" class="mat-cell" colspan="5">Żadne dane nie spełniają kryterium: "{{input.value}}"</td>
+                <td *ngIf="courseType === type.My" class="mat-cell" colspan="7">Żadne dane nie spełniają kryterium: "{{input.value}}"</td>
+                <td *ngIf="courseType === type.All" class="mat-cell" colspan="5">Żadne dane nie spełniają kryterium: "{{input.value}}"</td>
                 <td *ngIf="courseType === type.Assigned" class="mat-cell" colspan="4">Żadne dane nie spełniają kryterium: "{{input.value}}"</td>
                 </tr>
             </table>
         
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Wybierz stronę"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[2, 10, 25, 100]" aria-label="Wybierz stronę"></mat-paginator>
         </div>
     </ng-container>
 
@@ -53,3 +90,5 @@
         </div>
     </ng-template>
 </div>
+
+<app-spinner [isSpinning]="isSpinning"></app-spinner>

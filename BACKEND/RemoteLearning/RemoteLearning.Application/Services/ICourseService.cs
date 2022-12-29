@@ -4,7 +4,7 @@ public interface ICourseService
 {
     Task<IEnumerable<CourseDto>> GetAllCourses();
 
-    Task<CourseDto> GetCourseById(long courseId);
+    Task<CourseAllDataDto> GetCourseById(long courseId, string userId);
 
     Task<IEnumerable<CourseDto>> GetMyCourses(string userId);
 

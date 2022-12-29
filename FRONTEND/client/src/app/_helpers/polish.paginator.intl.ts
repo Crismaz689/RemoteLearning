@@ -2,7 +2,7 @@ import { MatPaginatorIntl } from "@angular/material/paginator";
 
 const polishRangeLabel = (page: number, pageSize: number, length: number) => {
     if (length == 0 || pageSize == 0) {
-      return `1 z ${length+1} stron`;
+      return `1 z ${length + 1} stron`;
     }
   
     length = Math.max(length, 0);
