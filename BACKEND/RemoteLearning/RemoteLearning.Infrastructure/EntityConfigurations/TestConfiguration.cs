@@ -16,5 +16,14 @@ public class TestConfiguration : IEntityTypeConfiguration<Test>
 
         builder.Property(p => p.TimeMinutes)
             .IsRequired();
+
+        builder.HasOne<Course>(t => t.Course)
+            .WithMany(c => c.Tests)
+            .HasForeignKey(t => t.CourseId);
+
+        builder.HasOne<User>(t => t.Creator)
+            .WithMany(u => u.Tests)
+            .HasForeignKey(t => t.CreatorId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

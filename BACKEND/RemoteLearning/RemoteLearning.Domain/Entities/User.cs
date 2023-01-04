@@ -19,4 +19,8 @@ public class User : BaseEntity
     public virtual ICollection<Course> Courses { get; set; }
 
     public virtual ICollection<CourseUser> CourseUsers { get; set; }
+
+    public virtual ICollection<Test> Tests { get; set; }
+
+    public virtual ICollection<TextQuestion> TextQuestions { get; set; }
 }

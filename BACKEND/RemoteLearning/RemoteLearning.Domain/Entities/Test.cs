@@ -8,6 +8,14 @@ public class Test : BaseEntity
 
     public int TimeMinutes { get; set; }
 
+    public virtual Course Course { get; set; }
+
+    public long CourseId { get; set; }
+
+    public virtual User Creator { get; set; }
+
+    public long CreatorId { get; set; }
+
     public virtual Grade? Grade { get; set; }
 
     public long? GradeId { get; set; }
