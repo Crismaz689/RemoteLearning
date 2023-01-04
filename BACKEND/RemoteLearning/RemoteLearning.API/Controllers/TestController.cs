@@ -4,10 +4,7 @@
 public class TestController : BaseApiController
 {
     private readonly ITestService _testService;
-    public TestController(ITestService testService)
-    {
-        _testService = testService;
-    }
+    public TestController(ITestService testService) => (_testService) = (testService);
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(TestDto), (int)HttpStatusCode.OK)]

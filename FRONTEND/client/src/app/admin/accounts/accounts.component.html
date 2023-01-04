@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-header text-danger">Zarządzanie kontami</h1>
+    </div>
+    <div class="col-12">&nbsp;</div>
+    <div class="col-12 text-center">
+        <button class="btn btn-primary btn-gradient" style="color: #fff; font-size: 3em;" routerLink="/admin/accounts/generate">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <span class="mx-2 h4">Wygeneruj konta użytkowników</span>
+    </div>
+    <div class="col-12">
+        <app-accounts-list [accounts$]="allAccounts$"></app-accounts-list>
+    </div>
+</div>

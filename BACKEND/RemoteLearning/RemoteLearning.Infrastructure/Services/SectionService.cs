@@ -61,14 +61,9 @@ public class SectionService : ISectionService
             null;
     }
 
-    public async Task<SectionDto> UpdateSection(UpdateSectionDto sectionDto, string userId)
+    public async Task<SectionDto> UpdateSection(UpdateSectionDto sectionDto, long sectionId, string userId)
     {
-        if (sectionDto.Id <= 0)
-        {
-            return null;
-        }
-
-        var course = await _unitOfWork.Sections.GetById(sectionDto.Id);
+        var course = await _unitOfWork.Sections.GetById(sectionId);
 
         if (course != null)
         {
@@ -77,10 +72,10 @@ public class SectionService : ISectionService
                 throw new CreateSectionNoPermissionException("You do not have permissions to update the course.");
             }
 
-            var section = await _unitOfWork.Sections.GetById(sectionDto.Id);
+            var section = await _unitOfWork.Sections.GetById(sectionId);
             section.Name = sectionDto.Name;
             section.Description = sectionDto.Description;
-            section.ScheduleDate = sectionDto.ScheduleDate;
+            section.ScheduleDate = sectionDto.Date;
             section.ModificationDate = DateTime.Now;
 
             await _unitOfWork.Sections.Update(section);

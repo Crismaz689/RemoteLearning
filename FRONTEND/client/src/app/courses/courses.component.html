@@ -3,7 +3,7 @@
         <div class="col-12">
             <h1 class="text-header text-dark">Moje kursy</h1>
         </div>
-        <div class="col-12">
+        <div class="col-12" >
             <app-course-list [courses$]="myCourses$" [courseType]="type.My" (deleteEvent)="deleteCourse($event)"></app-course-list>
         </div>
     </div>

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ILogin } from '../account/models/login';
 import { IUser } from '../account/models/User';
+import { IAccount } from '../admin/models/account';
+import { ICreateAccount } from '../admin/models/account-create';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,18 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  getAllAccounts(): Observable<IAccount[]> {
+    return this.http.get<IAccount[]>(this.url + 'accounts/');
+  }
+
+  deleteAccount(accountId: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.url + 'accounts/' + accountId);
+  }
+
+  createAccounts(accounts: ICreateAccount[]): Observable<boolean> {
+    return this.http.post<boolean>(this.url + 'accounts/', accounts);
+  }
 
   login(credentials: ILogin): Observable<IUser> {
     return this.http.post<IUser>(this.url + 'accounts/login', credentials);

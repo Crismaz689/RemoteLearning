@@ -21,6 +21,10 @@ export class CourseComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.initCourse();
+  }
+
+  initCourse(): void {
     const courseId: number = (this.route.snapshot.paramMap.get('id') ?? 0) as number;
     this.courseService.getCourse(courseId).subscribe((course) => {
       if (course) {

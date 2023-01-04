@@ -74,7 +74,6 @@ export class CourseListComponent implements OnInit {
 
   addCourse(course: ICourse): void {
     this.courses.push(course);
-    console.log(this.courses);
     this.refreshList();
   }
 

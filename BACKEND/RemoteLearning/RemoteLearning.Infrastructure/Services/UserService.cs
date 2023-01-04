@@ -14,6 +14,23 @@ public class UserService : IUserService
     public UserService(IUnitOfWork unitOfWork, IEmailService emailService, IMapper mapper, IOptions<AppSettings> settings)
         => (_unitOfWork, _emailService, _mapper, _settings) = (unitOfWork, emailService, mapper, settings.Value);
 
+    public async Task<bool> DeleteUser(long userId)
+    {
+        await _unitOfWork.Users.Delete(userId);
+
+        return await _unitOfWork.SaveChangesAsync() != 0;
+    }
+
+
+    public async Task<IEnumerable<UserDetailedDto>> GetAllUsers()
+    {
+        var users = await _unitOfWork.Users.GetAllUsersWithDetails();
+
+        return users.ToList().Count == 0 ?
+            Enumerable.Empty<UserDetailedDto>() :
+            _mapper.Map<IEnumerable<UserDetailedDto>>(users);
+    }
+
     public async Task<bool> CreateUsers(IEnumerable<CreateAccountDto> accountDtos)
     {
         foreach(var dto in accountDtos)
@@ -227,5 +244,4 @@ public class UserService : IUserService
     private async Task<bool> IsPeselTaken(string pesel) => await _unitOfWork.UsersDetails.GetUserByPesel(pesel) != null;
 
     private async Task<bool> IsUsernameTaken(string username) => await _unitOfWork.Users.GetUserByLogin(username) != null;
-
 }

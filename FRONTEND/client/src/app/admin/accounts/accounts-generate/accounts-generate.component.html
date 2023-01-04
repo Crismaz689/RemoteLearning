@@ -1,0 +1,83 @@
+<form [formGroup]="createAccountForm">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-header text-dark">Tworzenie konto dla użytkownika o podanych danych</h1>
+        </div>
+        <div class="col-12 text-center">
+            <label class="mb-1" for="firstName">Imię</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="firstName" id="firstName" placeholder="Imię" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createAccountForm.controls['firstName'].errors?.['required'] && createAccountForm.controls['firstName'].touched)
+                ||
+                (createAccountForm.controls['firstName'].errors?.['minlength'] && createAccountForm.controls['firstName'].touched)">
+                Imie nie może mieć mniej niż 3 litery
+            </p>
+        </div>
+
+        <div class="col-12 text-center mt-3">
+            <label class="mb-1" for="surname">Nazwisko</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="surname" id="surname" placeholder="Nazwisko" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createAccountForm.controls['surname'].errors?.['required'] && createAccountForm.controls['surname'].touched)
+                ||
+                (createAccountForm.controls['surname'].errors?.['minlength'] && createAccountForm.controls['surname'].touched)">
+                Nazwisko nie może mieć mniej niż 3 litery
+            </p>
+        </div>
+
+        <div class="col-12 text-center mt-3">
+            <label class="mb-1" for="pesel">PESEL</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="pesel" id="pesel" placeholder="PESEL" required maxlength="11">
+            <p class="text-danger mt-1"
+                *ngIf="(createAccountForm.controls['pesel'].errors?.['required'] && createAccountForm.controls['pesel'].touched)
+                ||
+                (createAccountForm.controls['pesel'].errors?.['minlength'] && createAccountForm.controls['pesel'].touched)">
+                PESEL składa się z 11 cyfr
+            </p>
+        </div>
+
+        <div class="col-12 text-center mt-3">
+            <label class="mb-1" for="birthdayDate">Data urodzenia</label>
+            <input type="date" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="birthdayDate" id="birthdayDate" placeholder="Data urodzenia" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createAccountForm.controls['birthdayDate'].errors?.['required'] && createAccountForm.controls['birthdayDate'].touched)">
+                Data urodzenia jest obowiązkowa
+            </p>
+        </div>
+
+        <div class="col-12 text-center mt-3">
+            <label class="mb-1" for="email">Email</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="email" id="email" placeholder="Email" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createAccountForm.controls['email'].errors?.['required'] && createAccountForm.controls['email'].touched)
+                ||
+                (createAccountForm.controls['email'].errors?.['email'] && createAccountForm.controls['email'].touched)">
+                Przykładowy poprawny adres email nazwa@domena.pl
+            </p>
+        </div>
+
+        <div class="col-12 text-center mt-3">
+            <label class="mb-1" for="roleId">Rola</label>
+            <br />
+            <select class="w-50 d-block mx-auto rounded form-select text-center" formControlName="roleId" id="roleId">
+                <option value="2" selected>Uczeń</option>
+                <option value="3">Nauczyciel</option>
+            </select>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-success w-25 py-3 fw-bold h1 d-block mx-auto mt-4" [disabled]="!createAccountForm.valid" (click)="addAccount()">Dodaj konto</button>
+        </div>
+        <div class="col-12 text-center mt-5" *ngIf="accountsToCreate.length > 0">
+            <h3>Konta na liście do dodania</h3>
+            <div class="w-50 mx-auto">
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let account of accountsToCreate" class="list-group-item">{{ account.firstName }} {{ account.surname }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="accountsToCreate.length > 0">
+            <button class="btn btn-success w-25 py-3 fw-bold h1 d-block mx-auto mt-4" (click)="createAccounts()">Stwórz dodane konta</button>
+        </div>
+    </div>
+</form>

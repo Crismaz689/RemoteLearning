@@ -4,15 +4,7 @@
         <p>{{course?.description}}</p>
     </div>
 
-    <ng-container *ngIf="course?.sections?.length > 0; else noSections">
-        <app-sections [sections]="course.sections" [courseId]="course?.id"></app-sections>
-    </ng-container>
-
-    <ng-template #noSections>
-        <div class="col-12 text-center">
-            Kurs nie posiada jeszcze żadnej sekcji.
-        </div>
-    </ng-template>
+    <app-sections [sections]="course?.sections" [courseId]="course?.id" [creatorId]="course?.creatorId" (sectionCreatedEvent)="initCourse()" (sectionUpdatedEvent)="initCourse()"></app-sections>
 </div>
 
 <app-spinner [isSpinning]="isSpinning"></app-spinner>

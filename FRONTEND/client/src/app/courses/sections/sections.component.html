@@ -1,26 +1,37 @@
-<div class="row p-5">
-    <div class="col-1 my-5">
-        <button class="btn btn-success" (click)="createSection()">
+<div class="row text-center" *ngIf="creatorId === currentUser.id">
+    <div class="col-12 my-5">
+        <button class="btn btn-success" (click)="openCreateSectionDialog()">
             <i class="fa-solid fa-plus"></i>
         </button>
+        Dodaj sekcję
     </div>
+</div>
+<div class="row p-5" *ngIf="sections?.length > 0; else noSections">
     <div class="col-12" *ngFor="let section of sections">
         <div class="d-flex">
-            <div>
-                <h3>{{ section?.name }}</h3>
-            </div>
-            <div class="align-self-center" style="margin-left: 0.3em;">
-                <button class="btn btn-warning" style="color: #fff;" (click)="editSection(section)">
+            <div *ngIf="creatorId === currentUser.id" class="align-self-center">
+                <button class="btn btn-warning" style="color: #fff;" (click)="openEditSectionDialog(section)">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
                 <button class="btn btn-danger" style="margin-left: 0.3em;" (click)="deleteSection(section.id)">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
+            <div style="margin-left: 0.3em;">
+                <h3> {{ section?.name }}</h3>
+            </div>
+            <div style="margin-left: auto;">
+                <h3>[ {{section?.date | date: 'dd/MM/yyyy' }} ]</h3>
+            </div>
         </div>
-
         <p> {{section?.description}}</p>
         <app-files [files]="section.files"></app-files>
         <hr />
     </div>
 </div>
+
+<ng-template #noSections>
+    <div class="col-12 text-center">
+        Kurs nie posiada jeszcze żadnej sekcji.
+    </div>
+</ng-template>

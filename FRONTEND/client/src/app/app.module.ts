@@ -22,13 +22,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import  {MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { getPolishPaginatorIntl } from './_helpers/polish.paginator.intl';
 import { CourseUpdateComponent } from './courses/course-update/course-update.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SectionsComponent } from './courses/sections/sections.component';
 import { FilesComponent } from './courses/sections/files/files.component';
 import { SectionCreateComponent } from './courses/sections/section-create/section-create.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SectionUpdateComponent } from './courses/sections/section-update/section-update.component';
+import { AccountsComponent } from './admin/accounts/accounts.component';
+import { AccountsGenerateComponent } from './admin/accounts/accounts-generate/accounts-generate.component';
+import { AccountsListComponent } from './admin/accounts/accounts-list/accounts-list.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,11 @@ import { SectionCreateComponent } from './courses/sections/section-create/sectio
     SpinnerComponent,
     SectionsComponent,
     FilesComponent,
-    SectionCreateComponent
+    SectionCreateComponent,
+    SectionUpdateComponent,
+    AccountsComponent,
+    AccountsGenerateComponent,
+    AccountsListComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +70,8 @@ import { SectionCreateComponent } from './courses/sections/section-create/sectio
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

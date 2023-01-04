@@ -1,15 +1,15 @@
-<h1 mat-dialog-title>Tworzenie sekcji</h1>
+<h1 mat-dialog-title>Aktualizacja sekcji "{{ selectedSection?.name }}" z {{ selectedSection?.date | date: 'dd/MM/yyyy'}}</h1>
 <hr />
-<form [formGroup]="createSectionForm">
+<form [formGroup]="editSectionForm">
     <mat-dialog-content class="mat-typography">
     <div class="row">
         <div class="col-12 text-center">
             <label class="mb-1" for="sectionName">Nazwa sekcji</label>
             <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="name" id="sectionName" placeholder="Nazwa sekcji" required>
             <p class="text-danger mt-1"
-                *ngIf="(createSectionForm.controls['name'].errors?.['required'] && createSectionForm.controls['name'].touched)
+                *ngIf="(editSectionForm.controls['name'].errors?.['required'] && editSectionForm.controls['name'].touched)
                 ||
-                (createSectionForm.controls['name'].errors?.['minlength'] && createSectionForm.controls['name'].touched)">
+                (editSectionForm.controls['name'].errors?.['minlength'] && editSectionForm.controls['name'].touched)">
                 Nazwa sekcji musi składać się z co najmniej 3 znaków
             </p>
         </div>
@@ -21,7 +21,7 @@
             <label class="mb-1" for="sectionDate">Data sekcji</label>
             <input type="date" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="date" id="sectionDate" placeholder="Data sekcji" required>
             <p class="text-danger mt-1"
-                *ngIf="(createSectionForm.controls['date'].errors?.['required'] && createSectionForm.controls['date'].touched)">
+                *ngIf="(editSectionForm.controls['date'].errors?.['required'] && editSectionForm.controls['date'].touched)">
                 Sekcja musi mieć wyznaczoną datę realizacji
             </p>
         </div>
@@ -29,6 +29,6 @@
     </mat-dialog-content>
     <mat-dialog-actions class="mt-5 d-flex justify-content-end">
     <button class="btn btn-danger d-block w-25" [mat-dialog-close]="false">Anuluj</button>
-    <button class="btn btn-success d-block w-25 mx-3" (click)="createSection()" [mat-dialog-close]="true" [disabled]="!createSectionForm.valid">Stwórz sekcję</button>
+    <button class="btn btn-success d-block w-25 mx-3" (click)="editSection()" [mat-dialog-close]="true" [disabled]="!editSectionForm.valid">Zaktualizuj sekcję</button>
     </mat-dialog-actions>
 </form>

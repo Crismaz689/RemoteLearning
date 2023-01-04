@@ -11,5 +11,7 @@ public class SectionDto
 
     public string Description { get; set; }
 
+    public DateTime Date { get; set; }
+
     public IEnumerable<FileDto> Files { get; set; }
 }

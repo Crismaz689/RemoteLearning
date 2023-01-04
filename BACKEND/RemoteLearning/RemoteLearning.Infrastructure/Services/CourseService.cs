@@ -85,7 +85,7 @@ public class CourseService : ICourseService
         var assignments = await GetAssignedCourses(userId);
         var creator = await _unitOfWork.Courses.GetWithCreator(courseId);
 
-        if (assignments.ToList().Any(course => course.Id == courseId) || (creator != null && creator.Id == Convert.ToInt64(userId)))
+        if (assignments.ToList().Any(course => course.Id == courseId) || (creator != null && creator.CreatorId == Convert.ToInt64(userId)))
         {
             var course = await _unitOfWork.Courses.GetCourseAllData(courseId);
 

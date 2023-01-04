@@ -6,7 +6,7 @@ public class CreateSectionDto
 
     public string? Description { get; set; }
 
-    public DateTime ScheduleDate { get; set; }
+    public DateTime Date { get; set; }
 
     public long CourseId { get; set; }
 }

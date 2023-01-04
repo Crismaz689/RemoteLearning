@@ -1,8 +1,7 @@
 ===== TASKS =====
 
 FRONT:
-- create view for sections (CRUD) - dialogs
-- create view for files - dialogd
+- create view for files - dialog
 - .scss files (use variables etc)
 - style website
 
@@ -19,7 +18,7 @@ PROBLEMS:
 - session (login)
 - pagination
 - errors on /course/{id} (strict mode only)
-- bottom scroll (course view)
+- bottom scroll (course view, accounts management)
 
 GENERAL:
 - write down documentation stuff

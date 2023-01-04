@@ -8,5 +8,5 @@ public interface ISectionService
 
     Task<SectionDto> CreateSection(CreateSectionDto sectionDto, string userId);
 
-    Task<SectionDto> UpdateSection(UpdateSectionDto sectionDto, string userId);
+    Task<SectionDto> UpdateSection(UpdateSectionDto sectionDto, long sectionId, string userId);
 }

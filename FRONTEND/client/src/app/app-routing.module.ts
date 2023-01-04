@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './account/login/login.component';
+import { AccountsGenerateComponent } from './admin/accounts/accounts-generate/accounts-generate.component';
+import { AccountsComponent } from './admin/accounts/accounts.component';
 import { AdminComponent } from './admin/admin.component';
 import { CourseCreateComponent } from './courses/course-create/course-create.component';
 import { CourseUpdateComponent } from './courses/course-update/course-update.component';
@@ -23,6 +26,8 @@ const routes: Routes = [
     },
     children: [
       { path: 'admin', component: AdminComponent },
+      { path: 'admin/accounts', component: AccountsComponent },
+      { path: 'admin/accounts/generate', component: AccountsGenerateComponent }
     ]
   },
 

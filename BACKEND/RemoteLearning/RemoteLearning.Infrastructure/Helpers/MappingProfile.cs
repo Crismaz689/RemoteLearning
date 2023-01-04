@@ -29,8 +29,11 @@ public class MappingProfile : Profile
 
     private void AddSectionMappings()
     {
-        CreateMap<CreateSectionDto, Section>();
-        CreateMap<Section, SectionDto>();
+        CreateMap<CreateSectionDto, Section>()
+            .ForMember(dest => dest.ScheduleDate, map => map.MapFrom(src => src.Date));
+
+        CreateMap<Section, SectionDto>()
+            .ForMember(dest => dest.Date, map => map.MapFrom(src => src.ScheduleDate));
     }
 
     private void AddCourseMappings()
@@ -55,5 +58,11 @@ public class MappingProfile : Profile
         CreateMap<CreateAccountDto, UserDetails>();
         CreateMap<User, UserDto>()
             .ForMember(dest => dest.RoleName, map => map.MapFrom(src => src.Role.Name));
+
+        CreateMap<User, UserDetailedDto>()
+            .ForMember(dest => dest.FirstName, map => map.MapFrom(src => src.UserDetails.FirstName))
+            .ForMember(dest => dest.Surname, map => map.MapFrom(src => src.UserDetails.Surname))
+            .ForMember(dest => dest.Pesel, map => map.MapFrom(src => src.UserDetails.Pesel))
+            .ForMember(dest => dest.Email, map => map.MapFrom(src => src.UserDetails.Email));
     }
 }

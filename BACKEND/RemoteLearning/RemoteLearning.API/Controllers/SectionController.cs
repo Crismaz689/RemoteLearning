@@ -21,8 +21,8 @@ public class SectionController : BaseApiController
     [ProducesResponseType(typeof(SectionDto), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<SectionDto>> Create(CreateSectionDto sectionDto) => await _sectionService.CreateSection(sectionDto, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
-    [HttpPut]
+    [HttpPut("{id}")]
     [Authorize(Roles = "Admin, Tutor")]
     [ProducesResponseType(typeof(SectionDto), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<SectionDto>> Update(UpdateSectionDto sectionDto) => await _sectionService.UpdateSection(sectionDto, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+    public async Task<ActionResult<SectionDto>> Update(UpdateSectionDto sectionDto, long id) => await _sectionService.UpdateSection(sectionDto, id, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 }

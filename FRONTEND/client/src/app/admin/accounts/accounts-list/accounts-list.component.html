@@ -1,0 +1,66 @@
+<div class="row" class="course-list-container mt-5">
+    <div class="col-8 offset-2">
+        <mat-form-field class="w-100">
+            <mat-label>Wyszukiwarka</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="np. Jan Kowalski" #input>
+          </mat-form-field>
+          
+          <div class="mat-elevation-z8" style="background: #FFF6F3;">
+            <table mat-table [dataSource]="dataSource" matSort class="w-100">
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Usunięcie </th>
+                <td mat-cell *matCellDef="let row" class="text-center">
+                    <button class="btn btn-danger w-50 d-block mx-auto" (click)="deleteAccount(row.id)">
+                        Usuń
+                    </button>    
+                </td>
+            </ng-container>
+          
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Imię </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{row.firstName}} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Nazwisko </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{row.surname}} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="pesel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> PESEL </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{row.pesel}} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> E-mail </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{row.email}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="{'background': row.roleId === 1 ? '#DA6F64' : 
+              row.roleId === 2 ? '#97EA96' : '#7DADEB'}"></tr>
+          
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="5">Żadne dane nie spełniają kryterium: "{{input.value}}"</td>
+              </tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Wybierz stronę"></mat-paginator>
+          </div>
+    </div>
+    <div class="col-12 mt-5 d-flex align-items-center justify-content-center">
+        <div style="width: 16px; height: 16px; background: #DA6F64;"></div>
+        <div>&nbsp;&nbsp;&nbsp;- administratorzy</div>
+    </div>
+    <div class="col-12 d-flex align-items-center justify-content-center">
+        <div style="width: 16px; height: 16px; background: #97EA96;"></div>
+        <div>&nbsp;&nbsp;&nbsp;- uczniowie</div>
+    </div>
+    <div class="col-12 d-flex align-items-center justify-content-center">
+        <div style="width: 16px; height: 16px; background: #7DADEB;"></div>
+        <div>&nbsp;&nbsp;&nbsp;- nauczyciele</div>
+    </div>
+</div>
+
+<app-spinner [isSpinning]="isSpinning"></app-spinner>
