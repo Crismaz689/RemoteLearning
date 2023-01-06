@@ -11,4 +11,6 @@ public class CourseAllDataDto
     public long CreatorId { get; set; }
 
     public IEnumerable<SectionDto> Sections { get; set; }
+
+    public IEnumerable<TestDto> Tests { get; set; }
 }

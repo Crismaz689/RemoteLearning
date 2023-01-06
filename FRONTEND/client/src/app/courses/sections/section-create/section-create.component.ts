@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SectionService } from 'src/app/_services/section.service';
-import { ISection } from '../../models/sections/section';
 import { ISectionCreate } from '../../models/sections/section-create';
 
 @Component({

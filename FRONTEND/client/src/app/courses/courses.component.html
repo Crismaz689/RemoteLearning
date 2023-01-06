@@ -1,7 +1,13 @@
 <div class="container">
     <div class="row" *ngIf="userRole >= role.Tutor">
-        <div class="col-12">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <button class="btn btn-success" routerLink="/courses/create">
+                <i class="fa-solid fa-plus"></i>
+            </button>
             <h1 class="text-header text-dark">Moje kursy</h1>
+            <button class="btn btn-success" routerLink="/courses/create">
+                <i class="fa-solid fa-plus"></i>
+            </button>
         </div>
         <div class="col-12" >
             <app-course-list [courses$]="myCourses$" [courseType]="type.My" (deleteEvent)="deleteCourse($event)"></app-course-list>

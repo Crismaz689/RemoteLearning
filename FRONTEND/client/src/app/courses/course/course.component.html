@@ -1,9 +1,10 @@
-<div class="row">
-    <div class="col-12 text-center my-5">
+<div class="row w-100">
+    <div class="col-12 text-center my-5" style="padding-right: 0!important; margin-right: 0!important;">
         <h1>{{course?.name}}</h1>
         <p>{{course?.description}}</p>
     </div>
 
+    <app-tests [tests]="course?.tests" [courseId]="course?.id" [creatorId]="course?.creatorId" (testCreatedEvent)="initCourse()" (testUpdatedEvent)="initCourse()" (questionCreatedEvent)="initCourse()"></app-tests>
     <app-sections [sections]="course?.sections" [courseId]="course?.id" [creatorId]="course?.creatorId" (sectionCreatedEvent)="initCourse()" (sectionUpdatedEvent)="initCourse()"></app-sections>
 </div>
 

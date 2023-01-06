@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>Tworzenie pytania</h1>
+<hr />
+<form [formGroup]="editTextQuestionForm">
+    <mat-dialog-content class="mat-typography">
+    <div class="row">
+
+        <!-- TITLE -->
+        <div class="col-12 mt-2 text-center">
+            <label class="mb-1" for="title">Pytanie</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="title" id="title" placeholder="Pytanie" required>
+            <p class="text-danger mt-1"
+                *ngIf="(editTextQuestionForm.controls['title'].errors?.['required'] && editTextQuestionForm.controls['title'].touched)
+                ||
+                (editTextQuestionForm.controls['title'].errors?.['minlength'] && editTextQuestionForm.controls['title'].touched)">
+                Pytanie musi mieć przynajmniej 5 znaków.
+            </p>
+        </div>
+
+        <!-- CORRECT ANSWER -->
+        <div class="col-12 mt-2 text-center">
+            <label class="mb-1" for="correctAnswer">Poprawna odpowiedź</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="correctAnswer" id="correctAnswer" placeholder="Poprawne odpowiedź" required>
+            <p class="text-danger mt-1"
+                *ngIf="(editTextQuestionForm.controls['correctAnswer'].errors?.['required'] && editTextQuestionForm.controls['correctAnswer'].touched)">
+                Pole wymagane
+            </p>
+        </div>
+
+        <!-- WRONG ANSWER A -->
+        <div class="col-12 mt-2 text-center">
+            <label class="mb-1" for="wrongAnswerA">Pierwsza niepoprawna odpowiedź</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="wrongAnswerA" id="wrongAnswerA" placeholder="Pierwsza niepoprawna odpowiedź" required>
+            <p class="text-danger mt-1"
+                *ngIf="(editTextQuestionForm.controls['wrongAnswerA'].errors?.['required'] && editTextQuestionForm.controls['wrongAnswerA'].touched)">
+                Pole wymagane
+            </p>
+        </div>
+
+        <!-- WRONG ANSWER B -->
+        <div class="col-12 mt-2 text-center">
+            <label class="mb-1" for="wrongAnswerB">Druga niepoprawna odpowiedź</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="wrongAnswerB" id="wrongAnswerB" placeholder="Druga niepoprawna odpowiedź" required>
+            <p class="text-danger mt-1"
+                *ngIf="(editTextQuestionForm.controls['wrongAnswerB'].errors?.['required'] && editTextQuestionForm.controls['wrongAnswerB'].touched)">
+                Pole wymagane
+            </p>
+        </div>
+
+        <!-- WRONG ANSWER C -->
+        <div class="col-12 mt-2 text-center">
+            <label class="mb-1" for="wrongAnswerC">Trzecia niepoprawna odpowiedź</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="wrongAnswerC" id="wrongAnswerC" placeholder="Trzecia niepoprawna odpowiedź" required>
+            <p class="text-danger mt-1"
+                *ngIf="(editTextQuestionForm.controls['wrongAnswerC'].errors?.['required'] && editTextQuestionForm.controls['wrongAnswerC'].touched)">
+                Pole wymagane
+            </p>
+        </div>
+
+        <!-- POINTS -->
+        <div class="col-12 mt-2 text-center">
+            <label class="mb-1" for="points">Punkty</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="points" id="points" placeholder="Punkty" required>
+            <p class="text-danger mt-1"
+                *ngIf="(editTextQuestionForm.controls['points'].errors?.['required'] && editTextQuestionForm.controls['points'].touched)
+                ||
+                (editTextQuestionForm.controls['points'].errors?.['min'] && editTextQuestionForm.controls['points'].touched)">
+                Pole wymagane z dodatnia liczbą punktów
+            </p>
+        </div>
+
+        <!-- MINUTES -->
+        <div class="col-12 mt-2 text-center">
+            <label class="mb-1" for="time">Czas (w minutach)</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="time" id="time" placeholder="Czas (w minutach)" (keyup)="verifyTime()" [(ngModel)]="time" required>
+            <p class="text-danger mt-1"
+                *ngIf="(editTextQuestionForm.controls['time'].errors?.['required'] && editTextQuestionForm.controls['time'].touched)">
+                Pole wymagane - jedynie liczby całkowite
+            </p>
+        </div>
+
+    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="mt-5 d-flex justify-content-end">
+    <button class="btn btn-danger d-block w-25" [mat-dialog-close]="false">Anuluj</button>
+    <button class="btn btn-success d-block w-25 mx-3" (click)="editQuestion()" [mat-dialog-close]="true" [disabled]="!editTextQuestionForm.valid">Zaktualizuj pytanie</button>
+    </mat-dialog-actions>
+</form>

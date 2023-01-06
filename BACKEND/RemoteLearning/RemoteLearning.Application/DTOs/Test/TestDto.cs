@@ -7,4 +7,6 @@ public class TestDto : CreateTestDto
     public decimal Points { get; set; }
 
     public int TimeMinutes { get; set; }
+
+    public IEnumerable<TextQuestionDto> TextQuestions { get; set; }
 }

@@ -30,6 +30,10 @@ export class CourseComponent implements OnInit {
       if (course) {
         this.course = course;
         this.isSpinning = false;
+
+        this.course.tests.forEach((test) => {
+          test.isCollapsed = false;
+        });
       }
     },
     (err) => {

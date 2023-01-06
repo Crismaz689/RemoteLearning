@@ -45,3 +45,8 @@ global using MailKit.Net.Smtp;
 global using MailKit.Security;
 global using MimeKit.Text;
 global using MimeKit;
+global using RemoteLearning.Application.DTOs.File;
+global using Microsoft.AspNetCore.Hosting;
+global using RemoteLearning.Infrastructure.Exceptions.File;
+global using RemoteLearning.Infrastructure.Exceptions.TextQuestion;
+global using RemoteLearning.Application.DTOs.Category;

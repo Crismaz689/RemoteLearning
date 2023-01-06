@@ -3,9 +3,12 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from 'src/app/account/models/User';
+import { RoleMapper } from 'src/app/_helpers/role-mapper';
+import { Role } from 'src/app/_helpers/role.enum';
 import { AccountService } from 'src/app/_services/account.service';
 import { SectionService } from 'src/app/_services/section.service';
 import { ISection } from '../models/sections/section';
+import { FileCreateComponent } from './files/file-create/file-create.component';
 import { SectionCreateComponent } from './section-create/section-create.component';
 import { SectionUpdateComponent } from './section-update/section-update.component';
 
@@ -33,6 +36,10 @@ export class SectionsComponent implements OnInit {
 
   currentUser: IUser;
 
+  userRole = Role.Undefined;
+
+  role = Role;
+
   constructor(private sectionService: SectionService,
     private accountService: AccountService,
     private snackBar: MatSnackBar,
@@ -41,6 +48,7 @@ export class SectionsComponent implements OnInit {
   ngOnInit(): void {
     this.accountService.currentUser$.subscribe((user) => {
       this.currentUser = user;
+      this.userRole = RoleMapper.RoleMapping(this.currentUser.roleName);
     });
   }
 
@@ -62,6 +70,17 @@ export class SectionsComponent implements OnInit {
     dialog.afterClosed().subscribe((isUpdated) => {
       if (isUpdated) {
         this.sectionUpdatedEvent.emit(isUpdated);
+      }
+    });
+  }
+
+  openAddFileDialog(section: ISection): void {
+    const dialog = this.dialog.open(FileCreateComponent);
+    dialog.componentInstance.selectedSection = section;
+
+    dialog.afterClosed().subscribe((isCreated) => {
+      if (isCreated) {
+        location.reload();
       }
     });
   }

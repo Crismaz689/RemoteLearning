@@ -34,6 +34,15 @@ import { SectionUpdateComponent } from './courses/sections/section-update/sectio
 import { AccountsComponent } from './admin/accounts/accounts.component';
 import { AccountsGenerateComponent } from './admin/accounts/accounts-generate/accounts-generate.component';
 import { AccountsListComponent } from './admin/accounts/accounts-list/accounts-list.component';
+import { AdminCoursesComponent } from './admin/admin-courses/admin-courses.component';
+import { FileCreateComponent } from './courses/sections/files/file-create/file-create.component';
+import { TestsComponent } from './courses/tests/tests.component';
+import { TextQuestionsComponent } from './courses/tests/text-questions/text-questions.component';
+import { TestCreateComponent } from './courses/tests/test-create/test-create.component';
+import { TestUpdateComponent } from './courses/tests/test-update/test-update.component';
+import { TextQuestionCreateComponent } from './courses/tests/text-questions/text-question-create/text-question-create.component';
+import { TextQuestionUpdateComponent } from './courses/tests/text-questions/text-question-update/text-question-update.component';
+import { TestComponent } from './courses/tests/test/test.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +65,16 @@ import { AccountsListComponent } from './admin/accounts/accounts-list/accounts-l
     SectionUpdateComponent,
     AccountsComponent,
     AccountsGenerateComponent,
-    AccountsListComponent
+    AccountsListComponent,
+    AdminCoursesComponent,
+    FileCreateComponent,
+    TestsComponent,
+    TextQuestionsComponent,
+    TestCreateComponent,
+    TestUpdateComponent,
+    TextQuestionCreateComponent,
+    TextQuestionUpdateComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

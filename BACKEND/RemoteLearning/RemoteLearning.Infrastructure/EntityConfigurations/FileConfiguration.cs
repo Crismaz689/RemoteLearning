@@ -13,7 +13,13 @@ public class FileConfiguration : IEntityTypeConfiguration<Domain.Entities.File>
             .HasDefaultValue(0)
             .IsRequired();
 
-        builder.Property(p => p.Type)
+        builder.Property(p => p.MimeType)
+            .IsRequired();
+
+        builder.Property(p => p.Extension)
+            .IsRequired();
+
+        builder.Property(p => p.Path)
             .IsRequired();
 
         builder.HasOne<Section>(f => f.Section)

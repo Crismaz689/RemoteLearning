@@ -1,0 +1,14 @@
+input[type="file"] {
+    display: none;
+}
+
+.file-upload {
+    margin-top: 15px;
+    font-size: 3em;
+    opacity: 1.0;
+}
+
+.file-upload:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

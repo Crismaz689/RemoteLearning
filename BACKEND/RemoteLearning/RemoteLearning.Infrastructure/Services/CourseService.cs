@@ -22,12 +22,21 @@ public class CourseService : ICourseService
             await _unitOfWork.Courses.Create(course);
             if (await _unitOfWork.SaveChangesAsync() != 0)
             {
-                var fullCourse = await GetCourseById(course.Id, userId);
+                var fullCourse = await _unitOfWork.Courses.GetById(course.Id);
                 return _mapper.Map<CourseDto>(fullCourse);
             }
         }
 
         return null;
+    }
+
+    public async Task<IEnumerable<CourseDto>> GetAllCoursesAdmin()
+    {
+        var courses = await _unitOfWork.Courses.GetAllWithCreatorsByAdmin();
+
+        return courses != null ?
+            _mapper.Map<IEnumerable<CourseDto>>(courses) :
+            Enumerable.Empty<CourseDto>();
     }
 
     public async Task<IEnumerable<CourseDto>> GetAllCourses(string userId)
@@ -65,16 +74,18 @@ public class CourseService : ICourseService
 
     public async Task<bool> Delete(long courseId, string userId)
     {
-        var course = await _unitOfWork.Courses.GetById(courseId);
+        var course = await _unitOfWork.Courses.GetWithCreator(courseId);
+        var user = await _unitOfWork.Users.GetById(Convert.ToInt64(userId));
 
         if (course == null)
         {
             throw new CourseDoesNotExistsException("Course with given id does not exist.");
         }
-        else if (string.IsNullOrEmpty(userId) || Convert.ToInt64(userId) != course.CreatorId)
+        else if ((string.IsNullOrEmpty(userId) || Convert.ToInt64(userId) != course.CreatorId) && user.RoleId != 1)
         {
             throw new CourseMissingCreatorException("You cannot perform operations on course which not belongs to you.");
         }
+
 
         await _unitOfWork.Courses.Delete(courseId);
         return await _unitOfWork.SaveChangesAsync() != 0;
@@ -84,8 +95,9 @@ public class CourseService : ICourseService
     {
         var assignments = await GetAssignedCourses(userId);
         var creator = await _unitOfWork.Courses.GetWithCreator(courseId);
+        var user = await _unitOfWork.Users.GetById(Convert.ToInt64(userId));
 
-        if (assignments.ToList().Any(course => course.Id == courseId) || (creator != null && creator.CreatorId == Convert.ToInt64(userId)))
+        if (assignments.ToList().Any(course => course.Id == courseId) || (creator != null && creator.CreatorId == Convert.ToInt64(userId)) || user.RoleId == 1)
         {
             var course = await _unitOfWork.Courses.GetCourseAllData(courseId);
 
@@ -105,22 +117,28 @@ public class CourseService : ICourseService
         
     }
 
-    public async Task<CourseDto> Update(UpdateCourseDto courseDto, string userId)
+    public async Task<CourseDto> Update(UpdateCourseDto courseDto, long id, string userId)
     {
-        var course = await _unitOfWork.Courses.GetById(courseDto.Id);
+        var course = await _unitOfWork.Courses.GetWithCreator(id);
+        var user = await _unitOfWork.Users.GetById(Convert.ToInt64(userId));
 
         if (course == null)
         {
             throw new CourseDoesNotExistsException("Course with given id does not exist.");
         }
-        else if (Convert.ToInt64(userId) != course.CreatorId)
+        else if (Convert.ToInt64(userId) != course.CreatorId && user.RoleId != 1)
         {
             throw new CourseMissingCreatorException("You do not have permissions to perform update operation on this course.");
         }
 
         course.Name = courseDto.Name;
         course.Description = courseDto.Description;
-        course.CreatorId = 2;
+
+        if (user.RoleId != 1)
+        {
+            course.CreatorId = Convert.ToInt64(userId);
+        }
+
         course.ModificationDate = DateTime.Now;
         await _unitOfWork.Courses.Update(course);
 

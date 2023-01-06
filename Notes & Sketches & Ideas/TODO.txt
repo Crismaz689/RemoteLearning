@@ -1,34 +1,47 @@
 ===== TASKS =====
 
 FRONT:
-- create view for files - dialog
 - .scss files (use variables etc)
 - style website
 
 BACK:
-- crud on files
-- crud tests (do protections)
-- crud textquestions (do protections)
 - crud grades
-- handle Azure about files
 - nullable return types - fix
 - use cancellation token
 
 PROBLEMS:
 - session (login)
 - pagination
-- errors on /course/{id} (strict mode only)
-- bottom scroll (course view, accounts management)
 
 GENERAL:
 - write down documentation stuff
 
 QUESTIONS:
+- tips for start about writing document
+(streszczenie i wstep na koncu)
+rozdzial 2
+(zalozenia w analizie problemu - rozwazania -> w czasie przyszlym ze tak bedzie zrobione), porownanie innych systemow (pol strony o kozdym - podawac linki) -> potem moje funkcjonalnosci -> rozwazanie technologii (po 3 na kazdy aspekt) -> czego uzyje (w czasie przyszlym), rozne role
+
+rozdzial 3
+w ramach systemu takiego i takiego sa takie wymagania funkcjonalne, wymagania niefunkcjonalne, przypdki uzycia musza byc i uml z opisem, metodyka pracy (scrum, waterfall) - krotki opis i jak wykorzystalem
+
+rozdzial 4
+instrukcja, gdzie kliknac, obostrzenia, nie uzywac chrome, duzo obrazkow, pole tekstowe na cala strone i tam wrzucamy obrazek
+
+rozdzial 5
+implementacja dlaczego tak i nie inaczej, klasy, baza danych, koncepcja, architektura systemu, moduly
+
+rozdzial 6
+testy jakie sa, jakich uzylem, dlaczego takie, jakie zrobilem, ile ich, dwa przyklady mozna z kodem, jakie problemy napotkalem i jak je naprawilem
+
+wstep
+po co wazne napisanie aplikacji, wnioski z literatury, czym bedzie aplikacja, co w kolejnych rozdzialach
+
+podsumowanie
+stworzylem aplikacje, realizuje konkretne funkcjonalnosci, wnioski co zostalo zrobione (zgodnie z zalozeniami), co mozna dalej rozwinac
 
 
-===== TO CONSIDER =====
-Should be cascase deleting enable? For which tables?
-
+lista numerowana z hiperlaczem na koncu z linkami
 
 ===== CONSULTATION NOTES =====
 Describe database in data analysis part (II episode)

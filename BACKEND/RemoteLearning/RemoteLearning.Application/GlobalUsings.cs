@@ -7,3 +7,7 @@ global using RemoteLearning.Application.DTOs.Course;
 global using RemoteLearning.Application.DTOs.Section;
 global using RemoteLearning.Application.DTOs.TextQuestion;
 global using RemoteLearning.Application.DTOs.Test;
+global using Microsoft.AspNetCore.Http;
+global using RemoteLearning.Application.DTOs.File;
+global using Microsoft.AspNetCore.Builder;
+global using RemoteLearning.Application.DTOs.Category;

@@ -8,6 +8,8 @@ public interface ICourseRepository : IBaseRepository<Course>
 
     Task<IEnumerable<Course>> GetAllWithCreators(long userId);
 
+    Task<IEnumerable<Course>> GetAllWithCreatorsByAdmin();
+
     Task<IEnumerable<Course>> GetMyCourses(long userId);
 
     Task<IEnumerable<Course>> GetAssignedCourses(long userId);

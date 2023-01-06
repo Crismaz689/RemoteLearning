@@ -16,6 +16,11 @@ public class CourseController : BaseApiController
     [ProducesResponseType(typeof(IEnumerable<CourseDto>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<IEnumerable<CourseDto>>> GetMyCourses() => Ok(await _courseService.GetMyCourses(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!));
 
+    [HttpGet("admin-get-all")]
+    [Authorize(Roles = "Admin")]
+    [ProducesResponseType(typeof(IEnumerable<CourseDto>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<CourseDto>>> GetAllCoursesAdmin() => Ok(await _courseService.GetAllCoursesAdmin());
+
     [HttpGet("assigned-courses")]
     [ProducesResponseType(typeof(IEnumerable<CourseDto>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<IEnumerable<CourseDto>>> GetAssignedCourses() => Ok(await _courseService.GetAssignedCourses(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!));
@@ -34,8 +39,8 @@ public class CourseController : BaseApiController
     [ProducesResponseType(typeof(CourseDto), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CourseDto>> Create(CreateCourseDto courseDto) => await _courseService.Create(courseDto, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 
-    [HttpPut]
+    [HttpPut("{id}")]
     [Authorize(Roles = "Admin, Tutor")]
     [ProducesResponseType(typeof(CourseDto), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CourseDto>> Update(UpdateCourseDto courseDto) => await _courseService.Update(courseDto, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+    public async Task<ActionResult<CourseDto>> Update(UpdateCourseDto courseDto, long id) => await _courseService.Update(courseDto, id, User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
 }

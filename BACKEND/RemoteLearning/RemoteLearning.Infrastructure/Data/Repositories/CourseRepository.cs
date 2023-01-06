@@ -1,4 +1,6 @@
-﻿namespace RemoteLearning.Infrastructure.Data.Repositories;
+﻿using RemoteLearning.Domain.Entities;
+
+namespace RemoteLearning.Infrastructure.Data.Repositories;
 
 public class CourseRepository : BaseRepository<Course>, ICourseRepository
 {
@@ -22,6 +24,8 @@ public class CourseRepository : BaseRepository<Course>, ICourseRepository
         .SingleOrDefaultAsync(course => course.Id == courseId);
 
     public async Task<Course> GetCourseAllData(long courseId) => await _context.Courses
+        .Include(course => course.Tests)
+        .ThenInclude(test => test.TextQuestions)
         .Include(course => course.Sections)
         .ThenInclude(section => section.Files)
         .SingleOrDefaultAsync(course => course.Id == courseId);
@@ -31,5 +35,11 @@ public class CourseRepository : BaseRepository<Course>, ICourseRepository
         .ThenInclude(creator => creator.UserDetails)
         .Include(course => course.CourseUsers)
         .Where(course => course.Creator.Id != userId && !course.CourseUsers.Select(cu => cu.UserId).Contains(userId))
+        .ToListAsync();
+
+    public async Task<IEnumerable<Course>> GetAllWithCreatorsByAdmin() => await _context.Courses
+        .Include(course => course.Creator)
+        .ThenInclude(creator => creator.UserDetails)
+        .Include(course => course.CourseUsers)
         .ToListAsync();
 }

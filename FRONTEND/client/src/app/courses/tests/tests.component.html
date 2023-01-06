@@ -1,0 +1,53 @@
+<div class="row text-center" *ngIf="creatorId === currentUser.id || userRole === role.Admin">
+    <div class="col-12 my-5">
+        <button class="btn btn-success" (click)="openCreateTestDialog()">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        Dodaj test
+    </div>
+</div>
+
+<div class="px-5" style="padding-right: 0;">
+    <h2 >Testy</h2>
+    <hr />
+</div>
+<div class="row px-5" style="padding-right: 0!important; margin-right: 0!important;" *ngIf="tests?.length > 0; else noTests">
+    <div class="col-12 my-2 test-container" *ngFor="let test of tests">
+        <div class="d-flex">
+            <div *ngIf="creatorId === currentUser.id || userRole === role.Admin" class="align-self-center">
+                <button class="btn btn-warning" style="color: #fff;" (click)="openEditTestDialog(test)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="btn btn-danger" style="margin-left: 0.3em;" (click)="deleteTest(test.id)">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+                <button class="btn btn-success" style="color: #fff; margin-left: 0.3em;" (click)="openAddTextQuestionDialog(test.id)">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+            <div style="margin-left: 0.3em;">
+                <h3> {{ test?.name }}</h3>
+            </div>
+        </div>
+        <div class="mt-2">
+            <h5> Czas: <b>{{ test?.timeMinutes }} minut(y)</b></h5>
+        </div>
+        <div class="mt-2">
+            <h5> Punktów do zdobycia: <b>{{ test?.points }}</b></h5>
+        </div>
+        <div class="mt-2" *ngIf=" userRole < role.Tutor">
+            <button class="btn btn-primary d-block w-50 mx-auto" (click)="openTest(test)">
+                Zacznij test
+            </button>
+        </div>
+        <div class="mt-2" *ngIf="creatorId === currentUser.id || userRole === role.Admin">
+            <app-text-questions [textQuestions]="test?.textQuestions" [courseId]="courseId" [creatorId]="creatorId" [currentUser]="currentUser" [userRole]="userRole" (textQuestionDeletedEvent)="refreshTestDetails($event)"></app-text-questions>
+        </div>
+    </div>
+</div>
+
+<ng-template #noTests>
+    <div class="col-12 text-center">
+        Kurs nie posiada żadnego przypisanego testu.
+    </div>
+</ng-template>

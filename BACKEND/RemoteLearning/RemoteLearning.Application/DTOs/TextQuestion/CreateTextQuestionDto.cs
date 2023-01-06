@@ -17,4 +17,6 @@ public class CreateTextQuestionDto
     public int TimeMinutes { get; set; }
 
     public long TestId { get; set; }
+
+    public long CreatorId { get; set; }
 }

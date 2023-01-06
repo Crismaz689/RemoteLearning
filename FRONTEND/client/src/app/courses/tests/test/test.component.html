@@ -1,0 +1,43 @@
+<div class="row" style="min-width: 800px;">
+    <div class="col-12 my-2 text-center">
+        Pozostały czas: <b>{{ minutesLeft() }} minut i {{ secondsLeft() }} sekund </b>
+    </div>
+    <form [formGroup]="testForm">
+        <div class="col-6 offset-3">
+            <div class="mt-2">
+                <div class="border border-dark p-3 mt-2" *ngFor="let textQuestion of test?.textQuestions">
+                    <p>
+                        Pytanie: <b>{{ textQuestion.title }}</b>
+                    </p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer1" id="answer1">
+                        <label class="form-check-label" for="answer1">
+                            {{ textQuestion.correctAnswer }}
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer2" id="answer2">
+                        <label class="form-check-label" for="answer2">
+                            {{ textQuestion.wrongAnswerA }}
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer3" id="answer3">
+                        <label class="form-check-label" for="answer3">
+                            {{ textQuestion.wrongAnswerB }}
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer4" id="answer4">
+                        <label class="form-check-label" for="answer4">
+                            {{ textQuestion.wrongAnswerC }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

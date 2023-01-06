@@ -1,0 +1,44 @@
+<button class="btn btn-primary d-block w-50 mx-auto" (click)="showQuestions()">
+    Przeglądaj pytania
+</button>
+
+<div class="row" *ngIf="isCollapsed">
+    <div class="col-6 offset-3" *ngIf="textQuestions?.length > 0; else noQuestions">
+        <div class="mt-2">
+            <div class="border border-dark p-3 mt-2" *ngFor="let textQuestion of textQuestions">
+                <p>
+                    Pytanie: <b>{{ textQuestion.title }}</b>
+                    <br />
+                    Czas: <b>{{ textQuestion.timeMinutes }} minut (y)</b>
+                    <br />
+                    Punkty: <b>{{ textQuestion.points }}</b>
+                </p>
+                <p class="text-success">
+                    A. {{ textQuestion.correctAnswer }}
+                </p>
+                <p class="text-danger">
+                    B. {{ textQuestion.wrongAnswerA }}
+                </p>
+                <p class="text-danger">
+                    C. {{ textQuestion.wrongAnswerB }}
+                </p>
+                <p class="text-danger">
+                    D. {{ textQuestion.wrongAnswerC }}
+                </p>
+                <div *ngIf="creatorId === currentUser.id || userRole === role.Admin" class="align-self-center">
+                    <button class="btn btn-warning" style="color: #fff;" (click)="openEditTextQuestionDialog(textQuestion)">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button class="btn btn-danger" style="margin-left: 0.3em;" (click)="deleteQuestion(textQuestion.id)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noQuestions>
+        <div class="col-12 text-center mt-2">
+            Nie ma obecnie żadnych pytań.
+        </div>
+    </ng-template>
+</div>

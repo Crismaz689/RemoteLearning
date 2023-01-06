@@ -1,4 +1,6 @@
-﻿namespace RemoteLearning.Infrastructure.Services;
+﻿
+
+namespace RemoteLearning.Infrastructure.Services;
 
 public class CourseUserService : ICourseUserService
 {
@@ -11,7 +13,7 @@ public class CourseUserService : ICourseUserService
     {
         if (await IsUserAlreadyAssigned(courseId, userId) || await IsUserCourseOwner(courseId, userId))
         {
-            throw new UserAlreadyAssigned("You are already assigned to this course or you are its owner.");
+            throw new UserAlreadyAssingedException("You are already assigned to this course or you are its owner.");
         }
 
         var courseUser = new CourseUser()

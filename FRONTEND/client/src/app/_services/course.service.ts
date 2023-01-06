@@ -26,12 +26,16 @@ export class CourseService {
     return this.http.delete<boolean>(this.url + '/' + id);
   }
 
-  public updateCourse(id: number, course: ICourse): Observable<ICourse> {
+  public updateCourse(id: number, course: ICourseCreate): Observable<ICourse> {
     return this.http.put<ICourse>(this.url + '/' + id, course);
   }
 
   public getMyCourses(): Observable<ICourse[]> {
     return this.http.get<ICourse[]>(this.url + '/my-courses');
+  }
+
+  public getAdminAllCourses(): Observable<ICourse[]> {
+    return this.http.get<ICourse[]>(this.url + '/admin-get-all');
   }
 
   public getAssignedCourses(): Observable<ICourse[]> {

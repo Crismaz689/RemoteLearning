@@ -1,4 +1,4 @@
-<div class="row text-center" *ngIf="creatorId === currentUser.id">
+<div class="row text-center" *ngIf="creatorId === currentUser.id || userRole === role.Admin">
     <div class="col-12 my-5">
         <button class="btn btn-success" (click)="openCreateSectionDialog()">
             <i class="fa-solid fa-plus"></i>
@@ -6,15 +6,23 @@
         Dodaj sekcję
     </div>
 </div>
-<div class="row p-5" *ngIf="sections?.length > 0; else noSections">
-    <div class="col-12" *ngFor="let section of sections">
+
+<div class="px-5 mt-5" style="padding-right: 0;">
+    <h2 >Sekcje</h2>
+    <hr />
+</div>
+<div class="row p-5" style="padding-right: 0;" *ngIf="sections?.length > 0; else noSections">
+    <div class="col-12 my-2 section-container" *ngFor="let section of sections">
         <div class="d-flex">
-            <div *ngIf="creatorId === currentUser.id" class="align-self-center">
+            <div *ngIf="creatorId === currentUser.id || userRole === role.Admin" class="align-self-center">
                 <button class="btn btn-warning" style="color: #fff;" (click)="openEditSectionDialog(section)">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
                 <button class="btn btn-danger" style="margin-left: 0.3em;" (click)="deleteSection(section.id)">
                     <i class="fa-solid fa-trash"></i>
+                </button>
+                <button class="btn btn-success" style="color: #fff; margin-left: 0.3em;" (click)="openAddFileDialog(section)">
+                    <i class="fa-solid fa-file"></i>
                 </button>
             </div>
             <div style="margin-left: 0.3em;">
@@ -24,8 +32,8 @@
                 <h3>[ {{section?.date | date: 'dd/MM/yyyy' }} ]</h3>
             </div>
         </div>
-        <p> {{section?.description}}</p>
-        <app-files [files]="section.files"></app-files>
+        <p class="mt-2"> {{section?.description}}</p>
+        <app-files [currentUser]="currentUser" [userRole]="userRole" [creatorId]="creatorId" [files]="section.files"></app-files>
         <hr />
     </div>
 </div>

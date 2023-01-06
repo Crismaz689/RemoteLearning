@@ -9,9 +9,11 @@ public class SectionService : ISectionService
 
     public async Task<SectionDto> CreateSection(CreateSectionDto sectionDto, string userId)
     {
+        var user = await _unitOfWork.Users.GetById(Convert.ToInt64(userId));
+
         if (sectionDto != null)
         {
-            if (string.IsNullOrEmpty(userId) || !await DoesUserHasPermission(sectionDto.CourseId, userId))
+            if ((string.IsNullOrEmpty(userId) || !await DoesUserHasPermission(sectionDto.CourseId, userId)) && user.RoleId != 1)
             {
                 throw new CreateSectionNoPermissionException("You do not have permission to create section in this course.");
             }
@@ -36,10 +38,11 @@ public class SectionService : ISectionService
         }
 
         var section = await _unitOfWork.Sections.GetById(sectionId);
+        var user = await _unitOfWork.Users.GetById(Convert.ToInt64(userId));
 
         if (section != null)
         {
-            if (!await DoesUserHasPermission(section.CourseId, userId))
+            if (!await DoesUserHasPermission(section.CourseId, userId) && user.RoleId != 1)
             {
                 throw new CreateSectionNoPermissionException("You do not have permissions to delete this section.");
             }
@@ -64,10 +67,11 @@ public class SectionService : ISectionService
     public async Task<SectionDto> UpdateSection(UpdateSectionDto sectionDto, long sectionId, string userId)
     {
         var course = await _unitOfWork.Sections.GetById(sectionId);
+        var user = await _unitOfWork.Users.GetById(Convert.ToInt64(userId));
 
         if (course != null)
         {
-            if (await DoesUserHasPermission(course.Id, userId))
+            if (!await DoesUserHasPermission(course.Id, userId) && user.RoleId != 1)
             {
                 throw new CreateSectionNoPermissionException("You do not have permissions to update the course.");
             }

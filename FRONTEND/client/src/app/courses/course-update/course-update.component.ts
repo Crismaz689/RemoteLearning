@@ -17,6 +17,8 @@ export class CourseUpdateComponent implements OnInit {
 
   course!: ICourseAllData;
 
+  courseId: number;
+
   constructor(private formBuilder: FormBuilder,
     private courseService: CourseService,
     private route: ActivatedRoute,
@@ -29,9 +31,9 @@ export class CourseUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const courseId: number = (this.route.snapshot.paramMap.get('id') ?? 0) as number;
+    this.courseId = (this.route.snapshot.paramMap.get('id') ?? 0) as number;
 
-    this.courseService.getCourse(courseId).subscribe((course) => {
+    this.courseService.getCourse(this.courseId).subscribe((course) => {
       if (course) {
         this.course = course;
         this.editCourseForm = this.formBuilder.group({
@@ -49,7 +51,7 @@ export class CourseUpdateComponent implements OnInit {
   editCourse(): void {
     const course: ICourseCreate = this.editCourseForm.getRawValue();
 
-    this.courseService.create(course).subscribe((course) => {
+    this.courseService.updateCourse(this.courseId, course).subscribe((course) => {
       if (course) {
         this.snackBar.open("Kurs " + course.name + " zostal zaktualizowany", '', { panelClass: ['text-white', 'bg-success'] });
         this.router.navigateByUrl('/courses');

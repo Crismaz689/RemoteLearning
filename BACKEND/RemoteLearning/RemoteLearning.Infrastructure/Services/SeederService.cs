@@ -26,6 +26,26 @@ public class SeederService : ISeederService
         return await _unitOfWork.SaveChangesAsync() != 0;
     }
 
+    public async Task<bool> SeedCategories()
+    {
+        var categories = await _unitOfWork.Categories.GetAll();
+
+        if (categories.Any())
+        {
+            return false;
+        }
+
+        var categoriesData = await System.IO.File.ReadAllTextAsync("../RemoteLearning.Infrastructure/Helpers/SeederSources/categories.json");
+        var categoriesToInsert = JsonSerializer.Deserialize<List<Category>>(categoriesData);
+
+        categoriesToInsert!.ForEach((category) =>
+        {
+            _unitOfWork.Categories.Create(category);
+        });
+
+        return await _unitOfWork.SaveChangesAsync() != 0;
+    }
+
     public async Task<bool> SeedAccounts()
     {
         var users = await _unitOfWork.Users.GetAll();
@@ -52,6 +72,66 @@ public class SeederService : ISeederService
         });
 
         return await _unitOfWork.SaveChangesAsync() != 0;
-        // formatowanie desciption
+    }
+
+    public void CreateTriggers(IApplicationBuilder builder)
+    {
+        using (var serviceScope = builder.ApplicationServices.CreateScope())
+        {
+            var context = serviceScope.ServiceProvider.GetService<RemoteLearningDbContext>();
+            using (StreamReader sr = new StreamReader("../RemoteLearning.Infrastructure/Helpers/StoredProcedures/DeleteUpdateTestTimeCreation.sql"))
+            {
+                var cmd = context.Database.GetDbConnection().CreateCommand();
+                cmd.CommandText = sr.ReadToEnd();
+                context.Database.OpenConnection();
+                cmd.ExecuteNonQuery();
+                context.Database.CloseConnection();
+            }
+
+            using (StreamReader sr = new StreamReader("../RemoteLearning.Infrastructure/Helpers/StoredProcedures/DeleteUpdateTestTimeDeletion.sql"))
+            {
+                var cmd = context.Database.GetDbConnection().CreateCommand();
+                cmd.CommandText = sr.ReadToEnd();
+                context.Database.OpenConnection();
+                cmd.ExecuteNonQuery();
+                context.Database.CloseConnection();
+            }
+
+            using (StreamReader sr = new StreamReader("../RemoteLearning.Infrastructure/Helpers/StoredProcedures/DeleteUpdateTestTimeUpdate.sql"))
+            {
+                var cmd = context.Database.GetDbConnection().CreateCommand();
+                cmd.CommandText = sr.ReadToEnd();
+                context.Database.OpenConnection();
+                cmd.ExecuteNonQuery();
+                context.Database.CloseConnection();
+            }
+
+            using (StreamReader sr = new StreamReader("../RemoteLearning.Infrastructure/Helpers/StoredProcedures/CreateUpdateTestTimeCreation.sql"))
+            {
+                var cmd = context.Database.GetDbConnection().CreateCommand();
+                cmd.CommandText = sr.ReadToEnd();
+                context.Database.OpenConnection();
+                cmd.ExecuteNonQuery();
+                context.Database.CloseConnection();
+            }
+
+            using (StreamReader sr = new StreamReader("../RemoteLearning.Infrastructure/Helpers/StoredProcedures/CreateUpdateTestTimeDeletion.sql"))
+            {
+                var cmd = context.Database.GetDbConnection().CreateCommand();
+                cmd.CommandText = sr.ReadToEnd();
+                context.Database.OpenConnection();
+                cmd.ExecuteNonQuery();
+                context.Database.CloseConnection();
+            }
+
+            using (StreamReader sr = new StreamReader("../RemoteLearning.Infrastructure/Helpers/StoredProcedures/CreateUpdateTestTimeUpdate.sql"))
+            {
+                var cmd = context.Database.GetDbConnection().CreateCommand();
+                cmd.CommandText = sr.ReadToEnd();
+                context.Database.OpenConnection();
+                cmd.ExecuteNonQuery();
+                context.Database.CloseConnection();
+            }
+        }
     }
 }

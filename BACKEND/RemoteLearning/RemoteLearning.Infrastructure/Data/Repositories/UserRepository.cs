@@ -16,4 +16,14 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     public async Task<User> GetUserByLogin(string username) => await _context.Users
             .Include(u => u.Role)
             .SingleOrDefaultAsync(u => u.Username.Equals(username));
+
+    public async Task<User> GetTestPermission(long userId, long testId) => await _context.Users
+        .Include(u => u.Tests)
+        .Include(u => u.CourseUsers)
+        .Where(u => u.CourseUsers.Any(cu => cu.UserId == userId && u.Tests.SingleOrDefault(t => t.Id == testId).CourseId == cu.CourseId))
+        .SingleOrDefaultAsync();
+
+    public async Task<User> GetUserWithTests(long id) => await _context.Users
+        .Include(u => u.Tests)
+        .SingleOrDefaultAsync(u => u.Id == id);
 }

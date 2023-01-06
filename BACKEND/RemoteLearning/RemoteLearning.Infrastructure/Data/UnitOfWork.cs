@@ -16,6 +16,8 @@ public class UnitOfWork : IUnitOfWork
 
     private readonly ILogger _logger;
 
+    public RemoteLearningDbContext Context { get; private set; }
+
     private readonly RemoteLearningDbContext _context;
 
     public UnitOfWork(RemoteLearningDbContext context, ILogger<UnitOfWork> logger)

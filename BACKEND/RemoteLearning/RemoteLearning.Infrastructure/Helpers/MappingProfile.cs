@@ -1,5 +1,4 @@
-﻿using RemoteLearning.Application.DTOs.File;
-using File = RemoteLearning.Domain.Entities.File;
+﻿using File = RemoteLearning.Domain.Entities.File;
 
 namespace RemoteLearning.Infrastructure.Helpers;
 
@@ -13,6 +12,7 @@ public class MappingProfile : Profile
         AddFileMappings();
         AddTestMappings();
         AddTextQuestionMappings();
+        AddCategoryMappings();
     }
 
     private void AddTextQuestionMappings()
@@ -64,5 +64,10 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Surname, map => map.MapFrom(src => src.UserDetails.Surname))
             .ForMember(dest => dest.Pesel, map => map.MapFrom(src => src.UserDetails.Pesel))
             .ForMember(dest => dest.Email, map => map.MapFrom(src => src.UserDetails.Email));
+    }
+
+    private void AddCategoryMappings()
+    {
+        CreateMap<Category, CategoryDto>();
     }
 }

@@ -6,6 +6,10 @@ public class TextQuestionConfiguration : IEntityTypeConfiguration<TextQuestion>
     {
         builder.ToTable("TextQuestions");
 
+        builder.ToTable(tq => tq.HasTrigger("UpdateTestTimeUpdate"));
+        builder.ToTable(tq => tq.HasTrigger("UpdateTestTimeCreation"));
+        builder.ToTable(tq => tq.HasTrigger("UpdateTestTimeDeletion"));
+
         builder.Property(p => p.Title)
             .IsRequired();
 

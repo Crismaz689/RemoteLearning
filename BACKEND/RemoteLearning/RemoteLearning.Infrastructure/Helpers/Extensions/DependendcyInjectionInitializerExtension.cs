@@ -14,5 +14,10 @@ public static class DependendcyInjectionInitializerExtension
         services.AddScoped<ISectionService, SectionService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<ISeederService, SeederService>();
+        services.AddScoped<IFileService, FileService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddSingleton<IApplicationBuilder, ApplicationBuilder>();
     }
 }

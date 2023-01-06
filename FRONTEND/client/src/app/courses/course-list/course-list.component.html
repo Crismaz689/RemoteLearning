@@ -11,7 +11,7 @@
                 <ng-container matColumnDef="get">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Podgląd</th>
                     <td mat-cell *matCellDef="let row"> 
-                        <button class="btn btn-secondary w-50 d-block mx-auto" routerLink="/courses/{{row.id}}">
+                        <button class="btn btn-secondary w-75 d-block mx-auto" routerLink="/courses/{{row.id}}">
                             Zobacz
                         </button>
                     </td>
@@ -20,7 +20,7 @@
                 <ng-container matColumnDef="assign">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Przypisanie</th>
                     <td mat-cell *matCellDef="let row"> 
-                        <button class="btn btn-primary w-50 d-block mx-auto" (click)="raiseAssignToCourse(row)">
+                        <button class="btn btn-primary w-75 d-block mx-auto" (click)="raiseAssignToCourse(row)">
                             Zapisz się
                         </button>
                     </td>
@@ -29,7 +29,7 @@
                 <ng-container matColumnDef="unassign">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Przypisanie</th>
                     <td mat-cell *matCellDef="let row"> 
-                        <button class="btn btn-danger w-50 d-block mx-auto" (click)="raiseUnassignFromCourse(row)">
+                        <button class="btn btn-danger w-75 d-block mx-auto" (click)="raiseUnassignFromCourse(row)">
                             Wypisz się
                         </button>
                     </td>
@@ -38,7 +38,7 @@
                 <ng-container matColumnDef="update" *ngIf="courseType === type.My">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Aktualizacja</th>
                     <td mat-cell *matCellDef="let row"> 
-                        <button class="btn btn-warning w-50 d-block mx-auto" style="color: #fff;" routerLink="/courses/update/{{row.id}}">
+                        <button class="btn btn-warning w-75 d-block mx-auto" style="color: #fff;" routerLink="/courses/update/{{row.id}}">
                             Aktualizuj
                         </button>
                     </td>
@@ -47,7 +47,7 @@
                 <ng-container matColumnDef="delete" *ngIf="courseType === type.My">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Usunięcie</th>
                     <td mat-cell *matCellDef="let row"> 
-                        <button class="btn btn-danger w-50 d-block mx-auto" (click)="raiseDeleteCourse(row.id)">
+                        <button class="btn btn-danger w-75 d-block mx-auto" (click)="raiseDeleteCourse(row.id)">
                             Usuń
                         </button>
                     </td>

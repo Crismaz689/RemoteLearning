@@ -14,3 +14,5 @@ global using RemoteLearning.Application.DTOs.Section;
 global using RemoteLearning.Application.DTOs.TextQuestion;
 global using RemoteLearning.Application.DTOs.Test;
 global using RemoteLearning.Application.DTOs.CourseUser;
+global using RemoteLearning.Application.DTOs.File;
+global using RemoteLearning.Application.DTOs.Category;

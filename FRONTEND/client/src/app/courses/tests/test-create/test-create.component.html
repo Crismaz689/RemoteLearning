@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Tworzenie testu</h1>
+<hr />
+<form [formGroup]="createTestForm">
+    <mat-dialog-content class="mat-typography">
+    <div class="row" style="min-height: 100px; min-width: 450px;">
+        <div class="col-12 text-center">
+            <label class="mb-1" for="testName">Nazwa testu</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="name" id="testName" placeholder="Nazwa testu" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createTestForm.controls['name'].errors?.['required'] && createTestForm.controls['name'].touched)
+                ||
+                (createTestForm.controls['name'].errors?.['minlength'] && createTestForm.controls['name'].touched)">
+                Nazwa testu musi składać się z co najmniej 3 znaków
+            </p>
+        </div>
+    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="mt-5 d-flex justify-content-end">
+    <button class="btn btn-danger d-block w-25" [mat-dialog-close]="false">Anuluj</button>
+    <button class="btn btn-success d-block w-50 mx-3" (click)="createTest()" [mat-dialog-close]="true" [disabled]="!createTestForm.valid">Stwórz test</button>
+    </mat-dialog-actions>
+</form>
