@@ -7,15 +7,15 @@ BACK:
 - use cancellation token
 
 PROBLEMS:
-- pagination
+- 
 
 GENERAL:
 - write down documentation stuff
 
 QUESTIONS:
-- tips for start about writing document
 (streszczenie i wstep na koncu)
 rozdzial 2
+Describe database in data analysis part (II episode)
 (zalozenia w analizie problemu - rozwazania -> w czasie przyszlym ze tak bedzie zrobione), porownanie innych systemow (pol strony o kozdym - podawac linki) -> potem moje funkcjonalnosci -> rozwazanie technologii (po 3 na kazdy aspekt) -> czego uzyje (w czasie przyszlym), rozne role
 
 rozdzial 3
@@ -38,7 +38,3 @@ stworzylem aplikacje, realizuje konkretne funkcjonalnosci, wnioski co zostalo zr
 
 
 lista numerowana z hiperlaczem na koncu z linkami
-
-===== CONSULTATION NOTES =====
-Describe database in data analysis part (II episode)
-Write something about Azure licensing (how does it work, pricing etc.)

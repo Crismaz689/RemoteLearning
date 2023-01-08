@@ -49,6 +49,8 @@ import { GradesComponent } from './courses/grades/grades.component';
 import { GradeCreateComponent } from './courses/grades/grade-create/grade-create.component';
 import { GradeUpdateComponent } from './courses/grades/grade-update/grade-update.component';
 import { GradeListComponent } from './courses/grades/grade-list/grade-list.component';
+import { UserGradesComponent } from './user-grades/user-grades.component';
+import { AdminGradesComponent } from './admin/admin-grades/admin-grades.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { GradeListComponent } from './courses/grades/grade-list/grade-list.compo
     GradesComponent,
     GradeCreateComponent,
     GradeUpdateComponent,
-    GradeListComponent
+    GradeListComponent,
+    UserGradesComponent,
+    AdminGradesComponent
   ],
   imports: [
     BrowserModule,

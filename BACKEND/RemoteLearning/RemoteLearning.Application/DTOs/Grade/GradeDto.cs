@@ -11,4 +11,8 @@ public class GradeDto
     public string Description { get; set; }
 
     public string CategoryName { get; set; }
+
+    public string UserId { get; set; }
+
+    public string CategoryId { get; set; }
 }

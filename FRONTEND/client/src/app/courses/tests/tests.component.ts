@@ -60,6 +60,7 @@ export class TestsComponent implements OnInit {
     const dialog = this.dialog.open(TestCreateComponent);
     dialog.componentInstance.courseId = this.courseId;
     dialog.componentInstance.creatorId = this.creatorId;
+    dialog.disableClose = false;
 
     dialog.afterClosed().subscribe((isCreated) => {
       if (isCreated) {

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
+import { AfterContentInit, Component, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TestService } from 'src/app/_services/test.service';
@@ -12,7 +12,7 @@ import { ITextQuestionForStudent } from '../../models/text-questions/text-questi
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss']
 })
-export class TestComponent implements AfterContentInit {
+export class TestComponent implements AfterContentInit, OnDestroy {
 
   @Input()
   testId: number;
@@ -41,10 +41,16 @@ export class TestComponent implements AfterContentInit {
     });
   }
 
+  ngOnDestroy(): void {
+      this.finishTest(undefined);
+      clearInterval(this.counter);
+  }
+
   ngAfterContentInit(): void {
     this.testService.getTestForStudent(this.testId).subscribe((test) => {
       this.test = test;
       this.isSpinning = false;
+      this.seconds = this.test.timeMinutes * 60;
       this.currentQuestion = this.test?.textQuestions[this.currentQuestionIndex];
       this.createTimer();
     });
@@ -82,8 +88,11 @@ export class TestComponent implements AfterContentInit {
     },1000);
   }
 
-  finishTest(endOfTime: boolean): void {
-    if (endOfTime) {
+  finishTest(endOfTime: boolean | undefined): void {
+    if (endOfTime === undefined) {
+      this.snackBar.open("Test zakończony niepomyślnie. Skontaktuj się z administratorem.", '', { panelClass: ['text-white', 'bg-danger'] });
+    }
+    else if (endOfTime === true) {
       this.snackBar.open("Skończył Ci się czas, test zakończony", '', { panelClass: ['text-white', 'bg-danger'] });
     }
     else {

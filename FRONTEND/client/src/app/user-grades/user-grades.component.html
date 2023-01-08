@@ -1,0 +1,54 @@
+<div class="px-5 text-center mt-5" style="padding-right: 0;">
+    <h2 >Moje oceny</h2>
+</div>
+
+<div class="row" class="mt-5 pt-5">
+  <div class="col-8 offset-2 mb-5 pb-5">
+      <mat-form-field class="w-100">
+          <mat-label>Wyszukiwarka</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="np. Kolokwium - programowanie" #input>
+        </mat-form-field>
+        
+        <div class="mat-elevation-z8" style="background: #FFF6F3;">
+          <table mat-table [dataSource]="dataSource" matSort class="w-100">
+
+            <ng-container matColumnDef="value">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Ocena </th>
+              <td mat-cell *matCellDef="let row" class="text-center"> {{row.value}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Tytuł </th>
+              <td mat-cell *matCellDef="let row" class="text-center"> {{row.title}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Krótki opis </th>
+              <td mat-cell *matCellDef="let row" class="text-center"> {{ row.description }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="courseName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Nazwa kursu </th>
+              <td mat-cell *matCellDef="let row" class="text-center"> {{ row.courseName }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="categoryName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Kategoria </th>
+              <td mat-cell *matCellDef="let row" class="text-center"> {{ row.categoryName }} </td>
+            </ng-container>
+        
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="5">Żadne dane nie spełniają kryterium: "{{input.value}}"</td>
+            </tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Wybierz stronę"></mat-paginator>
+        </div>
+  </div>
+</div>
+
+<app-spinner [isSpinning]="isSpinning"></app-spinner>

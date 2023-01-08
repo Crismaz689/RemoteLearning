@@ -98,6 +98,7 @@ public class TestService : ITestService
             TestForStudentDto returnTest = new TestForStudentDto()
             {
                 Id = test.Id,
+                TimeMinutes = test.TimeMinutes,
                 TextQuestions = textQuestions
             };
 

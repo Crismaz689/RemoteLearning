@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IGrade } from '../courses/models/grades/grade';
 import { IGradeCreate } from '../courses/models/grades/grade-create';
+import { IUserGrade } from '../courses/models/grades/grade-user';
+import { IUserGradeDetailed } from '../courses/models/grades/grade-user-detailed';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,16 @@ export class GradeService {
     return this.http.delete<boolean>(this.url + '/' + gradeId);
   }
 
+  getCurrentUserGrades(): Observable<IUserGrade[]> {
+    return this.http.get<IUserGrade[]>(this.url + '/');
+  }
+
   createGrade(grade: IGradeCreate): Observable<IGrade> {
     return this.http.post<IGrade>(this.url + '/', grade);
+  }
+
+  getAllGrades(): Observable<IUserGradeDetailed[]> {
+    return this.http.get<IUserGradeDetailed[]>(this.url + '/admin-get-all');
   }
 
   updateGrade(grade: IGradeCreate, gradeId: number): Observable<IGrade> {

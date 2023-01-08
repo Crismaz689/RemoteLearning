@@ -41,4 +41,8 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     public async Task<User> GetUserWithTests(long id) => await _context.Users
         .Include(u => u.Tests)
         .SingleOrDefaultAsync(u => u.Id == id);
+
+    public async Task<User> GetUserWithCourses(long id) => await _context.Users
+        .Include(u => u.Courses)
+        .SingleOrDefaultAsync(u => u.Id == id);
 }

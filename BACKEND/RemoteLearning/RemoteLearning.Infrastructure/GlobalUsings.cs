@@ -53,3 +53,4 @@ global using RemoteLearning.Application.DTOs.Category;
 global using RemoteLearning.Infrastructure.Exceptions.Test;
 global using RemoteLearning.Application.DTOs.Grade;
 global using RemoteLearning.Application.DTOs.CourseUser;
+global using RemoteLearning.Infrastructure.Exceptions.Grade;

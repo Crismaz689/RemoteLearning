@@ -4,25 +4,20 @@
         <img src="../../../assets/images/remote-learning-logo.png" alt="Logo serwisu RemoteLearning" width="64" height="64">
       </a>
       <ng-container *ngIf="(currentUser$ | async)">
-        <div class="px-2 w-25" *ngIf="userRole && userRole === role.Admin">
+        <div class="px-2 w-33" *ngIf="userRole && userRole === role.Admin">
           <button class="btn btn-danger w-100" routerLink="/admin">
             Admin
           </button>
         </div>
-        <div class="px-2 w-25">
+        <div class="px-2" [class.w-33]="userRole && userRole === role.Admin" [class.w-50]="!(userRole && userRole === role.Admin)" >
           <button class="btn btn-secondary w-100" routerLink="/courses">
             Kursy
           </button>
         </div>
-        <div class="px-2 w-25">
-          <button class="btn btn-success w-100" routerLink="/">
+        <div class="px-2" [class.w-33]="userRole && userRole === role.Admin" [class.w-50]="!(userRole && userRole === role.Admin)">
+          <button class="btn btn-success w-100" routerLink="/grades">
             Oceny
           </button>  
-        </div>
-        <div class="px-2 w-25">
-          <button class="btn btn-info w-100 text-white" routerLink="/">
-            Konto
-          </button>    
         </div>
       </ng-container> 
       <div class="ms-auto" *ngIf="!(currentUser$ | async)">

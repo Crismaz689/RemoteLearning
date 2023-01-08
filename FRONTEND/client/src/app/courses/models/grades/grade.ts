@@ -4,4 +4,6 @@ export interface IGrade {
     title: string;
     description?: string;
     categoryName: string;
+    userId: number;
+    categoryId: number;
 }

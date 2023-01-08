@@ -114,6 +114,7 @@ export class CourseListComponent implements OnInit {
   }
 
   private paginate(): void {
+    this.refreshList();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

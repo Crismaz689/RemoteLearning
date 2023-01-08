@@ -20,7 +20,7 @@
             <ng-container matColumnDef="update">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Aktualizacja</th>
                 <td mat-cell *matCellDef="let row" class="text-center">
-                    <button class="btn btn-warning w-75 d-block mx-auto" (click)="updateGrade(row)">
+                    <button class="btn btn-warning w-75 d-block mx-auto" (click)="openUpdateGradeDialog(row)">
                         Aktualizuj
                     </button>    
                 </td>

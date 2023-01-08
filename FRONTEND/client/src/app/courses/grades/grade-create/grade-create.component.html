@@ -20,7 +20,7 @@
             <p class="text-danger mt-1"
                 *ngIf="(createGradeForm.controls['title'].errors?.['required'] && createGradeForm.controls['title'].touched)
                 ||
-                (createGradeForm.controls['title'].errors?.['minLength'] && createGradeForm.controls['title'].touched)">
+                (createGradeForm.controls['title'].errors?.['minlength'] && createGradeForm.controls['title'].touched)">
                 Nazwa oceny musi składać się z co najmniej 3 znaków
             </p>
         </div>

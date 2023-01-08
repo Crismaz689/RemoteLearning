@@ -1,29 +1,18 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { IUserGrade } from 'src/app/courses/models/grades/grade-user';
+import { IUserGradeDetailed } from 'src/app/courses/models/grades/grade-user-detailed';
 import { GradeService } from 'src/app/_services/grade.service';
-import { IGrade } from '../../models/grades/grade';
-import { ITest } from '../../models/tests/test';
-import { GradeUpdateComponent } from '../grade-update/grade-update.component';
 
 @Component({
-  selector: 'app-grade-list',
-  templateUrl: './grade-list.component.html',
-  styleUrls: ['./grade-list.component.scss']
+  selector: 'app-admin-grades',
+  templateUrl: './admin-grades.component.html',
+  styleUrls: ['./admin-grades.component.scss']
 })
-export class GradeListComponent implements OnInit {
-
-  @Input()
-  grades: IGrade[] = [];
-
-  @Input()
-  courseId: number;
-
-  @Input()
-  tests: ITest[] = [];
+export class AdminGradesComponent implements OnInit {
 
   @ViewChild(MatPaginator) 
   paginator: MatPaginator;
@@ -31,18 +20,23 @@ export class GradeListComponent implements OnInit {
   @ViewChild(MatSort) 
   sort: MatSort;
 
-  displayedColumns: string[] = ['delete', 'update', 'value', 'title', 'description', 'categoryName'];
+  grades: IUserGradeDetailed[] = [];
 
-  dataSource: MatTableDataSource<IGrade>;
+  displayedColumns: string[] = ['delete', 'user', 'value', 'title', 'description', 'courseName', 'categoryName'];
+
+  dataSource: MatTableDataSource<IUserGradeDetailed>;
 
   isSpinning: boolean = true;
 
   constructor(private gradeService: GradeService,
-    private snackBar: MatSnackBar,
-    public dialog: MatDialog) { }
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.gradeService.getAllGrades().subscribe((grades) => {
+      this.grades = grades;
       this.paginate();
+      this.isSpinning = false;
+    });
   }
 
   paginate(): void {
@@ -76,14 +70,4 @@ export class GradeListComponent implements OnInit {
       this.snackBar.open("Błąd podczas usuwania oceny.", '', { panelClass: ['text-white', 'bg-danger'] });
     });
   }
-
-  openUpdateGradeDialog(grade: IGrade): void {
-    const dialog = this.dialog.open(GradeUpdateComponent);
-    dialog.componentInstance.tests = this.tests;
-    dialog.componentInstance.courseId = this.courseId;
-    dialog.componentInstance.selectedGrade = grade;
-
-    dialog.afterClosed().subscribe((isCreated) => {});
-  }
-
 }

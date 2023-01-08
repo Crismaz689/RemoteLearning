@@ -3,4 +3,5 @@ import { ITextQuestionForStudent } from "../text-questions/text-question-for-stu
 export interface ITestForStudent {
     id: number;
     textQuestions: Array<ITextQuestionForStudent>;
+    timeMinutes: number;
 }

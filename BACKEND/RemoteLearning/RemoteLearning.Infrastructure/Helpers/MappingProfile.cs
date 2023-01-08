@@ -100,5 +100,12 @@ public class MappingProfile : Profile
         CreateMap<Grade, GradeDto>()
             .ForMember(dest => dest.CategoryName, map => map.MapFrom(src => src.Category.Name));
         CreateMap<CreateGradeDto, Grade>();
+
+        CreateMap<Grade, GradeUserDto>()
+            .ForMember(dest => dest.CourseName, map => map.MapFrom(src => src.Course.Name));
+
+        CreateMap<Grade, GradeUserDetailedDto>()
+            .ForMember(dest => dest.FirstName, map => map.MapFrom(src => src.User.UserDetails.FirstName))
+            .ForMember(dest => dest.Surname, map => map.MapFrom(src => src.User.UserDetails.Surname));
     }
 }
