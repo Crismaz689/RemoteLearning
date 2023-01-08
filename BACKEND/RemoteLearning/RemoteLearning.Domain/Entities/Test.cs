@@ -16,9 +16,7 @@ public class Test : BaseEntity
 
     public long CreatorId { get; set; }
 
-    public virtual Grade? Grade { get; set; }
-
-    public long? GradeId { get; set; }
-
     public virtual ICollection<TextQuestion> TextQuestions { get; set; }
+
+    public virtual ICollection<UserTestResult> UserTestResults { get; set; }
 }

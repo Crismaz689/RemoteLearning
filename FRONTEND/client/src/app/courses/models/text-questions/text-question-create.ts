@@ -7,5 +7,4 @@ export interface ITextQuestionCreate {
     points: number;
     timeMinutes: number;
     testId: number;
-    creatorId: number;
 }

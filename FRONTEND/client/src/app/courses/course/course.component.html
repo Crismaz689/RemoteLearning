@@ -4,6 +4,7 @@
         <p>{{course?.description}}</p>
     </div>
 
+    <app-grades [grades]="course?.grades" [tests]="course?.tests" [courseId]="course?.id" [creatorId]="course?.creatorId" (gradeCreatedEvent)="initCourse()"></app-grades>
     <app-tests [tests]="course?.tests" [courseId]="course?.id" [creatorId]="course?.creatorId" (testCreatedEvent)="initCourse()" (testUpdatedEvent)="initCourse()" (questionCreatedEvent)="initCourse()"></app-tests>
     <app-sections [sections]="course?.sections" [courseId]="course?.id" [creatorId]="course?.creatorId" (sectionCreatedEvent)="initCourse()" (sectionUpdatedEvent)="initCourse()"></app-sections>
 </div>

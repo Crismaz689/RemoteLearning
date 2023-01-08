@@ -22,10 +22,12 @@ public class GradeConfiguration : IEntityTypeConfiguration<Grade>
 
         builder.HasOne<User>(g => g.User)
             .WithMany(u => u.Grades)
-            .HasForeignKey(g => g.UserId);
+            .HasForeignKey(g => g.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
 
-        builder.HasOne<Test>(g => g.Test)
-            .WithOne(t => t.Grade)
-            .HasForeignKey<Grade>(g => g.TestId);
+        builder.HasOne<Course>(g => g.Course)
+            .WithMany(u => u.Grades)
+            .HasForeignKey(g => g.CourseId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

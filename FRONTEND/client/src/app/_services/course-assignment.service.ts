@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ICourseAssignment } from '../courses/models/course-assignments/course-assignment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class CourseAssignmentService {
 
   unassignFromCourse(courseId: number): Observable<boolean> {
     return this.http.delete<boolean>(this.url + '/' + courseId);
+  }
+
+  getCourseAssignments(courseId: number): Observable<ICourseAssignment[]> {
+    return this.http.get<ICourseAssignment[]>(this.url + '/users-assigned-to/' + courseId);
   }
   
 }

@@ -1,0 +1,22 @@
+<div class="row text-center" *ngIf="creatorId === currentUser.id || userRole === role.Admin">
+    <div class="col-12 my-5">
+        <button class="btn btn-success" (click)="openCreateGradeDialog()">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        Dodaj ocenę
+    </div>
+
+    <div class="px-5 text-start" style="padding-right: 0;">
+        <h2 >Oceny</h2>
+        <hr />
+    </div>
+    <div class="row px-5" style="padding-right: 0!important; margin-right: 0!important;" *ngIf="grades?.length > 0; else noGrades">
+        <app-grade-list [grades]="grades"></app-grade-list>
+    </div>
+
+    <ng-template #noGrades>
+        <div class="col-12 text-center">
+            Kurs nie posiada wystawionych ocen.
+        </div>
+    </ng-template>
+</div>

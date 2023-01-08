@@ -22,5 +22,5 @@ public class User : BaseEntity
 
     public virtual ICollection<Test> Tests { get; set; }
 
-    public virtual ICollection<TextQuestion> TextQuestions { get; set; }
+    public virtual ICollection<UserTestResult> UserTestResults { get; set; }
 }

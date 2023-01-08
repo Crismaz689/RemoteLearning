@@ -15,7 +15,7 @@ public class CourseUserConfiguration : IEntityTypeConfiguration<CourseUser>
         builder.HasOne<Course>(cu => cu.Course)
             .WithMany(c => c.CourseUsers)
             .HasForeignKey(cu => cu.CourseId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne<User>(cu => cu.User)
             .WithMany(u => u.CourseUsers)

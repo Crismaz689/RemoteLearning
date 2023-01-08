@@ -16,6 +16,7 @@ public static class DependendcyInjectionInitializerExtension
         services.AddScoped<ISeederService, SeederService>();
         services.AddScoped<IFileService, FileService>();
         services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IGradeService, GradeService>();
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddSingleton<IApplicationBuilder, ApplicationBuilder>();

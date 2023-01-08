@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ITextQuestion } from 'src/app/courses/models/text-questions/text-question';
 import { ITextQuestionCreate } from 'src/app/courses/models/text-questions/text-question-create';
 import { TextQuestionService } from 'src/app/_services/text-question.service';
 
@@ -13,8 +12,6 @@ import { TextQuestionService } from 'src/app/_services/text-question.service';
 export class TextQuestionCreateComponent implements OnInit {
 
   public testId: number;
-
-  public creatorId: number;
 
   time: number = 1;
 
@@ -48,7 +45,6 @@ export class TextQuestionCreateComponent implements OnInit {
 
   createQuestion(): void {
     const question: ITextQuestionCreate = this.createTextQuestionForm.getRawValue();
-    question.creatorId = this.creatorId;
     question.testId = this.testId;
 
     this.textQuestionService.createQuestion(question).subscribe((quest) => {

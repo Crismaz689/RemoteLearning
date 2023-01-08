@@ -24,6 +24,13 @@ public class CourseRepository : BaseRepository<Course>, ICourseRepository
         .SingleOrDefaultAsync(course => course.Id == courseId);
 
     public async Task<Course> GetCourseAllData(long courseId) => await _context.Courses
+        .Include(course => course.Grades)
+        .ThenInclude(grade => grade.Category)
+        .Include(course => course.CourseUsers)
+        .ThenInclude(cu => cu.User)
+        .ThenInclude(user => user.UserDetails)
+        .Include(course => course.Tests)
+        .ThenInclude(test => test.UserTestResults)
         .Include(course => course.Tests)
         .ThenInclude(test => test.TextQuestions)
         .Include(course => course.Sections)

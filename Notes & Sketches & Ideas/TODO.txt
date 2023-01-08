@@ -1,16 +1,12 @@
 ===== TASKS =====
 
 FRONT:
-- .scss files (use variables etc)
-- style website
+-
 
 BACK:
-- crud grades
-- nullable return types - fix
 - use cancellation token
 
 PROBLEMS:
-- session (login)
 - pagination
 
 GENERAL:

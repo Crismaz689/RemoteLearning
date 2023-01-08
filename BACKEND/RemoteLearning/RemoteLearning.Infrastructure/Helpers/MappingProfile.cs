@@ -1,4 +1,5 @@
-﻿using File = RemoteLearning.Domain.Entities.File;
+﻿using RemoteLearning.Application.DTOs.UserTestResult;
+using File = RemoteLearning.Domain.Entities.File;
 
 namespace RemoteLearning.Infrastructure.Helpers;
 
@@ -13,18 +14,33 @@ public class MappingProfile : Profile
         AddTestMappings();
         AddTextQuestionMappings();
         AddCategoryMappings();
+        AddUserTestResultMappings();
+        AddCourseUserMappings();
+        AddGradeMappings();
     }
 
     private void AddTextQuestionMappings()
     {
         CreateMap<CreateTextQuestionDto, TextQuestion>();
         CreateMap<TextQuestion, TextQuestionDto>();
+        CreateMap<TextQuestion, TextQuestionForStudentDto>();
+    }
+
+    private void AddCourseUserMappings()
+    {
+        CreateMap<CourseUser, CourseUserDto>()
+            .ForMember(dest => dest.FirstName, map => map.MapFrom(src => src.User.UserDetails.FirstName))
+            .ForMember(dest => dest.Surname, map => map.MapFrom(src => src.User.UserDetails.Surname));
     }
 
     private void AddTestMappings()
     {
         CreateMap<CreateTestDto, Test>();
-        CreateMap<Test, TestDto>();
+        CreateMap<Test, TestDto>()
+            .ForMember(dest => dest.TestResults, map => map.MapFrom(src => src.UserTestResults));
+        CreateMap<Test, TestAdminDto>()
+            .ForMember(dest => dest.TestName, map => map.MapFrom(src => src.Name))
+            .ForMember(dest => dest.CourseName, map => map.MapFrom(src => src.Course.Name));
     }
 
     private void AddSectionMappings()
@@ -69,5 +85,20 @@ public class MappingProfile : Profile
     private void AddCategoryMappings()
     {
         CreateMap<Category, CategoryDto>();
+    }
+
+    private void AddUserTestResultMappings()
+    {
+        CreateMap<UserTestResult, UserTestResultDto>()
+            .ForMember(dest => dest.FirstName, map => map.MapFrom(src => src.User.UserDetails.FirstName))
+            .ForMember(dest => dest.Surname, map => map.MapFrom(src => src.User.UserDetails.Surname))
+            .ForMember(dest => dest.FinishDate, map => map.MapFrom(src => src.CreationDate));
+    }
+
+    private void AddGradeMappings()
+    {
+        CreateMap<Grade, GradeDto>()
+            .ForMember(dest => dest.CategoryName, map => map.MapFrom(src => src.Category.Name));
+        CreateMap<CreateGradeDto, Grade>();
     }
 }

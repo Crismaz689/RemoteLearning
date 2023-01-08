@@ -42,6 +42,7 @@
         </div>
         <div class="mt-2" *ngIf="creatorId === currentUser.id || userRole === role.Admin">
             <app-text-questions [textQuestions]="test?.textQuestions" [courseId]="courseId" [creatorId]="creatorId" [currentUser]="currentUser" [userRole]="userRole" (textQuestionDeletedEvent)="refreshTestDetails($event)"></app-text-questions>
+            <app-tests-results [results]="test?.testResults"></app-tests-results>
         </div>
     </div>
 </div>

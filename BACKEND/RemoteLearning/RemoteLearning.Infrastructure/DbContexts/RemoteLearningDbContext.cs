@@ -15,6 +15,7 @@ public class RemoteLearningDbContext : DbContext
     public DbSet<Section> Sections { get; set; }
     public DbSet<Test> Tests { get; set; }
     public DbSet<TextQuestion> TextQuestions { get; set; }
+    public DbSet<UserTestResult> UsersTestsResults { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

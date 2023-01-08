@@ -17,11 +17,26 @@ public class UserRepository : BaseRepository<User>, IUserRepository
             .Include(u => u.Role)
             .SingleOrDefaultAsync(u => u.Username.Equals(username));
 
-    public async Task<User> GetTestPermission(long userId, long testId) => await _context.Users
-        .Include(u => u.Tests)
-        .Include(u => u.CourseUsers)
-        .Where(u => u.CourseUsers.Any(cu => cu.UserId == userId && u.Tests.SingleOrDefault(t => t.Id == testId).CourseId == cu.CourseId))
-        .SingleOrDefaultAsync();
+    public async Task<User> GetTestPermission(long userId, long testId)
+    {
+        var user = await _context.Users
+            .Include(u => u.CourseUsers)
+            .Include(u => u.Tests)
+            .ThenInclude(t => t.TextQuestions)
+            .SingleOrDefaultAsync(u => u.Id == userId);
+
+        if (user != null)
+        {
+            var test = await _context.Tests.SingleOrDefaultAsync(t => t.Id == testId);
+            var check = user.CourseUsers.SingleOrDefault(cu => cu.UserId == userId && test.CourseId == cu.CourseId);
+
+            return check != null ?
+                user :
+                null;
+        }
+
+        return null;
+    }
 
     public async Task<User> GetUserWithTests(long id) => await _context.Users
         .Include(u => u.Tests)

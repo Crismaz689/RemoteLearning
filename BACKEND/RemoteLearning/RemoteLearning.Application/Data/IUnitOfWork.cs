@@ -13,5 +13,6 @@ public interface IUnitOfWork : IDisposable
     ISectionRepository Sections { get; }
     ITestRepository Tests { get; }
     ITextQuestionRepository TextQuestions { get; }
+    IUserTestResultRepository UserTestResults { get; }
     Task<int> SaveChangesAsync();
 }

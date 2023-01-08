@@ -33,10 +33,5 @@ public class TextQuestionConfiguration : IEntityTypeConfiguration<TextQuestion>
         builder.Property(p => p.TimeMinutes)
             .HasDefaultValue(1)
             .IsRequired();
-
-        builder.HasOne<User>(t => t.Creator)
-            .WithMany(u => u.TextQuestions)
-            .HasForeignKey(t => t.CreatorId)
-            .OnDelete(DeleteBehavior.NoAction);
     }
 }

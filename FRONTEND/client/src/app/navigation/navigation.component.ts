@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { IUser } from '../account/models/User';
 import { RoleMapper } from '../_helpers/role-mapper';
 import { Role } from '../_helpers/role.enum';
@@ -11,10 +11,12 @@ import { AccountService } from '../_services/account.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
   currentUser$: Observable<IUser | null> = of(null);
 
   role = Role;
+
+  destroy$ = new Subject<void>();
 
   userRole: Role = Role.Undefined;
 
@@ -23,7 +25,15 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;
-    this.userRole = RoleMapper.RoleMapping(this.accountService.getRole());
+    this.currentUser$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      if (user) {
+        this.userRole = RoleMapper.RoleMapping(user?.roleName);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
   }
 
   logout(): void {

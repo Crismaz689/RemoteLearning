@@ -19,7 +19,8 @@ public class TestConfiguration : IEntityTypeConfiguration<Test>
 
         builder.HasOne<Course>(t => t.Course)
             .WithMany(c => c.Tests)
-            .HasForeignKey(t => t.CourseId);
+            .HasForeignKey(t => t.CourseId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne<User>(t => t.Creator)
             .WithMany(u => u.Tests)

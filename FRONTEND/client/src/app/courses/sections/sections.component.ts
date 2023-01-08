@@ -48,7 +48,7 @@ export class SectionsComponent implements OnInit {
   ngOnInit(): void {
     this.accountService.currentUser$.subscribe((user) => {
       this.currentUser = user;
-      this.userRole = RoleMapper.RoleMapping(this.currentUser.roleName);
+      this.userRole = RoleMapper.RoleMapping(this.currentUser?.roleName);
     });
   }
 

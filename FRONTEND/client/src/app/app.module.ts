@@ -43,6 +43,12 @@ import { TestUpdateComponent } from './courses/tests/test-update/test-update.com
 import { TextQuestionCreateComponent } from './courses/tests/text-questions/text-question-create/text-question-create.component';
 import { TextQuestionUpdateComponent } from './courses/tests/text-questions/text-question-update/text-question-update.component';
 import { TestComponent } from './courses/tests/test/test.component';
+import { AdminTestsComponent } from './admin/admin-tests/admin-tests.component';
+import { TestsResultsComponent } from './courses/tests/tests-results/tests-results.component';
+import { GradesComponent } from './courses/grades/grades.component';
+import { GradeCreateComponent } from './courses/grades/grade-create/grade-create.component';
+import { GradeUpdateComponent } from './courses/grades/grade-update/grade-update.component';
+import { GradeListComponent } from './courses/grades/grade-list/grade-list.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +80,13 @@ import { TestComponent } from './courses/tests/test/test.component';
     TestUpdateComponent,
     TextQuestionCreateComponent,
     TextQuestionUpdateComponent,
-    TestComponent
+    TestComponent,
+    AdminTestsComponent,
+    TestsResultsComponent,
+    GradesComponent,
+    GradeCreateComponent,
+    GradeUpdateComponent,
+    GradeListComponent
   ],
   imports: [
     BrowserModule,

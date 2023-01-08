@@ -52,7 +52,7 @@ export class TestsComponent implements OnInit {
   ngOnInit(): void {
     this.accountService.currentUser$.subscribe((user) => {
       this.currentUser = user;
-      this.userRole = RoleMapper.RoleMapping(this.currentUser.roleName);
+      this.userRole = RoleMapper.RoleMapping(this.currentUser?.roleName);
     });
   }
 
@@ -110,21 +110,30 @@ export class TestsComponent implements OnInit {
   }
 
   openTest(test: ITest): void {
-    if (test.textQuestions.length > 0) {
-      const dialog = this.dialog.open(TestComponent);
-      dialog.componentInstance.test = test;
-  
-      dialog.afterClosed().subscribe(() => {});
-    }
-    else {
-      this.snackBar.open("Nie można podejść do testu, ponieważ jest pusty. Poczekaj aż zostaną dodane do niego pytania.", '', { panelClass: ['text-white', 'bg-danger'] });
-    }
+    this.testService.wasTestTaken(test.id).subscribe((wasTaken) => {
+      if (wasTaken) {
+        this.snackBar.open("Test juz został wykonany", '', { panelClass: ['text-white', 'bg-danger'] });
+      }
+      else {
+        if (test.textQuestions.length > 0) {
+          const dialog = this.dialog.open(TestComponent);
+          dialog.componentInstance.testId = test.id;
+      
+          dialog.afterClosed().subscribe(() => {});
+        }
+        else {
+          this.snackBar.open("Nie można podejść do testu, ponieważ jest pusty. Poczekaj aż zostaną dodane do niego pytania.", '', { panelClass: ['text-white', 'bg-danger'] });
+        }
+      };
+    },
+    (err) => {
+      this.snackBar.open("Test juz został wykonany", '', { panelClass: ['text-white', 'bg-danger'] });
+    });
   }
 
   openAddTextQuestionDialog(testId: number): void {
     const dialog = this.dialog.open(TextQuestionCreateComponent);
     dialog.componentInstance.testId = testId;
-    dialog.componentInstance.creatorId = this.creatorId;
 
     dialog.afterClosed().subscribe((isCreated) => {
       if (isCreated) {

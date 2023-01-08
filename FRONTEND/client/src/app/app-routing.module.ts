@@ -5,6 +5,7 @@ import { LoginComponent } from './account/login/login.component';
 import { AccountsGenerateComponent } from './admin/accounts/accounts-generate/accounts-generate.component';
 import { AccountsComponent } from './admin/accounts/accounts.component';
 import { AdminCoursesComponent } from './admin/admin-courses/admin-courses.component';
+import { AdminTestsComponent } from './admin/admin-tests/admin-tests.component';
 import { AdminComponent } from './admin/admin.component';
 import { CourseCreateComponent } from './courses/course-create/course-create.component';
 import { CourseUpdateComponent } from './courses/course-update/course-update.component';
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: 'admin', component: AdminComponent },
       { path: 'admin/accounts', component: AccountsComponent },
       { path: 'admin/accounts/generate', component: AccountsGenerateComponent },
-      { path: 'admin/courses', component: AdminCoursesComponent }
+      { path: 'admin/courses', component: AdminCoursesComponent },
+      { path: 'admin/tests', component: AdminTestsComponent }
     ]
   },
 

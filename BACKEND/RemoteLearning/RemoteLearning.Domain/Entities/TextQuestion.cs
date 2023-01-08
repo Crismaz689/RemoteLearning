@@ -16,10 +16,6 @@ public class TextQuestion : BaseEntity
 
     public int TimeMinutes { get; set; }
 
-    public virtual User Creator { get; set; }
-
-    public long CreatorId { get; set; }
-
     public virtual Test Test { get; set; }
 
     public long TestId { get; set; }

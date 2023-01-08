@@ -1,6 +1,4 @@
-﻿
-
-namespace RemoteLearning.Infrastructure.Services;
+﻿namespace RemoteLearning.Infrastructure.Services;
 
 public class CourseUserService : ICourseUserService
 {
@@ -44,6 +42,18 @@ public class CourseUserService : ICourseUserService
         }
 
         return false;
+    }
+
+    public async Task<IEnumerable<CourseUserDto>> GetCourseAssignments(long courseId, string userId)
+    {
+        var assignments = await _unitOfWork.CourseUsers.GetAssignments(courseId);
+
+        if (assignments != null && assignments.Any())
+        {
+            return _mapper.Map<IEnumerable<CourseUserDto>>(assignments);
+        }
+
+        return Enumerable.Empty<CourseUserDto>();
     }
 
     private async Task<bool> IsUserAlreadyAssigned(long courseId, string userId) => await _unitOfWork.CourseUsers.GetUserAssign(Convert.ToInt64(userId), courseId) != null;

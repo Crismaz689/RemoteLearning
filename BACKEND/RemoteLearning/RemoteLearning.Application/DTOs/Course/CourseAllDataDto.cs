@@ -13,4 +13,6 @@ public class CourseAllDataDto
     public IEnumerable<SectionDto> Sections { get; set; }
 
     public IEnumerable<TestDto> Tests { get; set; }
+
+    public IEnumerable<GradeDto> Grades { get; set; }
 }

@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>Wystawianie oceny</h1>
+<hr />
+<form [formGroup]="createGradeForm">
+    <mat-dialog-content class="mat-typography">
+    <div class="row" style="min-height: 100px; min-width: 450px;">
+        <div class="col-12 text-center">
+            <label class="mb-1" for="value">Ocena</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="value" id="value" placeholder="Ocena" [(ngModel)]="grade" (keyup)="verifyGrade()" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createGradeForm.controls['value'].errors?.['required'] && createGradeForm.controls['value'].touched)
+                ||
+                (createGradeForm.controls['value'].errors?.['min'] && createGradeForm.controls['value'].touched)">
+                Najniższa możliwa ocena to 0
+            </p>
+        </div>
+
+        <div class="col-12 text-center mt-2">
+            <label class="mb-1" for="title">Tytuł</label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="title" id="title" placeholder="Tytuł" required>
+            <p class="text-danger mt-1"
+                *ngIf="(createGradeForm.controls['title'].errors?.['required'] && createGradeForm.controls['title'].touched)
+                ||
+                (createGradeForm.controls['title'].errors?.['minLength'] && createGradeForm.controls['title'].touched)">
+                Nazwa oceny musi składać się z co najmniej 3 znaków
+            </p>
+        </div>
+
+        <div class="col-12 text-center mt-2">
+            <label class="mb-1" for="description">Krótki opis <span class="fw-light">(opcjonalny)</span></label>
+            <input type="text" class="w-50 d-block mx-auto rounded form-control text-center" formControlName="description" id="description" placeholder="Krótki opis" required>
+        </div>
+
+        <div class="col-12 text-center mt-2">
+            <label class="mb-1" for="categoryId">Kategoria</label>
+            <br />
+            <select class="w-50 d-block mx-auto rounded form-select text-center" formControlName="categoryId" id="categoryId">
+                <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+            </select>
+            <p class="text-danger mt-1"
+            *ngIf="(createGradeForm.controls['categoryId'].errors?.['required'] && createGradeForm.controls['categoryId'].touched)">
+            Pole wymagane
+        </p>
+        </div>
+
+        <div class="col-12 text-center mt-2">
+            <label class="mb-1" for="userId">Użytkownik</label>
+            <br />
+            <select class="w-50 d-block mx-auto rounded form-select text-center" formControlName="userId" id="userId">
+                <option *ngFor="let user of userAssignments" value="{{user.userId}}">{{user.firstName}} {{ user.surname }}</option>
+            </select>
+            <p class="text-danger mt-1"
+                *ngIf="(createGradeForm.controls['userId'].errors?.['required'] && createGradeForm.controls['userId'].touched)">
+                Pole wymagane
+            </p>
+        </div>
+    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="mt-5 d-flex justify-content-end">
+    <button class="btn btn-danger d-block w-25" [mat-dialog-close]="false">Anuluj</button>
+    <button class="btn btn-success d-block w-50 mx-3" (click)="createGrade()" [mat-dialog-close]="true" [disabled]="!createGradeForm.valid">Wystaw ocenę</button>
+    </mat-dialog-actions>
+</form>

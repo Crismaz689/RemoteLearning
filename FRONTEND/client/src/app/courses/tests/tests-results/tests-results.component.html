@@ -1,0 +1,47 @@
+<button class="btn btn-primary d-block w-50 mx-auto mt-2" (click)="showResults()">
+    Przeglądaj wyniki
+</button>
+
+<div class="row" *ngIf="isCollapsed">
+    <div class="col-6 offset-3">
+        <mat-form-field class="w-100">
+            <mat-label>Wyszukiwarka</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="np. Jan Kowalski" #input>
+          </mat-form-field>
+          
+          <div class="mat-elevation-z8" style="background: #FFF6F3;">
+            <table mat-table [dataSource]="dataSource" matSort class="w-100">
+         
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Imię </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{row.firstName}} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Nazwisko </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{row.surname}} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="points">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Uzyskane punkty </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{ row.points }} / {{ row.totalPoints}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="finishDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Data ukończenia </th>
+                <td mat-cell *matCellDef="let row" class="text-center"> {{ row.finishDate | date: "dd/mm/yyyy"}} </td>
+              </ng-container>
+          
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Żadne dane nie spełniają kryterium: "{{input.value}}"</td>
+              </tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Wybierz stronę"></mat-paginator>
+          </div>
+    </div>
+</div>

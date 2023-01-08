@@ -9,4 +9,6 @@ public class TestDto : CreateTestDto
     public int TimeMinutes { get; set; }
 
     public IEnumerable<TextQuestionDto> TextQuestions { get; set; }
+
+    public IEnumerable<UserTestResultDto> TestResults { get; set; }
 }

@@ -55,7 +55,6 @@ export class TextQuestionUpdateComponent implements AfterContentInit {
   editQuestion(): void {
     const question: ITextQuestionCreate = this.editTextQuestionForm.getRawValue();
     question.testId = this.selectedQuestion.testId;
-    question.creatorId = this.selectedQuestion.creatorId;
     question.timeMinutes = this.time;
 
     this.textQuestionService.updateQuestion(question, this.selectedQuestion.id).subscribe((quest) => {

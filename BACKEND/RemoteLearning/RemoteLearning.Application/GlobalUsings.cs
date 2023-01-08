@@ -11,3 +11,6 @@ global using Microsoft.AspNetCore.Http;
 global using RemoteLearning.Application.DTOs.File;
 global using Microsoft.AspNetCore.Builder;
 global using RemoteLearning.Application.DTOs.Category;
+global using RemoteLearning.Application.DTOs.UserTestResult;
+global using RemoteLearning.Application.DTOs.Grade;
+global using RemoteLearning.Application.DTOs.CourseUser;

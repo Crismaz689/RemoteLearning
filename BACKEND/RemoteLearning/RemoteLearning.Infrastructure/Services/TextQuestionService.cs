@@ -73,7 +73,6 @@ public class TextQuestionService : ITextQuestionService
             question.WrongAnswerC = textQuestionDto.WrongAnswerC;
             question.Points = textQuestionDto.Points;
             question.TimeMinutes = textQuestionDto.TimeMinutes;
-            question.CreatorId = textQuestionDto.CreatorId;
             question.TestId = textQuestionDto.TestId;
 
             await _unitOfWork.TextQuestions.Update(question);

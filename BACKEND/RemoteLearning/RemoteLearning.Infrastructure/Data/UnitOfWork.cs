@@ -13,12 +13,13 @@ public class UnitOfWork : IUnitOfWork
     public ISectionRepository Sections { get; private set; }
     public ITestRepository Tests { get; private set; }
     public ITextQuestionRepository TextQuestions { get; private set; }
+    public IUserTestResultRepository UserTestResults { get; private set; }
 
     private readonly ILogger _logger;
 
-    public RemoteLearningDbContext Context { get; private set; }
-
     private readonly RemoteLearningDbContext _context;
+
+    public RemoteLearningDbContext Context { get; private set; }
 
     public UnitOfWork(RemoteLearningDbContext context, ILogger<UnitOfWork> logger)
     {
@@ -36,6 +37,7 @@ public class UnitOfWork : IUnitOfWork
         Sections = new SectionRepository(_context);
         Tests = new TestRepository(_context);
         TextQuestions = new TextQuestionRepository(_context);
+        UserTestResults = new UserTestResultRepository(_context);
     }
 
     public async Task<int> SaveChangesAsync()
